@@ -1,0 +1,45 @@
+{
+  "id": "template_grenade_spam_warlock",
+  "name": "Grenade Spam Warlock (Solar)",
+  "class": "Warlock",
+  "subclass": "Solar",
+  "super": "Well of Radiance",
+  "abilities": {
+    "grenade": "Solar Grenade",
+    "melee": "Incinerator Snap",
+    "classAbility": "Empowering Rift"
+  },
+  "aspects": ["Touch of Flame", "Heat Rises"],
+  "fragments": ["Ember of Torches", "Ember of Singeing"],
+  "weapons": {
+    "kinetic": { "name": "Witherhoard", "type": "Grenade Launcher" },
+    "energy": { "name": "Sunshot", "type": "Hand Cannon", "element": "Solar" },
+    "power": { "name": "Rocket Launcher", "type": "Rocket Launcher" }
+  },
+  "armor": {
+    "head": { "name": "Warlock Helmet", "archetype": "Especialista", "masterwork": true },
+    "hands": { "name": "Warlock Gauntlets", "archetype": "Granádero", "masterwork": true },
+    "chest": { "name": "Warlock Chest", "archetype": "Especialista", "masterwork": true },
+    "legs": { "name": "Warlock Legs", "archetype": "Especialista", "masterwork": false },
+    "classItem": { "name": "Warlock Bond", "archetype": "Guardián", "masterwork": false }
+  },
+  "stats": {
+    "weapons": 100,
+    "health": 80,
+    "class": 110,
+    "melee": 150,
+    "grenade": 190,
+    "super": 110
+  },
+  "mods": [],
+  "strengths": [
+    "Extremely high grenade uptime with +1 charge at 190",
+    "Perfect for add clear in strikes and dungeons"
+  ],
+  "weaknesses": [
+    "Lower health makes you vulnerable in GMs"
+  ],
+  "gameplayLoop": "Spam grenades with high grenade stat providing second charge. Use wells for weapon damage boost.",
+  "buildDetails": "Maximum grenade uptime build with 190 grenade stat for second charge.",
+  "version": "1.0.0-EdgeOfFate"
+}

@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Ember of Torches",
+    "subclass": "Solar",
+    "effect": "Applying Scorch grants Radiant",
+    "description": "Powered melee attacks make you and nearby allies Radiant."
+  },
+  {
+    "name": "Ember of Singeing",
+    "subclass": "Solar",
+    "effect": "+Class ability energy on Scorch",
+    "description": "Class ability regeneration is increased while Scorched targets are nearby."
+  },
+  {
+    "name": "Spark of Shock",
+    "subclass": "Arc",
+    "effect": "Melee final blows jolt targets",
+    "description": "Your melee attacks jolt targets."
+  },
+  {
+    "name": "Spark of Ions",
+    "subclass": "Arc",
+    "effect": "Defeating jolted targets creates Ionic Traces",
+    "description": "Ionic Traces travel farther."
+  },
+  {
+    "name": "Echo of Starvation",
+    "subclass": "Void",
+    "effect": "Pick up Orbs grants Devour",
+    "description": "Picking up an Orb of Power grants Devour."
+  },
+  {
+    "name": "Echo of Undermining",
+    "subclass": "Void",
+    "effect": "Grenades weaken targets",
+    "description": "Your Void grenades weaken targets."
+  },
+  {
+    "name": "Whisper of Durance",
+    "subclass": "Stasis",
+    "effect": "+Slow and freeze duration",
+    "description": "Increases the duration of Slow effects."
+  },
+  {
+    "name": "Whisper of Chains",
+    "subclass": "Stasis",
+    "effect": "+Damage resistance near crystals",
+    "description": "Damage resistance while near Stasis crystals."
+  },
+  {
+    "name": "Thread of Ascent",
+    "subclass": "Strand",
+    "effect": "+Airborne effectiveness while woven",
+    "description": "Grants bonus airborne effectiveness while woven."
+  },
+  {
+    "name": "Thread of Generation",
+    "subclass": "Strand",
+    "effect": "Dealing damage grants grenade energy",
+    "description": "Dealing damage generates grenade energy."
+  }
+]

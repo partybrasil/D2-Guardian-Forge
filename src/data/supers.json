@@ -1,0 +1,182 @@
+[
+  {
+    "name": "Well of Radiance",
+    "class": "Warlock",
+    "subclass": "Solar",
+    "type": "Support",
+    "duration": "30s",
+    "description": "Creates a pool of Light that continuously heals allies and increases weapon damage.",
+    "keyBenefit": "+25% ally damage + regen"
+  },
+  {
+    "name": "Phoenix Dive",
+    "class": "Warlock",
+    "subclass": "Solar",
+    "type": "Burst",
+    "duration": "Instant",
+    "description": "Fast dive with explosion that heals and damages enemies.",
+    "keyBenefit": "Fast dive + heal + AoE"
+  },
+  {
+    "name": "Chaos Reach",
+    "class": "Warlock",
+    "subclass": "Arc",
+    "type": "DPS",
+    "duration": "8s",
+    "description": "Sustained beam of Arc energy that deals massive damage.",
+    "keyBenefit": "Sustained high damage"
+  },
+  {
+    "name": "Arc Soul",
+    "class": "Warlock",
+    "subclass": "Arc",
+    "type": "Support",
+    "duration": "Per grenade",
+    "description": "Summons an Arc Soul that fires at enemies automatically.",
+    "keyBenefit": "Familiar damage + regen"
+  },
+  {
+    "name": "Nova Bomb",
+    "class": "Warlock",
+    "subclass": "Void",
+    "type": "Burst",
+    "duration": "Instant",
+    "description": "Hurls a massive sphere of Void energy that explodes on impact.",
+    "keyBenefit": "Massive explosion"
+  },
+  {
+    "name": "Void Sentinel",
+    "class": "Warlock",
+    "subclass": "Void",
+    "type": "Defense",
+    "duration": "Per activation",
+    "description": "Creates a shield that blocks incoming damage.",
+    "keyBenefit": "Shield blocking"
+  },
+  {
+    "name": "Winter's Wrath",
+    "class": "Warlock",
+    "subclass": "Stasis",
+    "type": "CC",
+    "duration": "10s",
+    "description": "Summons a staff that freezes enemies in large areas.",
+    "keyBenefit": "Area freeze"
+  },
+  {
+    "name": "Shatter Blast",
+    "class": "Warlock",
+    "subclass": "Stasis",
+    "type": "Burst",
+    "duration": "Instant",
+    "description": "Physical knockback that shatters frozen enemies.",
+    "keyBenefit": "Physical knockback"
+  },
+  {
+    "name": "Needlestorm",
+    "class": "Warlock",
+    "subclass": "Strand",
+    "type": "CC",
+    "duration": "12s",
+    "description": "Rain of Strand projectiles that suspend enemies.",
+    "keyBenefit": "Rain of projectiles"
+  },
+  {
+    "name": "Grapple",
+    "class": "Warlock",
+    "subclass": "Strand",
+    "type": "Hybrid",
+    "duration": "Per use",
+    "description": "Deploy a grappling hook for mobility.",
+    "keyBenefit": "Hook deployment"
+  },
+  {
+    "name": "Sentinel Shield",
+    "class": "Titan",
+    "subclass": "Solar",
+    "type": "Hybrid",
+    "duration": "25s",
+    "description": "Summons a shield for defense and offense.",
+    "keyBenefit": "Defense + DPS"
+  },
+  {
+    "name": "Sentinel Strike",
+    "class": "Titan",
+    "subclass": "Arc",
+    "type": "Burst",
+    "duration": "12s",
+    "description": "Lightning-infused strikes that chain to nearby enemies.",
+    "keyBenefit": "Lightning chain"
+  },
+  {
+    "name": "Sentinel Void",
+    "class": "Titan",
+    "subclass": "Void",
+    "type": "Trap",
+    "duration": "20s",
+    "description": "Creates Void traps that absorb and return damage.",
+    "keyBenefit": "Damage absorption + traps"
+  },
+  {
+    "name": "Glacial Quake",
+    "class": "Titan",
+    "subclass": "Stasis",
+    "type": "CC",
+    "duration": "15s",
+    "description": "Ground-pound attacks that freeze enemies.",
+    "keyBenefit": "Jumping freeze"
+  },
+  {
+    "name": "Strand Grenade",
+    "class": "Titan",
+    "subclass": "Strand",
+    "type": "Minion",
+    "duration": "Variable",
+    "description": "Throws grenades that spawn Threadlings.",
+    "keyBenefit": "Threadling generation"
+  },
+  {
+    "name": "Golden Gun",
+    "class": "Hunter",
+    "subclass": "Solar",
+    "type": "Sniper",
+    "duration": "12s",
+    "description": "A flaming hand cannon with 6 precision shots.",
+    "keyBenefit": "6 precision shots"
+  },
+  {
+    "name": "Arcstaff",
+    "class": "Hunter",
+    "subclass": "Arc",
+    "type": "Melee",
+    "duration": "20s",
+    "description": "Summons an Arc staff for rapid melee attacks.",
+    "keyBenefit": "Rapid melee + chain"
+  },
+  {
+    "name": "Shadowshot",
+    "class": "Hunter",
+    "subclass": "Void",
+    "type": "Debuff",
+    "duration": "30s",
+    "description": "Tether enemies, making them take more damage.",
+    "keyBenefit": "-30% enemy damage"
+  },
+  {
+    "name": "Stasis Revolver",
+    "class": "Hunter",
+    "subclass": "Stasis",
+    "type": "Sniper",
+    "duration": "12s",
+    "description": "Fast precision weapon that freezes on hit.",
+    "keyBenefit": "Fast precision freeze"
+  },
+  {
+    "name": "Threadling Net",
+    "class": "Hunter",
+    "subclass": "Strand",
+    "type": "Minion",
+    "duration": "20s",
+    "description": "Spawns multiple Threadlings to attack enemies.",
+    "keyBenefit": "Multiple pet spawn"
+  }
+]

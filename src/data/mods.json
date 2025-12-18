@@ -1,0 +1,86 @@
+[
+  {
+    "name": "Font of Might",
+    "type": "Ability",
+    "energy": 10,
+    "description": "Picking up elemental wells grants bonus damage to weapons matching your subclass element.",
+    "conflictsWith": ["Font of Might"]
+  },
+  {
+    "name": "Elemental Time Dilation",
+    "type": "Ability",
+    "energy": 10,
+    "description": "Extends the duration of beneficial effects from elemental wells.",
+    "conflictsWith": []
+  },
+  {
+    "name": "Well of Life",
+    "type": "Ability",
+    "energy": 8,
+    "description": "Picking up a Void elemental well grants health regeneration.",
+    "conflictsWith": ["Well of Life", "Melee Wellmaker"]
+  },
+  {
+    "name": "Recharge Wellmaker",
+    "type": "Ability",
+    "energy": 10,
+    "description": "Dealing damage with charged melee abilities creates elemental wells.",
+    "conflictsWith": ["Recharge Wellmaker"]
+  },
+  {
+    "name": "Melee Wellmaker",
+    "type": "Ability",
+    "energy": 8,
+    "description": "Rapid melee defeats create elemental wells.",
+    "conflictsWith": ["Well of Life"]
+  },
+  {
+    "name": "Grenade Wellmaker",
+    "type": "Ability",
+    "energy": 8,
+    "description": "Grenade defeats create elemental wells.",
+    "conflictsWith": []
+  },
+  {
+    "name": "Hands-On",
+    "type": "Weapon",
+    "energy": 5,
+    "description": "Melee kills grant bonus Super energy.",
+    "conflictsWith": []
+  },
+  {
+    "name": "Ashes to Assets",
+    "type": "Weapon",
+    "energy": 5,
+    "description": "Grenade kills grant bonus Super energy.",
+    "conflictsWith": []
+  },
+  {
+    "name": "Recuperation",
+    "type": "Defense",
+    "energy": 8,
+    "description": "Picking up Orbs of Power grants health.",
+    "conflictsWith": []
+  },
+  {
+    "name": "Concussive Dampener",
+    "type": "Defense",
+    "energy": 10,
+    "description": "Reduces damage from area-of-effect attacks.",
+    "conflictsWith": []
+  },
+  {
+    "name": "Ammo Finder",
+    "type": "Utility",
+    "energy": 5,
+    "description": "Increases the chance to find ammo for your weapons.",
+    "conflictsWith": []
+  },
+  {
+    "name": "Fastball",
+    "type": "Utility",
+    "energy": 5,
+    "description": "Increases grenade throw distance.",
+    "conflictsWith": []
+  }
+]

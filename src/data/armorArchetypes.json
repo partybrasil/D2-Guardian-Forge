@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Bombardero",
+    "primary": { "stat": "weapons", "modifier": 30 },
+    "secondary": { "stat": "melee", "modifier": 25 },
+    "tertiary": { "stat": "class", "modifier": 20 },
+    "bestFor": "Gun-focused builds",
+    "description": "Optimized for weapon damage and handling with melee support"
+  },
+  {
+    "name": "Especialista",
+    "primary": { "stat": "class", "modifier": 30 },
+    "secondary": { "stat": "grenade", "modifier": 25 },
+    "tertiary": { "stat": "super", "modifier": 20 },
+    "bestFor": "Ability spam/uptime",
+    "description": "Maximizes ability cooldowns and energy generation"
+  },
+  {
+    "name": "Ejemplar",
+    "primary": { "stat": "super", "modifier": 30 },
+    "secondary": { "stat": "health", "modifier": 25 },
+    "tertiary": { "stat": "weapons", "modifier": 20 },
+    "bestFor": "Super cycling, raid DPS",
+    "description": "Built for frequent Super use with survivability"
+  },
+  {
+    "name": "Camorrista",
+    "primary": { "stat": "melee", "modifier": 30 },
+    "secondary": { "stat": "grenade", "modifier": 25 },
+    "tertiary": { "stat": "health", "modifier": 20 },
+    "bestFor": "Punchy/rush builds",
+    "description": "Close-quarters combat specialist with ability focus"
+  },
+  {
+    "name": "Granádero",
+    "primary": { "stat": "weapons", "modifier": 30 },
+    "secondary": { "stat": "grenade", "modifier": 25 },
+    "tertiary": { "stat": "super", "modifier": 20 },
+    "bestFor": "Hybrid gun/ability",
+    "description": "Balanced approach combining weapons and grenade power"
+  },
+  {
+    "name": "Guardián",
+    "primary": { "stat": "health", "modifier": 30 },
+    "secondary": { "stat": "class", "modifier": 25 },
+    "tertiary": { "stat": "melee", "modifier": 20 },
+    "bestFor": "Tank/support, survivability",
+    "description": "Maximum survivability with class ability uptime"
+  }
+]

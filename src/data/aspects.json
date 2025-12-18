@@ -1,0 +1,72 @@
+[
+  {
+    "name": "Touch of Flame",
+    "subclass": "Solar",
+    "class": "Warlock",
+    "description": "Your grenades ignite targets, causing them to burn over time.",
+    "fragmentSlots": 2
+  },
+  {
+    "name": "Heat Rises",
+    "subclass": "Solar",
+    "class": "Warlock",
+    "description": "Consuming your grenade allows you to fire weapons and extends airborne time.",
+    "fragmentSlots": 2
+  },
+  {
+    "name": "Electrostatic Mind",
+    "subclass": "Arc",
+    "class": "Warlock",
+    "description": "Arc ability or jolted enemy defeats grant Ionic Traces.",
+    "fragmentSlots": 2
+  },
+  {
+    "name": "Arc Soul",
+    "subclass": "Arc",
+    "class": "Warlock",
+    "description": "Gain an Arc Soul when using Rift, amplified, or casting your Super.",
+    "fragmentSlots": 1
+  },
+  {
+    "name": "Feed the Void",
+    "subclass": "Void",
+    "class": "Warlock",
+    "description": "Void ability kills activate Devour.",
+    "fragmentSlots": 2
+  },
+  {
+    "name": "Child of the Old Gods",
+    "subclass": "Void",
+    "class": "Warlock",
+    "description": "Cast Rift to summon a Void Soul that weakens targets.",
+    "fragmentSlots": 1
+  },
+  {
+    "name": "Bleak Watcher",
+    "subclass": "Stasis",
+    "class": "Warlock",
+    "description": "Convert grenade into a Stasis turret.",
+    "fragmentSlots": 2
+  },
+  {
+    "name": "Iceflare Bolts",
+    "subclass": "Stasis",
+    "class": "Warlock",
+    "description": "Shattering frozen targets creates seekers.",
+    "fragmentSlots": 2
+  },
+  {
+    "name": "Mindspun Invocation",
+    "subclass": "Strand",
+    "class": "Warlock",
+    "description": "Grapple to targets grants melee energy.",
+    "fragmentSlots": 2
+  },
+  {
+    "name": "Weaver's Call",
+    "subclass": "Strand",
+    "class": "Warlock",
+    "description": "Casting Rift creates Threadlings.",
+    "fragmentSlots": 1
+  }
+]

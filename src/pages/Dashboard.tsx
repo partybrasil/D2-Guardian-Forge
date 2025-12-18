@@ -1,0 +1,204 @@
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import type { Build, GuardianClass, Subclass } from '../types';
+import localforage from 'localforage';
+
+export default function Dashboard() {
+  const [builds, setBuilds] = useState<Build[]>([]);
+  const [filterClass, setFilterClass] = useState<GuardianClass | ''>('');
+  const [filterSubclass, setFilterSubclass] = useState<Subclass | ''>('');
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadBuilds();
+  }, []);
+
+  const loadBuilds = async () => {
+    try {
+      const keys = await localforage.keys();
+      const buildKeys = keys.filter(key => key.startsWith('build_'));
+      const loadedBuilds: Build[] = [];
+      
+      for (const key of buildKeys) {
+        const build = await localforage.getItem<Build>(key);
+        if (build) {
+          loadedBuilds.push(build);
+        }
+      }
+      
+      setBuilds(loadedBuilds);
+    } catch (error) {
+      console.error('Error loading builds:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const deleteBuild = async (id: string) => {
+    if (confirm('Are you sure you want to delete this build?')) {
+      try {
+        await localforage.removeItem(`build_${id}`);
+        setBuilds(builds.filter(b => b.id !== id));
+      } catch (error) {
+        console.error('Error deleting build:', error);
+      }
+    }
+  };
+
+  const filteredBuilds = builds.filter(build => {
+    if (filterClass && build.class !== filterClass) return false;
+    if (filterSubclass && build.subclass !== filterSubclass) return false;
+    return true;
+  });
+
+  const getSubclassColor = (subclass: Subclass) => {
+    const colors = {
+      Solar: 'destiny-solar',
+      Arc: 'destiny-arc',
+      Void: 'destiny-void',
+      Stasis: 'destiny-stasis',
+      Strand: 'destiny-strand',
+      Prismatic: 'destiny-prismatic',
+    };
+    return colors[subclass];
+  };
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-white text-xl">Loading builds...</div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      {/* Header */}
+      <div className="flex justify-between items-center mb-8">
+        <div>
+          <h1 className="text-3xl font-bold text-white mb-2">My Builds</h1>
+          <p className="text-gray-400">
+            {filteredBuilds.length} {filteredBuilds.length === 1 ? 'build' : 'builds'} found
+          </p>
+        </div>
+        <Link
+          to="/planner"
+          className="btn-primary"
+        >
+          + Create New Build
+        </Link>
+      </div>
+
+      {/* Filters */}
+      <div className="card mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2">
+              Filter by Class
+            </label>
+            <select
+              value={filterClass}
+              onChange={(e) => setFilterClass(e.target.value as GuardianClass | '')}
+              className="input-field"
+            >
+              <option value="">All Classes</option>
+              <option value="Warlock">Warlock</option>
+              <option value="Titan">Titan</option>
+              <option value="Hunter">Hunter</option>
+            </select>
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2">
+              Filter by Subclass
+            </label>
+            <select
+              value={filterSubclass}
+              onChange={(e) => setFilterSubclass(e.target.value as Subclass | '')}
+              className="input-field"
+            >
+              <option value="">All Subclasses</option>
+              <option value="Solar">Solar</option>
+              <option value="Arc">Arc</option>
+              <option value="Void">Void</option>
+              <option value="Stasis">Stasis</option>
+              <option value="Strand">Strand</option>
+              <option value="Prismatic">Prismatic</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      {/* Builds Grid */}
+      {filteredBuilds.length === 0 ? (
+        <div className="card text-center py-12">
+          <p className="text-gray-400 text-lg mb-4">
+            {builds.length === 0 
+              ? "No builds created yet. Start by creating your first build!"
+              : "No builds match your filters."}
+          </p>
+          {builds.length === 0 && (
+            <Link to="/planner" className="btn-primary">
+              Create Your First Build
+            </Link>
+          )}
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredBuilds.map(build => (
+            <div key={build.id} className="card hover:border-destiny-primary border-2 border-transparent transition-colors">
+              <div className="flex justify-between items-start mb-4">
+                <div>
+                  <h3 className="text-xl font-bold text-white mb-1">{build.name}</h3>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm text-gray-400">{build.class}</span>
+                    <span className={`text-sm text-${getSubclassColor(build.subclass)}`}>
+                      {build.subclass}
+                    </span>
+                  </div>
+                </div>
+                <button
+                  onClick={() => deleteBuild(build.id)}
+                  className="text-red-500 hover:text-red-400"
+                  title="Delete build"
+                >
+                  ✕
+                </button>
+              </div>
+              
+              <div className="space-y-2 text-sm mb-4">
+                <div>
+                  <span className="text-gray-400">Super:</span>
+                  <span className="text-white ml-2">{build.super}</span>
+                </div>
+                <div>
+                  <span className="text-gray-400">Grenade:</span>
+                  <span className="text-white ml-2">{build.abilities.grenade}</span>
+                </div>
+                <div className="grid grid-cols-3 gap-1 mt-3">
+                  {Object.entries(build.stats).map(([stat, value]) => (
+                    <div key={stat} className="text-center">
+                      <div className="text-xs text-gray-400 uppercase">{stat.substring(0, 3)}</div>
+                      <div className="text-white font-bold">{value}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="flex gap-2">
+                <Link
+                  to={`/planner?id=${build.id}`}
+                  className="btn-secondary flex-1 text-center"
+                >
+                  Edit
+                </Link>
+                <button className="btn-secondary flex-1">
+                  Export
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}

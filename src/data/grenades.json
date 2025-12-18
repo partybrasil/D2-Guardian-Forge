@@ -1,0 +1,137 @@
+[
+  {
+    "name": "Solar Grenade",
+    "element": "Solar",
+    "mechanic": "Zone",
+    "effect": "Persistent burn",
+    "radius": "15m",
+    "duration": "8s",
+    "description": "Creates a flare of Solar Light that continuously damages enemies."
+  },
+  {
+    "name": "Fusion Grenade",
+    "element": "Solar",
+    "mechanic": "Adhesive",
+    "effect": "Explosion",
+    "radius": "20m",
+    "duration": "On impact",
+    "description": "Sticks to enemies and explodes."
+  },
+  {
+    "name": "Swarm Grenade",
+    "element": "Solar",
+    "mechanic": "Swarm",
+    "effect": "Multi-explosion",
+    "radius": "12m",
+    "duration": "6s",
+    "description": "Releases multiple drones that chase and explode on enemies."
+  },
+  {
+    "name": "Arcbolt Grenade",
+    "element": "Arc",
+    "mechanic": "Chain",
+    "effect": "Electric jump",
+    "radius": "25m",
+    "duration": "Per target",
+    "description": "Chains Arc energy between nearby enemies."
+  },
+  {
+    "name": "Flashbang Grenade",
+    "element": "Arc",
+    "mechanic": "Blind",
+    "effect": "Stun AoE",
+    "radius": "18m",
+    "duration": "Instant",
+    "description": "Disorients and blinds enemies."
+  },
+  {
+    "name": "Pulse Grenade",
+    "element": "Arc",
+    "mechanic": "Wave",
+    "effect": "Multi-pulse",
+    "radius": "16m",
+    "duration": "8s",
+    "description": "Periodically damages enemies in an area."
+  },
+  {
+    "name": "Vortex Grenade",
+    "element": "Void",
+    "mechanic": "Vortex",
+    "effect": "Persistent pull",
+    "radius": "20m",
+    "duration": "10s",
+    "description": "Creates a vortex that pulls enemies in and damages them."
+  },
+  {
+    "name": "Scatter Grenade",
+    "element": "Void",
+    "mechanic": "Shrapnel",
+    "effect": "Multi-fragment",
+    "radius": "18m",
+    "duration": "6s",
+    "description": "Splits into multiple projectiles on impact."
+  },
+  {
+    "name": "Magnetic Grenade",
+    "element": "Void",
+    "mechanic": "Sticky",
+    "effect": "Remote det",
+    "radius": "15m",
+    "duration": "8s",
+    "description": "Attaches to enemies and explodes twice."
+  },
+  {
+    "name": "Duskfield Grenade",
+    "element": "Stasis",
+    "mechanic": "Zone",
+    "effect": "Freeze area",
+    "radius": "20m",
+    "duration": "6s",
+    "description": "Creates a field that slows and freezes enemies."
+  },
+  {
+    "name": "Coldsnap Grenade",
+    "element": "Stasis",
+    "mechanic": "Chase",
+    "effect": "Auto-freeze",
+    "radius": "25m",
+    "duration": "8s",
+    "description": "Releases seekers that freeze targets."
+  },
+  {
+    "name": "Glacier Grenade",
+    "element": "Stasis",
+    "mechanic": "Wall",
+    "effect": "Ice barrier",
+    "radius": "16m",
+    "duration": "Persistent",
+    "description": "Creates Stasis crystals in a wall formation."
+  },
+  {
+    "name": "Threadling Grenade",
+    "element": "Strand",
+    "mechanic": "Pets",
+    "effect": "Minion spawn",
+    "radius": "12m",
+    "duration": "15s",
+    "description": "Spawns Threadlings that track and attack enemies."
+  },
+  {
+    "name": "Shackle Grenade",
+    "element": "Strand",
+    "mechanic": "Restrict",
+    "effect": "Frozen move",
+    "radius": "18m",
+    "duration": "6s",
+    "description": "Suspends enemies, limiting their movement."
+  },
+  {
+    "name": "Grapple Grenade",
+    "element": "Strand",
+    "mechanic": "Mobility",
+    "effect": "Hook swing",
+    "radius": "N/A",
+    "duration": "Per use",
+    "description": "Creates a grapple point for mobility."
+  }
+]

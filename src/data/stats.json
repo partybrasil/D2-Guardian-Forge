@@ -1,0 +1,56 @@
+[
+  {
+    "name": "weapons",
+    "range": [0, 200],
+    "tier1Bonus": "+10% reload, +10% handling, +10% PvE dmg, +3% PvP dmg",
+    "tier2Bonus": "+10% reload, +15% PvE, +6% PvP, ammo x2",
+    "perPoint": "0.1% reload",
+    "priority": "Medium",
+    "description": "Affects weapon handling, reload speed, and damage output"
+  },
+  {
+    "name": "health",
+    "range": [0, 200],
+    "tier1Bonus": "+10% flinch resist, +70 HP from orbs",
+    "tier2Bonus": "+10% flinch, +20 shield, +45% recharge",
+    "perPoint": "0.1% flinch resist",
+    "priority": "High",
+    "description": "Determines survivability and damage resistance"
+  },
+  {
+    "name": "class",
+    "range": [0, 200],
+    "tier1Bonus": "-40s cooldown, +15% duration",
+    "tier2Bonus": "-20% CD, +20% bonus",
+    "perPoint": "0.4s reduction",
+    "priority": "High",
+    "description": "Reduces class ability cooldown (Rift/Barricade/Dodge)"
+  },
+  {
+    "name": "melee",
+    "range": [0, 200],
+    "tier1Bonus": "-30s cooldown, +30% damage",
+    "tier2Bonus": "-20% CD, +20% damage",
+    "perPoint": "0.3s reduction",
+    "priority": "High",
+    "description": "Reduces melee cooldown and increases melee damage"
+  },
+  {
+    "name": "grenade",
+    "range": [0, 200],
+    "tier1Bonus": "-40s cooldown, +65% damage",
+    "tier2Bonus": "-30% CD, +20% dmg, +1 charge at 150+",
+    "perPoint": "0.4s reduction",
+    "priority": "Highest",
+    "description": "Reduces grenade cooldown, increases damage, grants extra charge at 150+"
+  },
+  {
+    "name": "super",
+    "range": [0, 200],
+    "tier1Bonus": "+40% energy gain, +45% damage",
+    "tier2Bonus": "+30% gain, +10% dmg, -15s CD",
+    "perPoint": "0.4% gain",
+    "priority": "Medium",
+    "description": "Increases Super energy gain rate and damage"
+  }
+]

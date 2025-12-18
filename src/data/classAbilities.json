@@ -1,0 +1,56 @@
+[
+  {
+    "name": "Healing Rift",
+    "class": "Warlock",
+    "type": "Rift",
+    "primaryEffect": "+40% ally heal",
+    "secondaryEffect": "Regen boost",
+    "cooldown": "40s base",
+    "description": "Creates a healing circle that continuously regenerates health."
+  },
+  {
+    "name": "Empowering Rift",
+    "class": "Warlock",
+    "type": "Rift",
+    "primaryEffect": "+30% ally damage",
+    "secondaryEffect": "Weapon buff",
+    "cooldown": "40s base",
+    "description": "Creates an empowering circle that increases weapon damage."
+  },
+  {
+    "name": "Towering Barricade",
+    "class": "Titan",
+    "type": "Barricade",
+    "primaryEffect": "Full protection",
+    "secondaryEffect": "Regen shield",
+    "cooldown": "40s base",
+    "description": "Creates a large barrier that blocks damage."
+  },
+  {
+    "name": "Rally Barricade",
+    "class": "Titan",
+    "type": "Barricade",
+    "primaryEffect": "Weapon boost",
+    "secondaryEffect": "Partial cover",
+    "cooldown": "35s base",
+    "description": "Creates a small barrier that allows shooting over it."
+  },
+  {
+    "name": "Marksman's Dodge",
+    "class": "Hunter",
+    "type": "Dodge",
+    "primaryEffect": "Reload weapon",
+    "secondaryEffect": "Evasion",
+    "cooldown": "9s base",
+    "description": "Dodge to automatically reload your weapon."
+  },
+  {
+    "name": "Gambler's Dodge",
+    "class": "Hunter",
+    "type": "Dodge",
+    "primaryEffect": "Restore melee",
+    "secondaryEffect": "Mobility",
+    "cooldown": "9s base",
+    "description": "Dodge to recharge your melee ability."
+  }
+]
