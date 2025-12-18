@@ -18,15 +18,6 @@
     "description": "Creates an empowering circle that increases weapon damage."
   },
   {
-    "name": "Phoenix Dive",
-    "class": "Warlock",
-    "type": "Dive",
-    "primaryEffect": "AoE damage + heal",
-    "secondaryEffect": "Mobility",
-    "cooldown": "10s base",
-    "description": "Dive to the ground creating a burst of Solar energy that damages enemies and heals you."
-  },
-  {
     "name": "Ionic Rift",
     "class": "Warlock",
     "type": "Rift",
