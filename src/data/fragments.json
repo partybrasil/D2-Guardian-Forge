@@ -12,6 +12,42 @@
     "description": "Class ability regeneration is increased while Scorched targets are nearby."
   },
   {
+    "name": "Font of Might",
+    "subclass": "Solar",
+    "effect": "Super hit: +20% weapon damage same element",
+    "description": "Landing Super hits grants +20% weapon damage for same element weapons for 10s."
+  },
+  {
+    "name": "Font of Retaliation",
+    "subclass": "Solar",
+    "effect": "Damage taken: +15% next attack damage",
+    "description": "Taking damage grants +15% damage on next attack. Stacks up to 3x."
+  },
+  {
+    "name": "Solar Kindling",
+    "subclass": "Solar",
+    "effect": "Burning enemies nearby: duration increased",
+    "description": "Burning enemies within 15m have their burn duration extended."
+  },
+  {
+    "name": "Restoration",
+    "subclass": "Solar",
+    "effect": "Class abilities: +40% health regen",
+    "description": "Using class abilities grants +40% health regeneration for 5s per activation."
+  },
+  {
+    "name": "Crystalline Overload",
+    "subclass": "Solar",
+    "effect": "Critical damage: Scorch enemy",
+    "description": "Critical hits Scorch enemies. Stacks lead to ignition when fully scorched."
+  },
+  {
+    "name": "Solar Detonation",
+    "subclass": "Solar",
+    "effect": "Scorched enemies explode",
+    "description": "Fully scorched enemies explode dealing +50% damage in AoE."
+  },
+  {
     "name": "Spark of Shock",
     "subclass": "Arc",
     "effect": "Melee final blows jolt targets",
@@ -22,6 +58,42 @@
     "subclass": "Arc",
     "effect": "Defeating jolted targets creates Ionic Traces",
     "description": "Ionic Traces travel farther."
+  },
+  {
+    "name": "Arc Amplification",
+    "subclass": "Arc",
+    "effect": "Arc damage: +25% reload speed",
+    "description": "Dealing Arc damage grants +25% reload speed for 8s."
+  },
+  {
+    "name": "Feedback Loop",
+    "subclass": "Arc",
+    "effect": "Arc damage taken: +10% super energy",
+    "description": "Taking Arc damage grants +10% super energy. Chains up to 3 times."
+  },
+  {
+    "name": "Arc Conductivity",
+    "subclass": "Arc",
+    "effect": "Jolted enemies: +100% chain radius",
+    "description": "Jolted enemies have doubled chain radius for damage transfer."
+  },
+  {
+    "name": "Recharge Overload",
+    "subclass": "Arc",
+    "effect": "Ability energy: +35% generation",
+    "description": "Ability energy generation increased by +35% for 12s."
+  },
+  {
+    "name": "Arc Ballistics",
+    "subclass": "Arc",
+    "effect": "Weapons: improved knockback",
+    "description": "Arc weapons have improved knockback and enemy mobility control."
+  },
+  {
+    "name": "Electrostatic Surge",
+    "subclass": "Arc",
+    "effect": "Melee jolt: +30% next damage",
+    "description": "Jolting enemies with melee grants +30% damage on next attack for 6s."
   },
   {
     "name": "Echo of Starvation",
@@ -36,6 +108,42 @@
     "description": "Your Void grenades weaken targets."
   },
   {
+    "name": "Void Detonation",
+    "subclass": "Void",
+    "effect": "Voided enemies: explode on death",
+    "description": "Enemies with Void debuffs explode on death with 20m AoE radius."
+  },
+  {
+    "name": "Void Resilience",
+    "subclass": "Void",
+    "effect": "Debuffed enemies: -20% damage output",
+    "description": "Debuffed enemies deal -20% damage. Effect spreads to nearby allies."
+  },
+  {
+    "name": "Shattered Reality",
+    "subclass": "Void",
+    "effect": "Melee destroys cover",
+    "description": "Void melee destroys enemy cover and exposes them."
+  },
+  {
+    "name": "Overshadow",
+    "subclass": "Void",
+    "effect": "Debuffed: -30% speed",
+    "description": "Debuffed enemies have -30% movement speed. Stacks increase duration."
+  },
+  {
+    "name": "Void Echo",
+    "subclass": "Void",
+    "effect": "Void damage: creates shadow duplicate",
+    "description": "Dealing Void damage creates a shadow duplicate for 8s."
+  },
+  {
+    "name": "Hunger",
+    "subclass": "Void",
+    "effect": "Grenade hit: restore 50% health",
+    "description": "Grenade hits restore 50% health. Debuffed enemies grant +30% restoration."
+  },
+  {
     "name": "Whisper of Durance",
     "subclass": "Stasis",
     "effect": "+Slow and freeze duration",
@@ -48,6 +156,42 @@
     "description": "Damage resistance while near Stasis crystals."
   },
   {
+    "name": "Frost Armor",
+    "subclass": "Stasis",
+    "effect": "Frozen nearby: +30% damage reduction",
+    "description": "Frozen enemies within 25m grant +30% damage reduction."
+  },
+  {
+    "name": "Shattering Blows",
+    "subclass": "Stasis",
+    "effect": "Shattered frozen: +40% crit damage",
+    "description": "Shattering frozen enemies grants +40% critical damage for 5s."
+  },
+  {
+    "name": "Crystalline Fracture",
+    "subclass": "Stasis",
+    "effect": "Stasis grenade: doubled crystals",
+    "description": "Stasis grenades create double the Stasis crystals with wider spread."
+  },
+  {
+    "name": "Glacial Fortification",
+    "subclass": "Stasis",
+    "effect": "Frozen allies: +50% resistance",
+    "description": "Frozen allies gain +50% damage resistance with damage transfer."
+  },
+  {
+    "name": "Perpetual Chill",
+    "subclass": "Stasis",
+    "effect": "Frozen: +50% duration",
+    "description": "Frozen status duration increased by +50%."
+  },
+  {
+    "name": "Glacial Eruption",
+    "subclass": "Stasis",
+    "effect": "Frozen fall: crystal explosion",
+    "description": "Frozen enemies falling create crystal explosion with 30m AoE."
+  },
+  {
     "name": "Thread of Ascent",
     "subclass": "Strand",
     "effect": "+Airborne effectiveness while woven",
@@ -58,5 +202,53 @@
     "subclass": "Strand",
     "effect": "Dealing damage grants grenade energy",
     "description": "Dealing damage generates grenade energy."
+  },
+  {
+    "name": "Threadling Spawn",
+    "subclass": "Strand",
+    "effect": "Strand melee: spawn 2 Threadlings",
+    "description": "Strand melee attacks spawn 2 independent attacking Threadlings."
+  },
+  {
+    "name": "Strand Fortitude",
+    "subclass": "Strand",
+    "effect": "Threadlings nearby: +25% durability",
+    "description": "Threadlings within 20m grant +25% durability buff."
+  },
+  {
+    "name": "Unraveling Connection",
+    "subclass": "Strand",
+    "effect": "Unraveled enemies: allies +20% damage",
+    "description": "Unraveled enemies grant allies +20% damage within 15m."
+  },
+  {
+    "name": "Strand Echo",
+    "subclass": "Strand",
+    "effect": "Damage enemies: duplicate Threadling",
+    "description": "Damaging enemies duplicates Threadlings. Max 5 Threadlings."
+  },
+  {
+    "name": "Weavewalk Persistence",
+    "subclass": "Strand",
+    "effect": "Grapple: +3s invulnerability",
+    "description": "Grapple teleport grants +3s invulnerability. Reactivatable."
+  },
+  {
+    "name": "Strand Resilience",
+    "subclass": "Strand",
+    "effect": "Strand connection: -40% damage taken",
+    "description": "Strand connections grant -40% damage taken within 25m radius."
+  },
+  {
+    "name": "Prismatic Harmony",
+    "subclass": "Prismatic",
+    "effect": "Multi-element damage: +15% all abilities",
+    "description": "Dealing damage with multiple elements grants +15% to all ability energy."
+  },
+  {
+    "name": "Prismatic Convergence",
+    "subclass": "Prismatic",
+    "effect": "Element switch: +20% damage next attack",
+    "description": "Switching between element types grants +20% damage on next attack."
   }
 ]

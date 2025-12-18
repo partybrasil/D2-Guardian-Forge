@@ -121,24 +121,30 @@ export default function BuildPlanner() {
     s.class === selectedClass && s.subclass === selectedSubclass
   );
   
+  // Prismatic has access to grenades from all subclasses
   const availableGrenades = grenadesData.filter(g => 
-    g.element === selectedSubclass
+    selectedSubclass === 'Prismatic' ? true : g.element === selectedSubclass
   );
   
+  // Prismatic has access to melees from all subclasses
   const availableMelees = meleesData.filter(m => 
-    m.element === selectedSubclass
+    selectedSubclass === 'Prismatic' ? true : m.element === selectedSubclass
   );
   
   const availableClassAbilities = classAbilitiesData.filter(a => 
     a.class === selectedClass
   );
 
+  // Prismatic has access to aspects from all subclasses
   const availableAspects = aspectsData.filter(a => 
-    a.subclass === selectedSubclass && (!a.class || a.class === selectedClass)
+    selectedSubclass === 'Prismatic' 
+      ? (!a.class || a.class === selectedClass)
+      : a.subclass === selectedSubclass && (!a.class || a.class === selectedClass)
   );
 
+  // Prismatic has access to fragments from all subclasses
   const availableFragments = fragmentsData.filter(f => 
-    f.subclass === selectedSubclass
+    selectedSubclass === 'Prismatic' ? true : f.subclass === selectedSubclass
   );
 
   const handleAspectToggle = (aspectName: string) => {

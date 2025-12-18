@@ -18,6 +18,24 @@
     "description": "Creates an empowering circle that increases weapon damage."
   },
   {
+    "name": "Phoenix Dive",
+    "class": "Warlock",
+    "type": "Dive",
+    "primaryEffect": "AoE damage + heal",
+    "secondaryEffect": "Mobility",
+    "cooldown": "10s base",
+    "description": "Dive to the ground creating a burst of Solar energy that damages enemies and heals you."
+  },
+  {
+    "name": "Ionic Rift",
+    "class": "Warlock",
+    "type": "Rift",
+    "primaryEffect": "Arc discharge",
+    "secondaryEffect": "Mobility + damage",
+    "cooldown": "40s base",
+    "description": "Prismatic alternative. Creates an Arc discharge on impact with minor damage bonus."
+  },
+  {
     "name": "Towering Barricade",
     "class": "Titan",
     "type": "Barricade",
@@ -36,6 +54,15 @@
     "description": "Creates a small barrier that allows shooting over it."
   },
   {
+    "name": "Towering + Weapon Amp",
+    "class": "Titan",
+    "type": "Barricade",
+    "primaryEffect": "Protection + weapon buff",
+    "secondaryEffect": "Combo effect",
+    "cooldown": "40s base",
+    "description": "Prismatic alternative. Combines protection with weapon amplification."
+  },
+  {
     "name": "Marksman's Dodge",
     "class": "Hunter",
     "type": "Dodge",
@@ -52,5 +79,14 @@
     "secondaryEffect": "Mobility",
     "cooldown": "9s base",
     "description": "Dodge to recharge your melee ability."
+  },
+  {
+    "name": "Evasion Dodge",
+    "class": "Hunter",
+    "type": "Dodge",
+    "primaryEffect": "Enhanced evasion",
+    "secondaryEffect": "Mobility boost",
+    "cooldown": "9s base",
+    "description": "Prismatic alternative. Enhanced dodge with improved evasion capabilities."
   }
 ]
