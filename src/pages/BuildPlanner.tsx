@@ -37,6 +37,7 @@ export default function BuildPlanner() {
   });
 
   const [saving, setSaving] = useState(false);
+  const [createdTimestamp, setCreatedTimestamp] = useState<string | null>(null);
 
   useEffect(() => {
     if (buildId) {
@@ -58,6 +59,7 @@ export default function BuildPlanner() {
         setSelectedAspects(build.aspects);
         setSelectedFragments(build.fragments);
         setStats(build.stats);
+        setCreatedTimestamp(build.timestamps?.created || null);
       }
     } catch (error) {
       console.error('Error loading build:', error);
@@ -67,7 +69,7 @@ export default function BuildPlanner() {
   const saveBuild = async () => {
     setSaving(true);
     try {
-      const id = buildId || `${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+      const id = buildId || `${Date.now()}_${Math.random().toString(36).substring(2, 11)}`;
       
       const build: Build = {
         id,
@@ -98,7 +100,7 @@ export default function BuildPlanner() {
         mods: [],
         version: '1.0.0-EdgeOfFate',
         timestamps: {
-          created: buildId ? new Date().toISOString() : new Date().toISOString(),
+          created: createdTimestamp || new Date().toISOString(),
           updated: new Date().toISOString(),
         },
       };
