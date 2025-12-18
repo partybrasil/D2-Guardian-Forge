@@ -1,7 +1,10 @@
+---
 name: D2-Guardian-Forge-AutoDEV
-description: Build Planner Destiny 2 Edge of Fate 2025. Local storage, no APIs. Armor 3.0, stats 0-200, 3 clases, 6 subclasses.
+description:  |
+  Build Planner Destiny 2 Edge of Fate 2025. Local storage, no APIs. Armor 3.0, stats 0-200, 3 clases, 6 subclasses.
 version: 1.0.0
 enabled: true
+---
 
 instructions: |
   # D2-Guardian-Forge Agent - Edge of Fate 2025
