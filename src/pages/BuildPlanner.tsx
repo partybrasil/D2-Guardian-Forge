@@ -117,8 +117,11 @@ export default function BuildPlanner() {
   };
 
   // Filter data based on selections
+  // Prismatic has access to all supers for the class
   const availableSupers = supersData.filter(s => 
-    s.class === selectedClass && s.subclass === selectedSubclass
+    selectedSubclass === 'Prismatic'
+      ? s.class === selectedClass
+      : s.class === selectedClass && s.subclass === selectedSubclass
   );
   
   // Prismatic has access to grenades from all subclasses
