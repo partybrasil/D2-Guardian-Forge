@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-destiny-bg text-white;
+    @apply font-sans antialiased;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-destiny-primary hover:bg-destiny-primary/80 text-white font-bold py-2 px-4 rounded;
+  }
+  
+  .btn-secondary {
+    @apply bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded;
+  }
+  
+  .card {
+    @apply bg-gray-800 rounded-lg shadow-lg p-6;
+  }
+  
+  .input-field {
+    @apply bg-gray-700 text-white border border-gray-600 rounded px-3 py-2 w-full focus:outline-none focus:border-destiny-primary;
+  }
+}

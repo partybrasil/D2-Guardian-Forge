@@ -1,0 +1,137 @@
+[
+  {
+    "name": "Celestial Fire",
+    "element": "Solar",
+    "type": "Projectile",
+    "effect": "Seeking fire",
+    "range": "25m",
+    "cooldown": "12s",
+    "description": "Sends out a spiral of three explosive Solar energy blasts."
+  },
+  {
+    "name": "Phoenix Dive",
+    "element": "Solar",
+    "type": "AoE",
+    "effect": "Dive + heal",
+    "range": "20m",
+    "cooldown": "10s",
+    "description": "Dive to the ground and create a healing burst."
+  },
+  {
+    "name": "Incinerator Snap",
+    "element": "Solar",
+    "type": "Burst",
+    "effect": "Impact explosion",
+    "range": "15m",
+    "cooldown": "8s",
+    "description": "Snap your fingers to create a fan of burning sparks."
+  },
+  {
+    "name": "Chain Lightning",
+    "element": "Arc",
+    "type": "Chain",
+    "effect": "Multi-target",
+    "range": "20m",
+    "cooldown": "8s",
+    "description": "Release a bolt of lightning that chains to nearby enemies."
+  },
+  {
+    "name": "Ball Lightning",
+    "element": "Arc",
+    "type": "Projectile",
+    "effect": "Fast + ammo",
+    "range": "15m",
+    "cooldown": "6s",
+    "description": "Throw a Arc ball that zaps enemies."
+  },
+  {
+    "name": "Arc Web",
+    "element": "Arc",
+    "type": "Chain",
+    "effect": "Enemy connect",
+    "range": "18m",
+    "cooldown": "7s",
+    "description": "Melee strikes chain Arc damage."
+  },
+  {
+    "name": "Entropic Pull",
+    "element": "Void",
+    "type": "Pull",
+    "effect": "Tractor + restore",
+    "range": "20m",
+    "cooldown": "9s",
+    "description": "Drains energy from enemies and pulls them closer."
+  },
+  {
+    "name": "Pocket Singularity",
+    "element": "Void",
+    "type": "AoE",
+    "effect": "Tentacle burst",
+    "range": "16m",
+    "cooldown": "10s",
+    "description": "Creates a Void explosion that weakens enemies."
+  },
+  {
+    "name": "Devour Strike",
+    "element": "Void",
+    "type": "Sustain",
+    "effect": "Heal on hit",
+    "range": "12m",
+    "cooldown": "8s",
+    "description": "Defeating enemies heals you and grants grenade energy."
+  },
+  {
+    "name": "Penumbral Blast",
+    "element": "Stasis",
+    "type": "Wave",
+    "effect": "Freeze missile",
+    "range": "18m",
+    "cooldown": "7s",
+    "description": "Send out a freezing projectile that slows targets."
+  },
+  {
+    "name": "Glacial Spike",
+    "element": "Stasis",
+    "type": "Projectile",
+    "effect": "Ice spike",
+    "range": "22m",
+    "cooldown": "8s",
+    "description": "Launch a Stasis crystal that freezes on impact."
+  },
+  {
+    "name": "Shiver Strike",
+    "element": "Stasis",
+    "type": "AoE",
+    "effect": "Crystal burst",
+    "range": "20m",
+    "cooldown": "10s",
+    "description": "Charge forward and shatter enemies with Stasis."
+  },
+  {
+    "name": "Grapple Melee",
+    "element": "Strand",
+    "type": "Hook",
+    "effect": "Swing mobility",
+    "range": "25m",
+    "cooldown": "Per swing",
+    "description": "Pull yourself to a surface or enemy."
+  },
+  {
+    "name": "Strand Strike",
+    "element": "Strand",
+    "type": "Projectile",
+    "effect": "Strand shot",
+    "range": "20m",
+    "cooldown": "8s",
+    "description": "Fire a rope of Strand that suspends targets."
+  },
+  {
+    "name": "Severing Slash",
+    "element": "Strand",
+    "type": "Multi",
+    "effect": "Multiple shots",
+    "range": "18m",
+    "cooldown": "7s",
+    "description": "Sever enemies with Strand, dealing damage over time."
+  }
+]
