@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import type { Build, GuardianClass, Subclass, Stats, SubclassDefinition } from '../types';
 import localforage from 'localforage';
@@ -239,6 +239,36 @@ export default function BuildPlanner() {
 
   // Get selected super details
   const selectedSuperInfo = supersData.find(s => s.name === selectedSuper);
+
+  // Calculate fragment stat modifiers with memoization
+  const fragmentStatModifiers = useMemo(() => {
+    const selectedFragmentDetails = fragmentsData.filter(f => selectedFragments.includes(f.name));
+    const totalModifiers: Stats = {
+      weapons: 0,
+      health: 0,
+      class: 0,
+      melee: 0,
+      grenade: 0,
+      super: 0,
+    };
+
+    selectedFragmentDetails.forEach(fragment => {
+      if (fragment.statModifiers) {
+        Object.entries(fragment.statModifiers).forEach(([stat, value]) => {
+          totalModifiers[stat as keyof Stats] += value;
+        });
+      }
+    });
+
+    return totalModifiers;
+  }, [selectedFragments]);
+
+  // Calculate total gains and losses
+  const { totalGains, totalLosses } = useMemo(() => {
+    const gains = Object.values(fragmentStatModifiers).filter(v => v > 0).reduce((sum, v) => sum + v, 0);
+    const losses = Object.values(fragmentStatModifiers).filter(v => v < 0).reduce((sum, v) => sum + v, 0);
+    return { totalGains: gains, totalLosses: losses };
+  }, [fragmentStatModifiers]);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -550,6 +580,22 @@ export default function BuildPlanner() {
                       </span>
                     </div>
                     <div className="text-xs text-gray-400 mt-1">{fragment.effect}</div>
+                    {fragment.statModifiers && (
+                      <div className="mt-2 flex flex-wrap gap-1">
+                        {Object.entries(fragment.statModifiers).map(([stat, value]) => (
+                          <span
+                            key={stat}
+                            className={`text-xs px-1.5 py-0.5 rounded ${
+                              value > 0 
+                                ? 'bg-green-900/30 text-green-400' 
+                                : 'bg-red-900/30 text-red-400'
+                            }`}
+                          >
+                            {value > 0 ? '+' : ''}{value} {stat}
+                          </span>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </button>
               ))}
@@ -682,6 +728,41 @@ export default function BuildPlanner() {
                     {selectedFragments.map(f => (
                       <div key={f}>• {f}</div>
                     ))}
+                  </div>
+                </div>
+              )}
+
+              {selectedFragments.length > 0 && Object.values(fragmentStatModifiers).some(v => v !== 0) && (
+                <div className="pt-3 border-t border-gray-700">
+                  <div className="text-gray-400 mb-2">Fragment Stat Modifiers</div>
+                  <div className="space-y-1">
+                    {Object.entries(fragmentStatModifiers).map(([stat, value]) => {
+                      if (value === 0) return null;
+                      return (
+                        <div key={stat} className="flex justify-between items-center">
+                          <span className="text-gray-300 capitalize text-xs">{stat}</span>
+                          <span className={`text-xs font-bold ${
+                            value > 0 ? 'text-green-400' : 'text-red-400'
+                          }`}>
+                            {value > 0 ? '+' : ''}{value}
+                          </span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <div className="mt-2 pt-2 border-t border-gray-700/50">
+                    <div className="flex justify-between items-center text-xs">
+                      <span className="text-gray-400">Total Gains:</span>
+                      <span className="text-green-400 font-bold">
+                        +{totalGains}
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center text-xs">
+                      <span className="text-gray-400">Total Losses:</span>
+                      <span className="text-red-400 font-bold">
+                        {Math.abs(totalLosses)}
+                      </span>
+                    </div>
                   </div>
                 </div>
               )}

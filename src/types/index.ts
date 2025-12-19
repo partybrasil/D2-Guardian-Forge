@@ -154,6 +154,9 @@ export interface Fragment {
   subclass: Subclass;
   effect: string;
   description: string;
+  statModifiers?: {
+    [key in StatName]?: number; // Positive or negative stat changes
+  };
 }
 
 export interface SubclassDefinition {

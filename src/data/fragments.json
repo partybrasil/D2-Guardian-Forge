@@ -3,252 +3,386 @@
     "name": "Ember of Torches",
     "subclass": "Solar",
     "effect": "Applying Scorch grants Radiant",
-    "description": "Powered melee attacks make you and nearby allies Radiant."
+    "description": "Powered melee attacks make you and nearby allies Radiant.",
+    "statModifiers": {
+      "weapons": 10
+    }
   },
   {
     "name": "Ember of Singeing",
     "subclass": "Solar",
     "effect": "+Class ability energy on Scorch",
-    "description": "Class ability regeneration is increased while Scorched targets are nearby."
+    "description": "Class ability regeneration is increased while Scorched targets are nearby.",
+    "statModifiers": {
+      "class": 10
+    }
   },
   {
     "name": "Ember of Empyrean",
     "subclass": "Solar",
     "effect": "Super hit: +20% weapon damage same element",
-    "description": "Landing Super hits grants +20% weapon damage for same element weapons for 10s."
+    "description": "Landing Super hits grants +20% weapon damage for same element weapons for 10s.",
+    "statModifiers": {
+      "health": -10
+    }
   },
   {
     "name": "Ember of Resolve",
     "subclass": "Solar",
     "effect": "Damage taken: +15% next attack damage",
-    "description": "Taking damage grants +15% damage on next attack. Stacks up to 3x."
+    "description": "Taking damage grants +15% damage on next attack. Stacks up to 3x.",
+    "statModifiers": {
+      "health": -10
+    }
   },
   {
     "name": "Ember of Char",
     "subclass": "Solar",
     "effect": "Burning enemies nearby: duration increased",
-    "description": "Burning enemies within 15m have their burn duration extended."
+    "description": "Burning enemies within 15m have their burn duration extended.",
+    "statModifiers": {
+      "grenade": 10
+    }
   },
   {
     "name": "Ember of Solace",
     "subclass": "Solar",
     "effect": "Class abilities: +40% health regen",
-    "description": "Using class abilities grants +40% health regeneration for 5s per activation."
+    "description": "Using class abilities grants +40% health regeneration for 5s per activation.",
+    "statModifiers": {
+      "health": 10
+    }
   },
   {
     "name": "Ember of Combustion",
     "subclass": "Solar",
     "effect": "Critical damage: Scorch enemy",
-    "description": "Critical hits Scorch enemies. Stacks lead to ignition when fully scorched."
+    "description": "Critical hits Scorch enemies. Stacks lead to ignition when fully scorched.",
+    "statModifiers": {
+      "weapons": -10
+    }
   },
   {
     "name": "Ember of Eruption",
     "subclass": "Solar",
     "effect": "Scorched enemies explode",
-    "description": "Fully scorched enemies explode dealing +50% damage in AoE."
+    "description": "Fully scorched enemies explode dealing +50% damage in AoE.",
+    "statModifiers": {
+      "class": -10
+    }
   },
   {
     "name": "Spark of Shock",
     "subclass": "Arc",
     "effect": "Melee final blows jolt targets",
-    "description": "Your melee attacks jolt targets."
+    "description": "Your melee attacks jolt targets.",
+    "statModifiers": {
+      "melee": 10
+    }
   },
   {
     "name": "Spark of Ions",
     "subclass": "Arc",
     "effect": "Defeating jolted targets creates Ionic Traces",
-    "description": "Ionic Traces travel farther."
+    "description": "Ionic Traces travel farther.",
+    "statModifiers": {
+      "class": 10
+    }
   },
   {
     "name": "Spark of Amplitude",
     "subclass": "Arc",
     "effect": "Arc damage: +25% reload speed",
-    "description": "Dealing Arc damage grants +25% reload speed for 8s."
+    "description": "Dealing Arc damage grants +25% reload speed for 8s.",
+    "statModifiers": {
+      "weapons": 10
+    }
   },
   {
     "name": "Spark of Feedback",
     "subclass": "Arc",
     "effect": "Arc damage taken: +10% super energy",
-    "description": "Taking Arc damage grants +10% super energy. Chains up to 3 times."
+    "description": "Taking Arc damage grants +10% super energy. Chains up to 3 times.",
+    "statModifiers": {
+      "super": 10,
+      "health": -10
+    }
   },
   {
     "name": "Spark of Volts",
     "subclass": "Arc",
     "effect": "Jolted enemies: +100% chain radius",
-    "description": "Jolted enemies have doubled chain radius for damage transfer."
+    "description": "Jolted enemies have doubled chain radius for damage transfer.",
+    "statModifiers": {
+      "grenade": -10
+    }
   },
   {
     "name": "Spark of Recharge",
     "subclass": "Arc",
     "effect": "Ability energy: +35% generation",
-    "description": "Ability energy generation increased by +35% for 12s."
+    "description": "Ability energy generation increased by +35% for 12s.",
+    "statModifiers": {
+      "grenade": 10,
+      "melee": 10
+    }
   },
   {
     "name": "Spark of Momentum",
     "subclass": "Arc",
     "effect": "Weapons: improved knockback",
-    "description": "Arc weapons have improved knockback and enemy mobility control."
+    "description": "Arc weapons have improved knockback and enemy mobility control.",
+    "statModifiers": {
+      "weapons": -10
+    }
   },
   {
     "name": "Spark of Magnitude",
     "subclass": "Arc",
     "effect": "Melee jolt: +30% next damage",
-    "description": "Jolting enemies with melee grants +30% damage on next attack for 6s."
+    "description": "Jolting enemies with melee grants +30% damage on next attack for 6s.",
+    "statModifiers": {
+      "melee": -10
+    }
   },
   {
     "name": "Echo of Starvation",
     "subclass": "Void",
     "effect": "Pick up Orbs grants Devour",
-    "description": "Picking up an Orb of Power grants Devour."
+    "description": "Picking up an Orb of Power grants Devour.",
+    "statModifiers": {
+      "health": 10
+    }
   },
   {
     "name": "Echo of Undermining",
     "subclass": "Void",
     "effect": "Grenades weaken targets",
-    "description": "Your Void grenades weaken targets."
+    "description": "Your Void grenades weaken targets.",
+    "statModifiers": {
+      "grenade": 10
+    }
   },
   {
     "name": "Echo of Expulsion",
     "subclass": "Void",
     "effect": "Voided enemies: explode on death",
-    "description": "Enemies with Void debuffs explode on death with 20m AoE radius."
+    "description": "Enemies with Void debuffs explode on death with 20m AoE radius.",
+    "statModifiers": {
+      "weapons": -10
+    }
   },
   {
     "name": "Echo of Persistence",
     "subclass": "Void",
     "effect": "Debuffed enemies: -20% damage output",
-    "description": "Debuffed enemies deal -20% damage. Effect spreads to nearby allies."
+    "description": "Debuffed enemies deal -20% damage. Effect spreads to nearby allies.",
+    "statModifiers": {
+      "health": 10
+    }
   },
   {
     "name": "Echo of Dissolution",
     "subclass": "Void",
     "effect": "Melee destroys cover",
-    "description": "Void melee destroys enemy cover and exposes them."
+    "description": "Void melee destroys enemy cover and exposes them.",
+    "statModifiers": {
+      "melee": 10
+    }
   },
   {
     "name": "Echo of Leeching",
     "subclass": "Void",
     "effect": "Debuffed: -30% speed",
-    "description": "Debuffed enemies have -30% movement speed. Stacks increase duration."
+    "description": "Debuffed enemies have -30% movement speed. Stacks increase duration.",
+    "statModifiers": {
+      "super": -10
+    }
   },
   {
     "name": "Echo of Remnants",
     "subclass": "Void",
     "effect": "Void damage: creates shadow duplicate",
-    "description": "Dealing Void damage creates a shadow duplicate for 8s."
+    "description": "Dealing Void damage creates a shadow duplicate for 8s.",
+    "statModifiers": {
+      "class": -10
+    }
   },
   {
     "name": "Echo of Replenishment",
     "subclass": "Void",
     "effect": "Grenade hit: restore 50% health",
-    "description": "Grenade hits restore 50% health. Debuffed enemies grant +30% restoration."
+    "description": "Grenade hits restore 50% health. Debuffed enemies grant +30% restoration.",
+    "statModifiers": {
+      "grenade": -10
+    }
   },
   {
     "name": "Whisper of Durance",
     "subclass": "Stasis",
     "effect": "+Slow and freeze duration",
-    "description": "Increases the duration of Slow effects."
+    "description": "Increases the duration of Slow effects.",
+    "statModifiers": {
+      "class": 10
+    }
   },
   {
     "name": "Whisper of Chains",
     "subclass": "Stasis",
     "effect": "+Damage resistance near crystals",
-    "description": "Damage resistance while near Stasis crystals."
+    "description": "Damage resistance while near Stasis crystals.",
+    "statModifiers": {
+      "health": 10
+    }
   },
   {
     "name": "Whisper of Rime",
     "subclass": "Stasis",
     "effect": "Frozen nearby: +30% damage reduction",
-    "description": "Frozen enemies within 25m grant +30% damage reduction."
+    "description": "Frozen enemies within 25m grant +30% damage reduction.",
+    "statModifiers": {
+      "health": 10,
+      "weapons": -10
+    }
   },
   {
     "name": "Whisper of Rending",
     "subclass": "Stasis",
     "effect": "Shattered frozen: +40% crit damage",
-    "description": "Shattering frozen enemies grants +40% critical damage for 5s."
+    "description": "Shattering frozen enemies grants +40% critical damage for 5s.",
+    "statModifiers": {
+      "weapons": 10
+    }
   },
   {
     "name": "Whisper of Conduction",
     "subclass": "Stasis",
     "effect": "Stasis grenade: doubled crystals",
-    "description": "Stasis grenades create double the Stasis crystals with wider spread."
+    "description": "Stasis grenades create double the Stasis crystals with wider spread.",
+    "statModifiers": {
+      "grenade": 10,
+      "melee": -10
+    }
   },
   {
     "name": "Whisper of Shards",
     "subclass": "Stasis",
     "effect": "Frozen allies: +50% resistance",
-    "description": "Frozen allies gain +50% damage resistance with damage transfer."
+    "description": "Frozen allies gain +50% damage resistance with damage transfer.",
+    "statModifiers": {
+      "grenade": 10,
+      "super": -10
+    }
   },
   {
     "name": "Whisper of Fissures",
     "subclass": "Stasis",
     "effect": "Frozen: +50% duration",
-    "description": "Frozen status duration increased by +50%."
+    "description": "Frozen status duration increased by +50%.",
+    "statModifiers": {
+      "class": -10
+    }
   },
   {
     "name": "Whisper of Fractures",
     "subclass": "Stasis",
     "effect": "Frozen fall: crystal explosion",
-    "description": "Frozen enemies falling create crystal explosion with 30m AoE."
+    "description": "Frozen enemies falling create crystal explosion with 30m AoE.",
+    "statModifiers": {
+      "super": -10
+    }
   },
   {
     "name": "Thread of Ascent",
     "subclass": "Strand",
     "effect": "+Airborne effectiveness while woven",
-    "description": "Grants bonus airborne effectiveness while woven."
+    "description": "Grants bonus airborne effectiveness while woven.",
+    "statModifiers": {
+      "weapons": 10
+    }
   },
   {
     "name": "Thread of Generation",
     "subclass": "Strand",
     "effect": "Dealing damage grants grenade energy",
-    "description": "Dealing damage generates grenade energy."
+    "description": "Dealing damage generates grenade energy.",
+    "statModifiers": {
+      "grenade": 10
+    }
   },
   {
     "name": "Thread of Propagation",
     "subclass": "Strand",
     "effect": "Strand melee: spawn 2 Threadlings",
-    "description": "Strand melee attacks spawn 2 independent attacking Threadlings."
+    "description": "Strand melee attacks spawn 2 independent attacking Threadlings.",
+    "statModifiers": {
+      "melee": 10
+    }
   },
   {
     "name": "Thread of Finality",
     "subclass": "Strand",
     "effect": "Threadlings nearby: +25% durability",
-    "description": "Threadlings within 20m grant +25% durability buff."
+    "description": "Threadlings within 20m grant +25% durability buff.",
+    "statModifiers": {
+      "health": 10
+    }
   },
   {
     "name": "Thread of Continuity",
     "subclass": "Strand",
     "effect": "Unraveled enemies: allies +20% damage",
-    "description": "Unraveled enemies grant allies +20% damage within 15m."
+    "description": "Unraveled enemies grant allies +20% damage within 15m.",
+    "statModifiers": {
+      "class": 10
+    }
   },
   {
     "name": "Thread of Evolution",
     "subclass": "Strand",
     "effect": "Damage enemies: duplicate Threadling",
-    "description": "Damaging enemies duplicates Threadlings. Max 5 Threadlings."
+    "description": "Damaging enemies duplicates Threadlings. Max 5 Threadlings.",
+    "statModifiers": {
+      "grenade": -10
+    }
   },
   {
     "name": "Thread of Warding",
     "subclass": "Strand",
     "effect": "Grapple: +3s invulnerability",
-    "description": "Grapple teleport grants +3s invulnerability. Can be reactivated."
+    "description": "Grapple teleport grants +3s invulnerability. Can be reactivated.",
+    "statModifiers": {
+      "health": -10
+    }
   },
   {
     "name": "Thread of Transmutation",
     "subclass": "Strand",
     "effect": "Strand connection: -40% damage taken",
-    "description": "Strand connections grant -40% damage taken within 25m radius."
+    "description": "Strand connections grant -40% damage taken within 25m radius.",
+    "statModifiers": {
+      "weapons": -10
+    }
   },
   {
     "name": "Prismatic Harmony",
     "subclass": "Prismatic",
     "effect": "Multi-element damage: +15% all abilities",
-    "description": "Dealing damage with multiple elements grants +15% to all ability energy."
+    "description": "Dealing damage with multiple elements grants +15% to all ability energy.",
+    "statModifiers": {
+      "grenade": 10,
+      "melee": 10,
+      "class": 10
+    }
   },
   {
     "name": "Prismatic Convergence",
     "subclass": "Prismatic",
     "effect": "Element switch: +20% damage next attack",
-    "description": "Switching between element types grants +20% damage on next attack."
+    "description": "Switching between element types grants +20% damage on next attack.",
+    "statModifiers": {
+      "weapons": 10,
+      "super": 10
+    }
   }
 ]
