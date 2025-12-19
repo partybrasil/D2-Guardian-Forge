@@ -1,9 +1,35 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { useEffect } from 'react';
 import Dashboard from './pages/Dashboard';
 import BuildPlanner from './pages/BuildPlanner';
+import { getAllIconHashes } from './utils/iconUtils';
 import './App.css';
 
 function App() {
+  // Preload critical icons on app mount
+  useEffect(() => {
+    const preloadIcons = () => {
+      // Get all icon hashes from manifest
+      const iconHashes = getAllIconHashes();
+      
+      // Preload only the most critical icons (first 50) to avoid overwhelming the browser
+      const criticalIcons = iconHashes.slice(0, 50);
+      
+      criticalIcons.forEach((hash) => {
+        const link = document.createElement('link');
+        link.rel = 'preload';
+        link.as = 'image';
+        link.href = `/D2-Guardian-Forge/icons/${hash}.png`;
+        document.head.appendChild(link);
+      });
+    };
+    
+    // Delay preload slightly to not block initial render
+    const timeoutId = setTimeout(preloadIcons, 100);
+    
+    return () => clearTimeout(timeoutId);
+  }, []);
+
   return (
     <Router basename="/D2-Guardian-Forge">
       <div className="min-h-screen bg-destiny-bg">

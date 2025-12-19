@@ -27,6 +27,7 @@
 - **Class-Based Filtering** - Proper filtering for Prismatic builds (only shows abilities for selected class)
 - **Armor 3.0 System** - 0-200 stat system with 6 archetypes
 - **Build Management** - Create, edit, delete, and organize builds
+- **Icon System** - Visual icons for classes, aspects, fragments, and abilities ([see status](ICON_STATUS.md))
 
 ### 🔒 Privacy First
 - **100% Local Storage** - IndexedDB for all data
