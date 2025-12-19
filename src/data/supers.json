@@ -11,7 +11,7 @@
   {
     "name": "Phoenix Dive",
     "class": "Warlock",
-    "subclass": "Solar",
+    "subclass": "Prismatic",
     "type": "Burst",
     "duration": "Instant",
     "description": "Fast dive with explosion that heals and damages enemies.",

@@ -36,6 +36,9 @@ export default function BuildPlanner() {
     super: 100,
   });
 
+  const [gameplayLoop, setGameplayLoop] = useState('');
+  const [buildDetails, setBuildDetails] = useState('');
+
   const [saving, setSaving] = useState(false);
   const [createdTimestamp, setCreatedTimestamp] = useState<string | null>(null);
 
@@ -59,6 +62,8 @@ export default function BuildPlanner() {
         setSelectedAspects(build.aspects);
         setSelectedFragments(build.fragments);
         setStats(build.stats);
+        setGameplayLoop(build.gameplayLoop || '');
+        setBuildDetails(build.buildDetails || '');
         setCreatedTimestamp(build.timestamps?.created || null);
       }
     } catch (error) {
@@ -98,6 +103,8 @@ export default function BuildPlanner() {
         },
         stats,
         mods: [],
+        gameplayLoop,
+        buildDetails,
         version: '1.0.0-EdgeOfFate',
         timestamps: {
           created: createdTimestamp || new Date().toISOString(),
@@ -117,28 +124,37 @@ export default function BuildPlanner() {
   };
 
   // Filter data based on selections
+  // Prismatic has access to all supers for the class
   const availableSupers = supersData.filter(s => 
-    s.class === selectedClass && s.subclass === selectedSubclass
+    selectedSubclass === 'Prismatic'
+      ? s.class === selectedClass
+      : s.class === selectedClass && s.subclass === selectedSubclass
   );
   
+  // Prismatic has access to grenades from all subclasses
   const availableGrenades = grenadesData.filter(g => 
-    g.element === selectedSubclass
+    selectedSubclass === 'Prismatic' ? true : g.element === selectedSubclass
   );
   
+  // Prismatic has access to melees from all subclasses
   const availableMelees = meleesData.filter(m => 
-    m.element === selectedSubclass
+    selectedSubclass === 'Prismatic' ? true : m.element === selectedSubclass
   );
   
   const availableClassAbilities = classAbilitiesData.filter(a => 
     a.class === selectedClass
   );
 
+  // Prismatic has access to aspects from all subclasses
   const availableAspects = aspectsData.filter(a => 
-    a.subclass === selectedSubclass && (!a.class || a.class === selectedClass)
+    selectedSubclass === 'Prismatic' 
+      ? (!a.class || a.class === selectedClass)
+      : a.subclass === selectedSubclass && (!a.class || a.class === selectedClass)
   );
 
+  // Prismatic has access to fragments from all subclasses
   const availableFragments = fragmentsData.filter(f => 
-    f.subclass === selectedSubclass
+    selectedSubclass === 'Prismatic' ? true : f.subclass === selectedSubclass
   );
 
   const handleAspectToggle = (aspectName: string) => {
@@ -388,6 +404,35 @@ export default function BuildPlanner() {
                 <span className="text-white font-bold">
                   {Object.values(stats).reduce((sum, val) => sum + val, 0)}
                 </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Gameplay Loop & Build Details */}
+          <div className="card">
+            <h2 className="text-xl font-bold text-white mb-4">Build Notes</h2>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  Gameplay Loop
+                </label>
+                <textarea
+                  value={gameplayLoop}
+                  onChange={(e) => setGameplayLoop(e.target.value)}
+                  className="input-field min-h-[100px] resize-y"
+                  placeholder="Describe your gameplay loop and rotation..."
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  Build Details / Notes
+                </label>
+                <textarea
+                  value={buildDetails}
+                  onChange={(e) => setBuildDetails(e.target.value)}
+                  className="input-field min-h-[120px] resize-y"
+                  placeholder="Add build details, synergies, tips, or any other notes..."
+                />
               </div>
             </div>
           </div>
