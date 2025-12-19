@@ -21,13 +21,6 @@
     "fragmentSlots": 1
   },
   {
-    "name": "Touch of Winter",
-    "subclass": "Solar",
-    "class": "Warlock",
-    "description": "Your grenades have enhanced functionality and apply Scorch to targets more effectively.",
-    "fragmentSlots": 2
-  },
-  {
     "name": "Electrostatic Mind",
     "subclass": "Arc",
     "class": "Warlock",

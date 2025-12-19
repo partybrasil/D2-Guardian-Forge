@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import type { Build, GuardianClass, Subclass, Stats } from '../types';
+import type { Build, GuardianClass, Subclass, Stats, SubclassDefinition } from '../types';
 import localforage from 'localforage';
 
 // Import data
@@ -191,7 +191,7 @@ export default function BuildPlanner() {
   };
 
   // Get current subclass details
-  const currentSubclassInfo = subclassesData.find(
+  const currentSubclassInfo = (subclassesData as SubclassDefinition[]).find(
     sub => sub.class === selectedClass && sub.element === selectedSubclass
   );
 
