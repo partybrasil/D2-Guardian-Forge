@@ -2,6 +2,8 @@ import { useState, useEffect, useMemo } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import type { Build, GuardianClass, Subclass, Stats, SubclassDefinition } from '../types';
 import localforage from 'localforage';
+import Icon from '../components/Icon';
+import { getIconHash } from '../utils/iconUtils';
 
 // Import data
 import supersData from '../data/supers.json';
@@ -321,49 +323,58 @@ export default function BuildPlanner() {
           {/* Class & Subclass Selection */}
           <div className="card">
             <h2 className="text-xl font-bold text-white mb-4">Class & Subclass</h2>
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Guardian Class
-                </label>
-                <select
-                  value={selectedClass}
-                  onChange={(e) => {
-                    setSelectedClass(e.target.value as GuardianClass);
-                    setSelectedSuper('');
-                    setSelectedClassAbility('');
-                  }}
-                  className="input-field"
-                >
-                  <option value="Warlock">Warlock</option>
-                  <option value="Titan">Titan</option>
-                  <option value="Hunter">Hunter</option>
-                </select>
+            
+            {/* Class Selection with Icons */}
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-300 mb-3">
+                Guardian Class
+              </label>
+              <div className="grid grid-cols-3 gap-3">
+                {(['Warlock', 'Titan', 'Hunter'] as GuardianClass[]).map((className) => (
+                  <button
+                    key={className}
+                    onClick={() => {
+                      setSelectedClass(className);
+                      setSelectedSuper('');
+                      setSelectedClassAbility('');
+                    }}
+                    className={`flex flex-col items-center p-4 rounded-lg border-2 transition-colors ${
+                      selectedClass === className
+                        ? 'border-destiny-primary bg-destiny-primary/10'
+                        : 'border-gray-600 hover:border-gray-500'
+                    }`}
+                  >
+                    <Icon hash={getIconHash('classes', className)} size={48} alt={className} />
+                    <span className="mt-2 font-semibold text-white">{className}</span>
+                  </button>
+                ))}
               </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Subclass
-                </label>
-                <select
-                  value={selectedSubclass}
-                  onChange={(e) => {
-                    setSelectedSubclass(e.target.value as Subclass);
-                    setSelectedSuper('');
-                    setSelectedGrenade('');
-                    setSelectedMelee('');
-                    setSelectedAspects([]);
-                    setSelectedFragments([]);
-                  }}
-                  className="input-field"
-                >
-                  <option value="Solar">Solar</option>
-                  <option value="Arc">Arc</option>
-                  <option value="Void">Void</option>
-                  <option value="Stasis">Stasis</option>
-                  <option value="Strand">Strand</option>
-                  <option value="Prismatic">Prismatic</option>
-                </select>
-              </div>
+            </div>
+
+            {/* Subclass Selection */}
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-2">
+                Subclass
+              </label>
+              <select
+                value={selectedSubclass}
+                onChange={(e) => {
+                  setSelectedSubclass(e.target.value as Subclass);
+                  setSelectedSuper('');
+                  setSelectedGrenade('');
+                  setSelectedMelee('');
+                  setSelectedAspects([]);
+                  setSelectedFragments([]);
+                }}
+                className="input-field"
+              >
+                <option value="Solar">Solar</option>
+                <option value="Arc">Arc</option>
+                <option value="Void">Void</option>
+                <option value="Stasis">Stasis</option>
+                <option value="Strand">Strand</option>
+                <option value="Prismatic">Prismatic</option>
+              </select>
             </div>
 
             {/* Subclass Info Panel */}
@@ -426,19 +437,24 @@ export default function BuildPlanner() {
             {/* Show selected super details */}
             {selectedSuperInfo && (
               <div className="mb-4 p-3 rounded-lg bg-gray-800/50 border border-gray-700">
-                <div className="flex justify-between items-start">
-                  <div>
-                    <h4 className="font-bold text-white">{selectedSuperInfo.name}</h4>
-                    <p className="text-xs text-gray-400 mt-1">{selectedSuperInfo.description}</p>
+                <div className="flex items-start gap-3">
+                  <Icon hash={getIconHash('supers', selectedSuperInfo.name)} size={48} alt={selectedSuperInfo.name} className="flex-shrink-0" />
+                  <div className="flex-1">
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <h4 className="font-bold text-white">{selectedSuperInfo.name}</h4>
+                        <p className="text-xs text-gray-400 mt-1">{selectedSuperInfo.description}</p>
+                      </div>
+                      <div className="text-right flex-shrink-0 ml-4">
+                        <span className="text-xs text-gray-400">Type:</span>
+                        <div className="text-destiny-primary text-sm font-semibold">{selectedSuperInfo.type}</div>
+                        <span className="text-xs text-gray-500">{selectedSuperInfo.duration}</span>
+                      </div>
+                    </div>
+                    <div className="mt-2 text-xs text-gray-300">
+                      <span className="text-destiny-primary">★</span> {selectedSuperInfo.keyBenefit}
+                    </div>
                   </div>
-                  <div className="text-right">
-                    <span className="text-xs text-gray-400">Type:</span>
-                    <div className="text-destiny-primary text-sm font-semibold">{selectedSuperInfo.type}</div>
-                    <span className="text-xs text-gray-500">{selectedSuperInfo.duration}</span>
-                  </div>
-                </div>
-                <div className="mt-2 text-xs text-gray-300">
-                  <span className="text-destiny-primary">★</span> {selectedSuperInfo.keyBenefit}
                 </div>
               </div>
             )}
@@ -524,8 +540,9 @@ export default function BuildPlanner() {
                       : 'border-gray-600 hover:border-gray-500'
                   }`}
                 >
-                  <div className="flex justify-between items-start mb-1">
-                    <div>
+                  <div className="flex items-start gap-3 mb-2">
+                    <Icon hash={getIconHash('aspects', aspect.name)} size={40} alt={aspect.name} className="flex-shrink-0" />
+                    <div className="flex-1 min-w-0">
                       <div className="font-bold text-white">{aspect.name}</div>
                       <div className="flex gap-1 mt-1">
                         <span className={`text-xs px-1.5 py-0.5 rounded ${getSubclassColor(aspect.subclass)} bg-gray-800/80`}>
@@ -538,11 +555,11 @@ export default function BuildPlanner() {
                         )}
                       </div>
                     </div>
-                    <span className="text-xs text-gray-400 bg-gray-700 px-2 py-0.5 rounded">
+                    <span className="text-xs text-gray-400 bg-gray-700 px-2 py-0.5 rounded flex-shrink-0">
                       {aspect.fragmentSlots} {aspect.fragmentSlots === 1 ? 'slot' : 'slots'}
                     </span>
                   </div>
-                  <div className="text-xs text-gray-400 mt-2">{aspect.description}</div>
+                  <div className="text-xs text-gray-400">{aspect.description}</div>
                 </button>
               ))}
             </div>
@@ -596,30 +613,33 @@ export default function BuildPlanner() {
                       : 'border-gray-600 hover:border-gray-500'
                   }`}
                 >
-                  <div>
-                    <div className="flex justify-between items-start mb-1">
-                      <div className="font-bold text-white">{fragment.name}</div>
-                      <span className={`text-xs px-1.5 py-0.5 rounded ${getSubclassColor(fragment.subclass)} bg-gray-800/80`}>
-                        {fragment.subclass}
-                      </span>
-                    </div>
-                    <div className="text-xs text-gray-400 mt-1">{fragment.effect}</div>
-                    {fragment.statModifiers && (
-                      <div className="mt-2 flex flex-wrap gap-1">
-                        {Object.entries(fragment.statModifiers).map(([stat, value]) => (
-                          <span
-                            key={stat}
-                            className={`text-xs px-1.5 py-0.5 rounded ${
-                              value > 0 
-                                ? 'bg-green-900/30 text-green-400' 
-                                : 'bg-red-900/30 text-red-400'
-                            }`}
-                          >
-                            {value > 0 ? '+' : ''}{value} {stat}
-                          </span>
-                        ))}
+                  <div className="flex items-start gap-3">
+                    <Icon hash={getIconHash('fragments', fragment.name)} size={32} alt={fragment.name} className="flex-shrink-0" />
+                    <div className="flex-1 min-w-0">
+                      <div className="flex justify-between items-start mb-1">
+                        <div className="font-bold text-white">{fragment.name}</div>
+                        <span className={`text-xs px-1.5 py-0.5 rounded ${getSubclassColor(fragment.subclass)} bg-gray-800/80 flex-shrink-0 ml-2`}>
+                          {fragment.subclass}
+                        </span>
                       </div>
-                    )}
+                      <div className="text-xs text-gray-400 mt-1">{fragment.effect}</div>
+                      {fragment.statModifiers && (
+                        <div className="mt-2 flex flex-wrap gap-1">
+                          {Object.entries(fragment.statModifiers).map(([stat, value]) => (
+                            <span
+                              key={stat}
+                              className={`text-xs px-1.5 py-0.5 rounded ${
+                                value > 0 
+                                  ? 'bg-green-900/30 text-green-400' 
+                                  : 'bg-red-900/30 text-red-400'
+                              }`}
+                            >
+                              {value > 0 ? '+' : ''}{value} {stat}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
                   </div>
                 </button>
               ))}
