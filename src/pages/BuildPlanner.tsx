@@ -532,12 +532,12 @@ export default function BuildPlanner() {
                 <button
                   key={fragment.name}
                   onClick={() => handleFragmentToggle(fragment.name)}
-                  disabled={totalFragmentSlots === 0 && !selectedFragments.includes(fragment.name)}
+                  disabled={totalFragmentSlots === 0}
                   className={`p-3 rounded border-2 text-left transition-colors ${
-                    selectedFragments.includes(fragment.name)
-                      ? 'border-destiny-primary bg-destiny-primary/10'
-                      : totalFragmentSlots === 0
+                    totalFragmentSlots === 0
                       ? 'border-gray-700 bg-gray-800/30 cursor-not-allowed opacity-50'
+                      : selectedFragments.includes(fragment.name)
+                      ? 'border-destiny-primary bg-destiny-primary/10'
                       : 'border-gray-600 hover:border-gray-500'
                   }`}
                 >
