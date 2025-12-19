@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import type { Build, GuardianClass, Subclass, Stats } from '../types';
+import type { Build, GuardianClass, Subclass, Stats, SubclassDefinition } from '../types';
 import localforage from 'localforage';
 
 // Import data
@@ -10,6 +10,7 @@ import meleesData from '../data/melees.json';
 import classAbilitiesData from '../data/classAbilities.json';
 import aspectsData from '../data/aspects.json';
 import fragmentsData from '../data/fragments.json';
+import subclassesData from '../data/subclasses.json';
 
 export default function BuildPlanner() {
   const [searchParams] = useSearchParams();
@@ -189,6 +190,17 @@ export default function BuildPlanner() {
     return colors[subclass];
   };
 
+  // Get current subclass details
+  const currentSubclassInfo = (subclassesData as SubclassDefinition[]).find(
+    sub => sub.class === selectedClass && sub.element === selectedSubclass
+  );
+
+  // Get selected super details
+  const selectedSuperInfo = supersData.find(s => s.name === selectedSuper);
+
+  // Get selected aspect details
+  const selectedAspectDetails = aspectsData.filter(a => selectedAspects.includes(a.name));
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <div className="mb-6">
@@ -260,11 +272,84 @@ export default function BuildPlanner() {
                 </select>
               </div>
             </div>
+
+            {/* Subclass Info Panel */}
+            {currentSubclassInfo && (
+              <div className="mt-4 p-4 rounded-lg bg-gray-800/50 border border-gray-700">
+                <h3 className={`text-lg font-bold mb-2 ${getSubclassColor(selectedSubclass)}`}>
+                  {currentSubclassInfo.name}
+                </h3>
+                <p className="text-sm text-gray-300 mb-3">{currentSubclassInfo.description}</p>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                  <div>
+                    <div className="text-gray-400 font-semibold mb-1">Available Supers:</div>
+                    <ul className="text-gray-300 space-y-1">
+                      {currentSubclassInfo.supers.map(s => (
+                        <li key={s} className="flex items-start">
+                          <span className="text-destiny-primary mr-2">•</span>
+                          {s}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  
+                  <div>
+                    <div className="text-gray-400 font-semibold mb-1">Playstyle:</div>
+                    <p className="text-gray-300">{currentSubclassInfo.playstyle}</p>
+                  </div>
+                </div>
+
+                <div className="mt-3">
+                  <div className="text-gray-400 font-semibold mb-1">Key Features:</div>
+                  <ul className="text-gray-300 text-xs space-y-1">
+                    {currentSubclassInfo.keyFeatures.map((feature, idx) => (
+                      <li key={idx} className="flex items-start">
+                        <span className="text-destiny-primary mr-2">→</span>
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="mt-3">
+                  <div className="text-gray-400 font-semibold mb-1">Recommended Synergies:</div>
+                  <div className="flex flex-wrap gap-2 mt-1">
+                    {currentSubclassInfo.synergies.map((syn, idx) => (
+                      <span key={idx} className="px-2 py-1 bg-destiny-primary/20 text-destiny-primary rounded text-xs">
+                        {syn}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Abilities Selection */}
           <div className="card">
             <h2 className="text-xl font-bold text-white mb-4">Abilities</h2>
+            
+            {/* Show selected super details */}
+            {selectedSuperInfo && (
+              <div className="mb-4 p-3 rounded-lg bg-gray-800/50 border border-gray-700">
+                <div className="flex justify-between items-start">
+                  <div>
+                    <h4 className="font-bold text-white">{selectedSuperInfo.name}</h4>
+                    <p className="text-xs text-gray-400 mt-1">{selectedSuperInfo.description}</p>
+                  </div>
+                  <div className="text-right">
+                    <span className="text-xs text-gray-400">Type:</span>
+                    <div className="text-destiny-primary text-sm font-semibold">{selectedSuperInfo.type}</div>
+                    <span className="text-xs text-gray-500">{selectedSuperInfo.duration}</span>
+                  </div>
+                </div>
+                <div className="mt-2 text-xs text-gray-300">
+                  <span className="text-destiny-primary">★</span> {selectedSuperInfo.keyBenefit}
+                </div>
+              </div>
+            )}
+            
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-300 mb-2">
@@ -334,6 +419,7 @@ export default function BuildPlanner() {
             <h2 className="text-xl font-bold text-white mb-2">
               Aspects <span className="text-sm text-gray-400">({selectedAspects.length}/2)</span>
             </h2>
+            <p className="text-xs text-gray-400 mb-3">Select up to 2 aspects to customize your subclass</p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {availableAspects.map(aspect => (
                 <button
@@ -345,11 +431,35 @@ export default function BuildPlanner() {
                       : 'border-gray-600 hover:border-gray-500'
                   }`}
                 >
-                  <div className="font-bold text-white">{aspect.name}</div>
+                  <div className="flex justify-between items-start mb-1">
+                    <div className="font-bold text-white">{aspect.name}</div>
+                    <span className="text-xs text-gray-400 bg-gray-700 px-2 py-0.5 rounded">
+                      {aspect.fragmentSlots} {aspect.fragmentSlots === 1 ? 'slot' : 'slots'}
+                    </span>
+                  </div>
                   <div className="text-xs text-gray-400 mt-1">{aspect.description}</div>
                 </button>
               ))}
             </div>
+            
+            {/* Show selected aspects details */}
+            {selectedAspectDetails.length > 0 && (
+              <div className="mt-4 p-3 rounded-lg bg-gray-800/50 border border-gray-700">
+                <div className="text-sm font-semibold text-gray-300 mb-2">Selected Aspects Details:</div>
+                <div className="space-y-2">
+                  {selectedAspectDetails.map(aspect => (
+                    <div key={aspect.name} className="text-xs">
+                      <span className="text-destiny-primary font-semibold">{aspect.name}:</span>
+                      <span className="text-gray-400 ml-2">{aspect.description}</span>
+                      <span className="text-gray-500 ml-2">({aspect.fragmentSlots} fragment {aspect.fragmentSlots === 1 ? 'slot' : 'slots'})</span>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-2 text-xs text-gray-500">
+                  Total Fragment Slots Available: {selectedAspectDetails.reduce((sum, a) => sum + a.fragmentSlots, 0)}
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Fragments */}

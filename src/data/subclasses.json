@@ -1,0 +1,338 @@
+[
+  {
+    "name": "Voidwalker",
+    "class": "Warlock",
+    "element": "Void",
+    "description": "Manipulate the raw power of the Void to devastate your enemies and bolster your allies.",
+    "supers": ["Nova Bomb", "Nova Warp"],
+    "classAbility": "Rift (Healing or Empowering)",
+    "keyFeatures": [
+      "Hurls a giant ball of Void energy that damages combatants using Nova Bomb",
+      "Teleports around the battlefield and damages nearby combatants with Nova Warp",
+      "Devour ability to regenerate health on kills",
+      "Void Soul companion for debuffing enemies"
+    ],
+    "playstyle": "Aggressive damage dealer with self-sustain capabilities",
+    "synergies": ["Void weapons", "Devour builds", "Grenade spam", "Ability regeneration"]
+  },
+  {
+    "name": "Sunsinger",
+    "class": "Warlock",
+    "element": "Solar",
+    "description": "Channel Solar Light to support your allies and cheat death itself.",
+    "supers": ["Radiance", "Song of Flame"],
+    "classAbility": "Rift (Healing or Empowering)",
+    "keyFeatures": [
+      "Manipulates Solar energy to support allies through Radiance",
+      "Brings the wielder back from death with self-resurrection",
+      "Supercharges ability regeneration for team support",
+      "Grants enhanced grenade and melee spam during super"
+    ],
+    "playstyle": "Support and survivability with clutch resurrection potential",
+    "synergies": ["Team support", "Ability spam", "Solar weapons", "Resurrection builds"]
+  },
+  {
+    "name": "Dawnblade",
+    "class": "Warlock",
+    "element": "Solar",
+    "description": "Forge Solar Light into devastating weapons and healing sanctuaries.",
+    "supers": ["Daybreak", "Well of Radiance", "Song of Flame"],
+    "classAbility": "Rift (Healing or Empowering)",
+    "keyFeatures": [
+      "Summons a flaming sword that damages combatants with projectiles",
+      "Creates healing pools that buff allies with Well of Radiance",
+      "Enhanced aerial combat and mobility",
+      "Support-focused Solar abilities"
+    ],
+    "playstyle": "Versatile Solar caster with support and DPS options",
+    "synergies": ["Well of Radiance", "Healing builds", "Aerial combat", "Team buffs"]
+  },
+  {
+    "name": "Stormcaller",
+    "class": "Warlock",
+    "element": "Arc",
+    "description": "Harmony within, hurricane without. Become the storm.",
+    "supers": ["Stormtrance", "Chaos Reach"],
+    "classAbility": "Rift (Healing or Empowering)",
+    "keyFeatures": [
+      "Channels and chains lightning using Stormtrance",
+      "Conjures a concentrated beam of Arc energy with Chaos Reach",
+      "Arc Soul companion for additional damage",
+      "Ionic Traces for ability regeneration"
+    ],
+    "playstyle": "Roaming lightning wielder with sustained damage options",
+    "synergies": ["Arc Soul", "Ionic Traces", "Chain lightning", "Ability regeneration"]
+  },
+  {
+    "name": "Shadebinder",
+    "class": "Warlock",
+    "element": "Stasis",
+    "description": "Freeze your enemies in their tracks and shatter them to pieces.",
+    "supers": ["Winter's Wrath"],
+    "classAbility": "Rift (Healing or Empowering)",
+    "keyFeatures": [
+      "Summons a Stasis staff to instantly freeze enemies",
+      "Detonates frozen enemies to shatter on command",
+      "Creates Stasis turrets for area control",
+      "Iceflare Bolts for chain freezing"
+    ],
+    "playstyle": "Crowd control specialist with freeze and shatter mechanics",
+    "synergies": ["Stasis crystals", "Freeze mechanics", "Turret builds", "Shatter damage"]
+  },
+  {
+    "name": "Broodweaver",
+    "class": "Warlock",
+    "element": "Strand",
+    "description": "Weave the threads of reality into minions to fight by your side.",
+    "supers": ["Needlestorm"],
+    "classAbility": "Rift (Healing or Empowering)",
+    "keyFeatures": [
+      "Spawns missiles that explode and unleash Threadlings",
+      "Creates Threadling allies to attack enemies automatically",
+      "Grapple for enhanced mobility",
+      "Tangles for area denial and damage"
+    ],
+    "playstyle": "Summoner with swarm tactics and minion management",
+    "synergies": ["Threadling generation", "Tangle creation", "Grapple mobility", "Strand weapons"]
+  },
+  {
+    "name": "Prismatic Warlock",
+    "class": "Warlock",
+    "element": "Prismatic",
+    "description": "Combine the power of Light and Darkness into one devastating arsenal.",
+    "supers": ["Phoenix Dive"],
+    "classAbility": "Rift (Healing, Empowering, or Ionic)",
+    "keyFeatures": [
+      "Combines both Light and Darkness abilities",
+      "Uses Transcendence for increased weapon damage",
+      "Enhanced ability regeneration during Transcendence",
+      "Access to Prismatic-exclusive Grenade"
+    ],
+    "playstyle": "Hybrid class mixing multiple elemental powers",
+    "synergies": ["Multi-element synergies", "Transcendence", "Mixed ability builds", "Versatile loadouts"]
+  },
+  {
+    "name": "Striker",
+    "class": "Titan",
+    "element": "Arc",
+    "description": "At close quarters, a fist is better than any gun.",
+    "supers": ["Fist of Havoc", "Thundercrash"],
+    "classAbility": "Barricade (Towering or Rally)",
+    "keyFeatures": [
+      "Charges Arc energy to slam into the ground with devastating force",
+      "Becomes a missile to deal massive single-target damage",
+      "Frontal shield while sprinting with Juggernaut",
+      "Enhanced melee damage after breaking shields"
+    ],
+    "playstyle": "Aggressive close-quarters combat with powerful melee",
+    "synergies": ["Melee builds", "Arc grenades", "Frontal assault", "High mobility"]
+  },
+  {
+    "name": "Defender",
+    "class": "Titan",
+    "element": "Void",
+    "description": "The wall against which the Darkness breaks.",
+    "supers": ["Ward of Dawn"],
+    "classAbility": "Barricade (Towering or Rally)",
+    "keyFeatures": [
+      "Creates a protective bubble that buffs and protects allies",
+      "Grants Weapons of Light buff for increased damage",
+      "Overshield generation for team protection",
+      "Defensive anchor for team play"
+    ],
+    "playstyle": "Defensive support with team buffs and protection",
+    "synergies": ["Overshield builds", "Team protection", "Weapon buffs", "Defensive positioning"]
+  },
+  {
+    "name": "Sentinel",
+    "class": "Titan",
+    "element": "Void",
+    "description": "Forge Void Light into an indestructible shield.",
+    "supers": ["Sentinel Shield", "Ward of Dawn", "Twilight Arsenal"],
+    "classAbility": "Barricade (Towering or Rally)",
+    "keyFeatures": [
+      "Summons a glowing Void shield for offense and defense",
+      "Can throw shield as projectile or use for melee",
+      "Buffs nearby allies with shield blocking",
+      "Creates Void axes that can be used by allies"
+    ],
+    "playstyle": "Versatile Void defender with offense and support options",
+    "synergies": ["Overshield", "Void detonators", "Team buffs", "Shield throws"]
+  },
+  {
+    "name": "Sunbreaker",
+    "class": "Titan",
+    "element": "Solar",
+    "description": "Forge the fury of undying suns.",
+    "supers": ["Hammer of Sol", "Burning Maul"],
+    "classAbility": "Barricade (Towering or Rally)",
+    "keyFeatures": [
+      "Summons a Solar hammer to throw at enemies",
+      "Creates Sunspots for area control and healing",
+      "Wields a massive flaming maul for melee combat",
+      "Solar ability kills restore health"
+    ],
+    "playstyle": "Solar warrior with area denial and self-sustain",
+    "synergies": ["Sunspot builds", "Solar ignitions", "Hammer throws", "Restoration"]
+  },
+  {
+    "name": "Behemoth",
+    "class": "Titan",
+    "element": "Stasis",
+    "description": "Become the avalanche. Crush your enemies beneath glacial might.",
+    "supers": ["Glacial Quake"],
+    "classAbility": "Barricade (Towering or Rally)",
+    "keyFeatures": [
+      "Summons a glove to spawn Stasis crystals",
+      "Ground-pound attacks that freeze enemies",
+      "Creates defensive crystal walls",
+      "Shatters crystals for massive damage"
+    ],
+    "playstyle": "Aggressive Stasis tank with crystal manipulation",
+    "synergies": ["Crystal creation", "Shatter damage", "Crowd control", "Diamond Lance"]
+  },
+  {
+    "name": "Berserker",
+    "class": "Titan",
+    "element": "Strand",
+    "description": "Tear through your enemies with vicious Strand claws.",
+    "supers": ["Bladefury"],
+    "classAbility": "Barricade (Towering or Rally)",
+    "keyFeatures": [
+      "Summons Strand claws to sever and suspend enemies",
+      "Creates Woven Mail for damage resistance",
+      "Destroys Tangles for ability energy",
+      "Strand whip that suspends targets"
+    ],
+    "playstyle": "Aggressive Strand melee combatant with sustainability",
+    "synergies": ["Woven Mail", "Tangle destruction", "Suspend mechanics", "Melee combat"]
+  },
+  {
+    "name": "Prismatic Titan",
+    "class": "Titan",
+    "element": "Prismatic",
+    "description": "Combine the power of Light and Darkness into an unstoppable force.",
+    "supers": ["Drengr's Lash"],
+    "classAbility": "Barricade (Towering, Rally, or Weapon Amp)",
+    "keyFeatures": [
+      "Combines both Light and Darkness abilities",
+      "Uses Transcendence for increased weapon damage",
+      "Enhanced ability regeneration during Transcendence",
+      "Access to Prismatic-exclusive Grenade"
+    ],
+    "playstyle": "Hybrid tank mixing multiple elemental powers",
+    "synergies": ["Multi-element synergies", "Transcendence", "Mixed ability builds", "Versatile loadouts"]
+  },
+  {
+    "name": "Gunslinger",
+    "class": "Hunter",
+    "element": "Solar",
+    "description": "A lone wolf who lives for the perfect shot.",
+    "supers": ["Golden Gun", "Blade Barrage"],
+    "classAbility": "Dodge (Marksman's or Gambler's)",
+    "keyFeatures": [
+      "Summons a flaming hand cannon for massive precision damage",
+      "Conjures explosive knives for area damage",
+      "Precision kills extend super duration",
+      "Creates ignitions for explosive Solar damage"
+    ],
+    "playstyle": "Precision damage dealer with explosive potential",
+    "synergies": ["Precision damage", "Solar ignitions", "Knife tricks", "Gunpowder Gamble"]
+  },
+  {
+    "name": "Bladedancer",
+    "class": "Hunter",
+    "element": "Arc",
+    "description": "Beautiful lethality, relentless style.",
+    "supers": ["Arc Blade"],
+    "classAbility": "Dodge (Marksman's or Gambler's)",
+    "keyFeatures": [
+      "Summons Arc knives for rapid melee combat",
+      "Enhanced invisibility mechanics",
+      "Fast-paced close-quarters combat",
+      "Arc damage chains to nearby enemies"
+    ],
+    "playstyle": "Stealth assassin with rapid melee strikes",
+    "synergies": ["Invisibility", "Melee combat", "Arc chains", "Blink mobility"]
+  },
+  {
+    "name": "Arcstrider",
+    "class": "Hunter",
+    "element": "Arc",
+    "description": "Flow like lightning. Strike like thunder.",
+    "supers": ["Arc Staff", "Gathering Storm", "Storm's Edge"],
+    "classAbility": "Dodge (Marksman's or Gambler's)",
+    "keyFeatures": [
+      "Summons a Bō staff for electrocuting enemies",
+      "Can deflect projectiles with staff",
+      "Throws staff as spear for area control",
+      "Blink teleport strikes with Storm's Edge"
+    ],
+    "playstyle": "Mobile Arc warrior with staff combat mastery",
+    "synergies": ["Amplified state", "Jolting enemies", "Staff deflection", "Flow State"]
+  },
+  {
+    "name": "Nightstalker",
+    "class": "Hunter",
+    "element": "Void",
+    "description": "Stalk the battlefield. Strike from the shadows.",
+    "supers": ["Shadowshot", "Spectral Blades"],
+    "classAbility": "Dodge (Marksman's or Gambler's)",
+    "keyFeatures": [
+      "Spreads Void anchors to slow and suppress enemies",
+      "Tethers enemies making them vulnerable",
+      "Enhanced invisibility and stealth mechanics",
+      "Summons Void blades with invisibility"
+    ],
+    "playstyle": "Stealth support with debuffs and crowd control",
+    "synergies": ["Invisibility builds", "Tether debuffs", "Weakening effects", "Stealth gameplay"]
+  },
+  {
+    "name": "Revenant",
+    "class": "Hunter",
+    "element": "Stasis",
+    "description": "Embrace the cold. Become the storm.",
+    "supers": ["Silence and Squall"],
+    "classAbility": "Dodge (Marksman's or Gambler's)",
+    "keyFeatures": [
+      "Summons and throws Stasis kamas",
+      "Creates a freezing tornado for area denial",
+      "Slows, freezes, and shatters enemies",
+      "Enhanced Stasis shard generation"
+    ],
+    "playstyle": "Stasis assassin with area control",
+    "synergies": ["Freeze mechanics", "Shatterdive", "Stasis shards", "Slow effects"]
+  },
+  {
+    "name": "Threadrunner",
+    "class": "Hunter",
+    "element": "Strand",
+    "description": "Weave the threads of fate. Strike with precision.",
+    "supers": ["Silkstrike"],
+    "classAbility": "Dodge (Marksman's or Gambler's)",
+    "keyFeatures": [
+      "Summons a Strand rope dart for whipping combatants",
+      "Infinite grapples during super",
+      "Jab and spin attacks with rope dart",
+      "Enhanced mobility with grapple mechanics"
+    ],
+    "playstyle": "Mobile Strand combatant with grapple mastery",
+    "synergies": ["Grapple mobility", "Threadling generation", "Tangle creation", "Suspend effects"]
+  },
+  {
+    "name": "Prismatic Hunter",
+    "class": "Hunter",
+    "element": "Prismatic",
+    "description": "Combine the power of Light and Darkness into the perfect arsenal.",
+    "supers": ["Spirit of the Lyre"],
+    "classAbility": "Dodge (Marksman's, Gambler's, or Evasion)",
+    "keyFeatures": [
+      "Combines both Light and Darkness abilities",
+      "Uses Transcendence for increased weapon damage",
+      "Enhanced ability regeneration during Transcendence",
+      "Access to Prismatic-exclusive Grenade"
+    ],
+    "playstyle": "Versatile hybrid mixing multiple elemental powers",
+    "synergies": ["Multi-element synergies", "Transcendence", "Mixed ability builds", "Versatile loadouts"]
+  }
+]

@@ -155,6 +155,18 @@ export interface Fragment {
   description: string;
 }
 
+export interface SubclassDefinition {
+  name: string;
+  class: GuardianClass;
+  element: Subclass;
+  description: string;
+  supers: string[];
+  classAbility: string;
+  keyFeatures: string[];
+  playstyle: string;
+  synergies: string[];
+}
+
 export interface ModDefinition {
   name: string;
   type: 'Weapon' | 'Ability' | 'Defense' | 'Utility';

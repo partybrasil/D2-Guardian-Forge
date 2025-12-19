@@ -3,70 +3,413 @@
     "name": "Touch of Flame",
     "subclass": "Solar",
     "class": "Warlock",
-    "description": "Your grenades ignite targets, causing them to burn over time.",
+    "description": "Your grenades ignite targets, causing them to burn over time and deal increased damage.",
     "fragmentSlots": 2
   },
   {
     "name": "Heat Rises",
     "subclass": "Solar",
     "class": "Warlock",
-    "description": "Consuming your grenade allows you to fire weapons and extends airborne time.",
+    "description": "Consuming your grenade allows you to fire weapons while gliding and extends airborne time.",
     "fragmentSlots": 2
+  },
+  {
+    "name": "Icarus Dash",
+    "subclass": "Solar",
+    "class": "Warlock",
+    "description": "Dodge while airborne with a double tap of the jump button. Heat Rises grants an additional dodge.",
+    "fragmentSlots": 1
   },
   {
     "name": "Electrostatic Mind",
     "subclass": "Arc",
     "class": "Warlock",
-    "description": "Arc ability or jolted enemy defeats grant Ionic Traces.",
+    "description": "Arc ability or jolted enemy defeats grant Ionic Traces that return ability energy.",
     "fragmentSlots": 2
   },
   {
     "name": "Arc Soul",
     "subclass": "Arc",
     "class": "Warlock",
-    "description": "Gain an Arc Soul when using Rift, amplified, or casting your Super.",
+    "description": "Gain an Arc Soul when using Rift, amplified, or casting your Super that fires at enemies.",
     "fragmentSlots": 1
+  },
+  {
+    "name": "Lightning Surge",
+    "subclass": "Arc",
+    "class": "Warlock",
+    "description": "Activate your charged melee while sliding to transform into a ball of lightning that jolts targets.",
+    "fragmentSlots": 1
+  },
+  {
+    "name": "Spark of Beacons",
+    "subclass": "Arc",
+    "class": "Warlock",
+    "description": "While amplified, Arc Special weapon final blows create a blinding explosion.",
+    "fragmentSlots": 2
   },
   {
     "name": "Feed the Void",
     "subclass": "Void",
     "class": "Warlock",
-    "description": "Void ability kills activate Devour.",
+    "description": "Void ability kills activate Devour, healing you and granting grenade energy.",
     "fragmentSlots": 2
   },
   {
     "name": "Child of the Old Gods",
     "subclass": "Void",
     "class": "Warlock",
-    "description": "Cast Rift to summon a Void Soul that weakens targets.",
+    "description": "Cast Rift to summon a Void Soul that weakens and drains targets.",
+    "fragmentSlots": 1
+  },
+  {
+    "name": "Chaos Accelerant",
+    "subclass": "Void",
+    "class": "Warlock",
+    "description": "Hold the grenade button to overcharge your grenades for increased damage and effects.",
+    "fragmentSlots": 2
+  },
+  {
+    "name": "Pocket Singularity",
+    "subclass": "Void",
+    "class": "Warlock",
+    "description": "Your charged melee creates a short-range Void burst that pulls targets inward.",
     "fragmentSlots": 1
   },
   {
     "name": "Bleak Watcher",
     "subclass": "Stasis",
     "class": "Warlock",
-    "description": "Convert grenade into a Stasis turret.",
+    "description": "Convert your grenade into a Stasis turret that slows and freezes nearby targets.",
     "fragmentSlots": 2
   },
   {
     "name": "Iceflare Bolts",
     "subclass": "Stasis",
     "class": "Warlock",
-    "description": "Shattering frozen targets creates seekers.",
+    "description": "Shattering frozen targets creates seekers that track and freeze other enemies.",
     "fragmentSlots": 2
+  },
+  {
+    "name": "Glacial Harvest",
+    "subclass": "Stasis",
+    "class": "Warlock",
+    "description": "Freezing targets creates Stasis shards around the frozen target.",
+    "fragmentSlots": 1
+  },
+  {
+    "name": "Frostpulse",
+    "subclass": "Stasis",
+    "class": "Warlock",
+    "description": "Casting Rift sends out a wave that freezes nearby targets.",
+    "fragmentSlots": 1
   },
   {
     "name": "Mindspun Invocation",
     "subclass": "Strand",
     "class": "Warlock",
-    "description": "Grapple to targets grants melee energy.",
+    "description": "Grapple to targets grants melee energy. Consuming a Tangle grants class ability energy.",
     "fragmentSlots": 2
   },
   {
     "name": "Weaver's Call",
     "subclass": "Strand",
     "class": "Warlock",
-    "description": "Casting Rift creates Threadlings.",
+    "description": "Casting Rift creates Threadlings that seek out and attack enemies.",
     "fragmentSlots": 1
+  },
+  {
+    "name": "The Wanderer",
+    "subclass": "Strand",
+    "class": "Warlock",
+    "description": "Destroying Tangles creates a Rift at their location. Your Rifts grant you and allies Woven Mail.",
+    "fragmentSlots": 2
+  },
+  {
+    "name": "Ensnaring Slam",
+    "subclass": "Strand",
+    "class": "Warlock",
+    "description": "While airborne, press melee to slam downward, suspending all nearby targets.",
+    "fragmentSlots": 1
+  },
+  {
+    "name": "Knockout",
+    "subclass": "Arc",
+    "class": "Titan",
+    "description": "Critically wounding targets or breaking shields increases melee damage and restores health.",
+    "fragmentSlots": 1
+  },
+  {
+    "name": "Touch of Thunder",
+    "subclass": "Arc",
+    "class": "Titan",
+    "description": "Your Arc grenades have enhanced functionality and can be deployed multiple times.",
+    "fragmentSlots": 2
+  },
+  {
+    "name": "Juggernaut",
+    "subclass": "Arc",
+    "class": "Titan",
+    "description": "While sprinting, you build up a frontal shield that blocks incoming damage.",
+    "fragmentSlots": 1
+  },
+  {
+    "name": "Thruster",
+    "subclass": "Arc",
+    "class": "Titan",
+    "description": "Dodge in your direction of movement while airborne. Breaking shields jolts nearby targets.",
+    "fragmentSlots": 2
+  },
+  {
+    "name": "Controlled Demolition",
+    "subclass": "Void",
+    "class": "Titan",
+    "description": "Hitting targets with Void damage causes them to explode when killed.",
+    "fragmentSlots": 2
+  },
+  {
+    "name": "Offensive Bulwark",
+    "subclass": "Void",
+    "class": "Titan",
+    "description": "While you have an overshield, your grenades charge faster and melee damage is increased.",
+    "fragmentSlots": 1
+  },
+  {
+    "name": "Bastion",
+    "subclass": "Void",
+    "class": "Titan",
+    "description": "Cast Barricade to grant you and nearby allies an overshield. You deal increased melee damage.",
+    "fragmentSlots": 2
+  },
+  {
+    "name": "Sentinel Shield",
+    "subclass": "Void",
+    "class": "Titan",
+    "description": "Gain access to Sentinel Shield Super. Guarding with your shield grants allies an overshield.",
+    "fragmentSlots": 1
+  },
+  {
+    "name": "Sol Invictus",
+    "subclass": "Solar",
+    "class": "Titan",
+    "description": "Solar ability kills restore health and create Sunspots that grant restoration when standing in them.",
+    "fragmentSlots": 2
+  },
+  {
+    "name": "Roaring Flames",
+    "subclass": "Solar",
+    "class": "Titan",
+    "description": "Solar ignitions and final blows increase your Super and ability damage. Stacks up to 3 times.",
+    "fragmentSlots": 1
+  },
+  {
+    "name": "Consecration",
+    "subclass": "Solar",
+    "class": "Titan",
+    "description": "Slide then melee to launch into the air and slam down, creating a wave of Solar energy.",
+    "fragmentSlots": 2
+  },
+  {
+    "name": "Hammer Strike",
+    "subclass": "Solar",
+    "class": "Titan",
+    "description": "Your charged melee ignites targets and grants restoration on hit.",
+    "fragmentSlots": 1
+  },
+  {
+    "name": "Tectonic Harvest",
+    "subclass": "Stasis",
+    "class": "Titan",
+    "description": "Shattering a Stasis crystal creates Stasis shards that grant melee energy when picked up.",
+    "fragmentSlots": 1
+  },
+  {
+    "name": "Howl of the Storm",
+    "subclass": "Stasis",
+    "class": "Titan",
+    "description": "Slide then melee to create a wave of Stasis that freezes targets and creates Stasis crystals.",
+    "fragmentSlots": 2
+  },
+  {
+    "name": "Cryoclasm",
+    "subclass": "Stasis",
+    "class": "Titan",
+    "description": "Slide further and shatter Stasis crystals and frozen targets you slide into.",
+    "fragmentSlots": 1
+  },
+  {
+    "name": "Diamond Lance",
+    "subclass": "Stasis",
+    "class": "Titan",
+    "description": "Shatter or defeat frozen targets to create a Stasis lance that can be thrown to freeze.",
+    "fragmentSlots": 2
+  },
+  {
+    "name": "Into the Fray",
+    "subclass": "Strand",
+    "class": "Titan",
+    "description": "Destroying a Tangle grants you and nearby allies Woven Mail and grants grenade energy.",
+    "fragmentSlots": 1
+  },
+  {
+    "name": "Flechette Storm",
+    "subclass": "Strand",
+    "class": "Titan",
+    "description": "While sliding or immediately after a slide, activate your charged melee to launch Strand projectiles.",
+    "fragmentSlots": 2
+  },
+  {
+    "name": "Drengr's Lash",
+    "subclass": "Strand",
+    "class": "Titan",
+    "description": "Activate your class ability to snap a devastating Strand whip that suspends targets.",
+    "fragmentSlots": 1
+  },
+  {
+    "name": "Banner of War",
+    "subclass": "Strand",
+    "class": "Titan",
+    "description": "Defeat targets with abilities to plant your banner, granting restoration and melee damage.",
+    "fragmentSlots": 2
+  },
+  {
+    "name": "Knock 'Em Down",
+    "subclass": "Solar",
+    "class": "Hunter",
+    "description": "Golden Gun precision hits and ignitions grant bonus Super energy. Golden Gun has increased duration.",
+    "fragmentSlots": 1
+  },
+  {
+    "name": "Gunpowder Gamble",
+    "subclass": "Solar",
+    "class": "Hunter",
+    "description": "Defeat targets with Solar ignitions to charge an explosive Solar projectile.",
+    "fragmentSlots": 2
+  },
+  {
+    "name": "On Your Mark",
+    "subclass": "Solar",
+    "class": "Hunter",
+    "description": "Precision final blows grant you and allies increased weapon reload and handling for a short time.",
+    "fragmentSlots": 1
+  },
+  {
+    "name": "Ember of Tempering",
+    "subclass": "Solar",
+    "class": "Hunter",
+    "description": "Solar weapon kills grant your grenade, melee, and class ability increased regeneration for a short time.",
+    "fragmentSlots": 2
+  },
+  {
+    "name": "Flow State",
+    "subclass": "Arc",
+    "class": "Hunter",
+    "description": "Defeating jolted targets makes you amplified. While amplified, dodging reloads your equipped weapon.",
+    "fragmentSlots": 2
+  },
+  {
+    "name": "Tempest Strike",
+    "subclass": "Arc",
+    "class": "Hunter",
+    "description": "Slide then melee to launch a wave of Arc energy forward, damaging and jolting targets.",
+    "fragmentSlots": 1
+  },
+  {
+    "name": "Lethal Current",
+    "subclass": "Arc",
+    "class": "Hunter",
+    "description": "After dodging, your melee lunge range is increased and your next melee strike jolts the target.",
+    "fragmentSlots": 2
+  },
+  {
+    "name": "Arc Assassin",
+    "subclass": "Arc",
+    "class": "Hunter",
+    "description": "Defeating targets with Arc damage grants invisibility and bonus melee energy.",
+    "fragmentSlots": 1
+  },
+  {
+    "name": "Trapper's Ambush",
+    "subclass": "Void",
+    "class": "Hunter",
+    "description": "Activate Quickfall to perform a dive that makes you and nearby allies invisible and weakens enemies.",
+    "fragmentSlots": 1
+  },
+  {
+    "name": "Stylish Executioner",
+    "subclass": "Void",
+    "class": "Hunter",
+    "description": "Defeating weakened, suppressed, or volatile targets grants invisibility and Truesight.",
+    "fragmentSlots": 2
+  },
+  {
+    "name": "Vanishing Step",
+    "subclass": "Void",
+    "class": "Hunter",
+    "description": "Dodging makes you invisible and grants you and nearby allies damage resistance.",
+    "fragmentSlots": 1
+  },
+  {
+    "name": "Echo of Obscurity",
+    "subclass": "Void",
+    "class": "Hunter",
+    "description": "Finishers make you invisible. While invisible, your next melee weakens targets.",
+    "fragmentSlots": 2
+  },
+  {
+    "name": "Grim Harvest",
+    "subclass": "Stasis",
+    "class": "Hunter",
+    "description": "Defeating frozen or slowed targets creates Stasis shards that grant melee energy.",
+    "fragmentSlots": 1
+  },
+  {
+    "name": "Winter's Shroud",
+    "subclass": "Stasis",
+    "class": "Hunter",
+    "description": "Dodging slows nearby targets. Slow dodges also grant you and nearby allies increased damage.",
+    "fragmentSlots": 2
+  },
+  {
+    "name": "Touch of Winter",
+    "subclass": "Stasis",
+    "class": "Hunter",
+    "description": "Your grenades have enhanced functionality, creating additional freezing effects.",
+    "fragmentSlots": 1
+  },
+  {
+    "name": "Shatterdive",
+    "subclass": "Stasis",
+    "class": "Hunter",
+    "description": "While airborne, press melee to quickly descend and shatter nearby frozen targets and Stasis crystals.",
+    "fragmentSlots": 2
+  },
+  {
+    "name": "Threaded Specter",
+    "subclass": "Strand",
+    "class": "Hunter",
+    "description": "Activating your class ability leaves behind a decoy that draws enemy fire and explodes.",
+    "fragmentSlots": 1
+  },
+  {
+    "name": "Widow's Silk",
+    "subclass": "Strand",
+    "class": "Hunter",
+    "description": "Your grapple creates a persistent tangle that can be picked up by allies and exploded.",
+    "fragmentSlots": 2
+  },
+  {
+    "name": "Whirling Maelstrom",
+    "subclass": "Strand",
+    "class": "Hunter",
+    "description": "Destroying Tangles grants you bonus class ability energy and grants Woven Mail.",
+    "fragmentSlots": 1
+  },
+  {
+    "name": "Ensnaring Slam",
+    "subclass": "Strand",
+    "class": "Hunter",
+    "description": "While airborne, press the charged melee button to slam down and suspend all nearby targets.",
+    "fragmentSlots": 2
   }
 ]
