@@ -123,6 +123,7 @@ export interface Grenade {
 export interface Melee {
   name: string;
   element: Subclass;
+  class?: GuardianClass;
   type: 'Projectile' | 'AoE' | 'Chain' | 'Burst' | 'Wave' | 'Speed' | 'Pull' | 'Sustain' | 'Hook' | 'Multi';
   effect: string;
   range: string;
