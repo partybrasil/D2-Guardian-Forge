@@ -181,23 +181,24 @@ export default function BuildPlanner() {
 
   const handleAspectToggle = (aspectName: string) => {
     if (selectedAspects.includes(aspectName)) {
-      // Remove aspect
+      // Prepare to remove aspect
       const newAspects = selectedAspects.filter(a => a !== aspectName);
-      setSelectedAspects(newAspects);
-      
+
       // Calculate new fragment slots
       const newAspectsDetails = aspectsData.filter(a => newAspects.includes(a.name));
       const newTotalSlots = newAspectsDetails.reduce((sum, a) => sum + a.fragmentSlots, 0);
-      
+
       // Remove excess fragments if needed
       if (selectedFragments.length > newTotalSlots) {
         const removedCount = selectedFragments.length - newTotalSlots;
-        if (confirm(`Removing this aspect will reduce your fragment slots. ${removedCount} fragment(s) will be removed. Continue?`)) {
-          setSelectedFragments(selectedFragments.slice(0, newTotalSlots));
-        } else {
-          return; // Cancel the aspect removal
+        if (!confirm(`Removing this aspect will reduce your fragment slots. ${removedCount} fragment(s) will be removed. Continue?`)) {
+          return; // User canceled; do not remove aspect or fragments
         }
+        setSelectedFragments(selectedFragments.slice(0, newTotalSlots));
       }
+
+      // Apply aspect removal after handling fragment changes / confirmation
+      setSelectedAspects(newAspects);
     } else if (selectedAspects.length < 2) {
       setSelectedAspects([...selectedAspects, aspectName]);
     } else {
