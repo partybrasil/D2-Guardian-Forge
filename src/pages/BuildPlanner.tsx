@@ -520,7 +520,7 @@ export default function BuildPlanner() {
             </h2>
             {totalFragmentSlots === 0 && (
               <p className="text-xs text-yellow-400 mb-3">
-                ⚠️ Select 2 aspects first to unlock fragment slots
+                ⚠️ Select aspects first to unlock fragment slots
               </p>
             )}
             {totalFragmentSlots > 0 && (
