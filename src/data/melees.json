@@ -280,20 +280,10 @@
     "description": "Throw a trap that slows and damages enemies."
   },
   {
-    "name": "Stylish Executioner",
-    "element": "Void",
-    "class": "Hunter",
-    "type": "Sustain",
-    "effect": "Invis on weaken",
-    "range": "12m",
-    "cooldown": "Variable",
-    "description": "Defeating weakened targets grants invisibility."
-  },
-  {
     "name": "Withering Blade",
     "element": "Stasis",
     "class": "Hunter",
-    "type": "Projectile",
+"type": "Projectile",
     "effect": "Ricochet slow",
     "range": "25m",
     "cooldown": "8s",
