@@ -165,7 +165,7 @@ export default function BuildPlanner() {
   });
 
   // Fragments - Prismatic has special facets plus access to other fragments
-  // For now, show fragments from all subclasses for Prismatic
+  // Prismatic can use fragments from Light, Dark, and Prismatic elements
   const availableFragments = fragmentsData.filter(f => 
     selectedSubclass === 'Prismatic' 
       ? ['Solar', 'Arc', 'Void', 'Stasis', 'Strand', 'Prismatic'].includes(f.subclass)
