@@ -177,7 +177,7 @@ export default function BuildPlanner() {
 
   // Calculate available fragment slots from selected aspects
   const totalFragmentSlots = selectedAspectDetails.reduce((sum, a) => sum + a.fragmentSlots, 0);
-  const maxFragments = totalFragmentSlots > 0 ? totalFragmentSlots : 6;
+  const maxFragments = totalFragmentSlots;
 
   const handleAspectToggle = (aspectName: string) => {
     if (selectedAspects.includes(aspectName)) {
