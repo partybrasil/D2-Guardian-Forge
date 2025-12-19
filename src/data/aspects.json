@@ -269,7 +269,7 @@
     "name": "Banner of War",
     "subclass": "Strand",
     "class": "Titan",
-    "description": "Defeat targets with abilities or while Transcendent to plant your banner, granting restoration and melee damage.",
+    "description": "Defeat targets with abilities to plant your banner, granting restoration and melee damage.",
     "fragmentSlots": 2
   },
   {
