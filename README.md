@@ -22,7 +22,7 @@
 - **18 Subclasses** - All 3 Guardian classes with 6 subclasses each
 - **Prismatic Subclass Support** - Mix Light and Dark abilities with proper class filtering
 - **Complete Ability System** - Supers, Grenades, Melees, Class Abilities
-- **Aspects & Fragments** - 2 Aspects + dynamic fragment slots (4-6) based on aspect selection
+- **Aspects & Fragments** - 2 Aspects + dynamic fragment slots (2-6) based on aspect selection
 - **Smart Fragment Slot System** - Automatically calculates available slots from selected aspects
 - **Class-Based Filtering** - Proper filtering for Prismatic builds (only shows abilities for selected class)
 - **Armor 3.0 System** - 0-200 stat system with 6 archetypes
