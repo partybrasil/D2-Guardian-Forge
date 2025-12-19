@@ -760,7 +760,7 @@ export default function BuildPlanner() {
                     <div className="flex justify-between items-center text-xs">
                       <span className="text-gray-400">Total Losses:</span>
                       <span className="text-red-400 font-bold">
-                        {totalLosses}
+                        {Math.abs(totalLosses)}
                       </span>
                     </div>
                   </div>
