@@ -25,7 +25,7 @@ instructions: |
   
   ## Elementos por Clase
   **Grenades**: Shared across all classes, filtered by element (15 total: 3 Solar, 3 Arc, 3 Void, 3 Stasis, 3 Strand)
-  **Melees**: Class-specific, filtered by class AND element (45 total: 15 per class)
+  **Melees**: Class-specific, filtered by class AND element (34 total: 11 Warlock, 11 Titan, 12 Hunter)
   **Class Abilities**: 1 per class (Rift for Warlock, Barricade for Titan, Dodge for Hunter)
   **Aspects**: Class-specific, 2 selectable max, each with 1-3 fragment slots
   **Fragments**: Element-specific, dynamically limited by aspect slots (4-6 total based on selected aspects)
