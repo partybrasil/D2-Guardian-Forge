@@ -132,45 +132,86 @@ export default function BuildPlanner() {
       : s.class === selectedClass && s.subclass === selectedSubclass
   );
   
-  // Prismatic has access to grenades from all subclasses
+  // Grenades are shared across all classes but filtered by element
+  // Prismatic has access to grenades from all subclasses (Light and Dark)
   const availableGrenades = grenadesData.filter(g => 
-    selectedSubclass === 'Prismatic' ? true : g.element === selectedSubclass
+    selectedSubclass === 'Prismatic' 
+      ? ['Solar', 'Arc', 'Void', 'Stasis', 'Strand'].includes(g.element)
+      : g.element === selectedSubclass
   );
   
-  // Prismatic has access to melees from all subclasses
-  const availableMelees = meleesData.filter(m => 
-    selectedSubclass === 'Prismatic' ? true : m.element === selectedSubclass
-  );
+  // Melees are class-specific - filter by both class and element
+  // Prismatic has access to melees from all subclasses for the selected class
+  const availableMelees = meleesData.filter(m => {
+    const matchesClass = !m.class || m.class === selectedClass;
+    if (selectedSubclass === 'Prismatic') {
+      return matchesClass && ['Solar', 'Arc', 'Void', 'Stasis', 'Strand'].includes(m.element);
+    }
+    return matchesClass && m.element === selectedSubclass;
+  });
   
   const availableClassAbilities = classAbilitiesData.filter(a => 
     a.class === selectedClass
   );
 
-  // Prismatic has access to aspects from all subclasses
-  const availableAspects = aspectsData.filter(a => 
+  // Aspects are class-specific - filter by both class and subclass
+  // Prismatic has access to aspects from all Light and Dark subclasses for the selected class
+  const availableAspects = aspectsData.filter(a => {
+    const matchesClass = !a.class || a.class === selectedClass;
+    if (selectedSubclass === 'Prismatic') {
+      return matchesClass && ['Solar', 'Arc', 'Void', 'Stasis', 'Strand'].includes(a.subclass);
+    }
+    return a.subclass === selectedSubclass && matchesClass;
+  });
+
+  // Fragments - Prismatic has special facets plus access to other fragments
+  // For now, show fragments from all subclasses for Prismatic
+  const availableFragments = fragmentsData.filter(f => 
     selectedSubclass === 'Prismatic' 
-      ? (!a.class || a.class === selectedClass)
-      : a.subclass === selectedSubclass && (!a.class || a.class === selectedClass)
+      ? ['Solar', 'Arc', 'Void', 'Stasis', 'Strand', 'Prismatic'].includes(f.subclass)
+      : f.subclass === selectedSubclass
   );
 
-  // Prismatic has access to fragments from all subclasses
-  const availableFragments = fragmentsData.filter(f => 
-    selectedSubclass === 'Prismatic' ? true : f.subclass === selectedSubclass
-  );
+  // Get selected aspect details (needed before calculating slots)
+  const selectedAspectDetails = aspectsData.filter(a => selectedAspects.includes(a.name));
+
+  // Calculate available fragment slots from selected aspects
+  const totalFragmentSlots = selectedAspectDetails.reduce((sum, a) => sum + a.fragmentSlots, 0);
+  const maxFragments = totalFragmentSlots > 0 ? totalFragmentSlots : 6;
 
   const handleAspectToggle = (aspectName: string) => {
     if (selectedAspects.includes(aspectName)) {
-      setSelectedAspects(selectedAspects.filter(a => a !== aspectName));
+      // Remove aspect
+      const newAspects = selectedAspects.filter(a => a !== aspectName);
+      setSelectedAspects(newAspects);
+      
+      // Calculate new fragment slots
+      const newAspectsDetails = aspectsData.filter(a => newAspects.includes(a.name));
+      const newTotalSlots = newAspectsDetails.reduce((sum, a) => sum + a.fragmentSlots, 0);
+      
+      // Remove excess fragments if needed
+      if (selectedFragments.length > newTotalSlots) {
+        const removedCount = selectedFragments.length - newTotalSlots;
+        if (confirm(`Removing this aspect will reduce your fragment slots. ${removedCount} fragment(s) will be removed. Continue?`)) {
+          setSelectedFragments(selectedFragments.slice(0, newTotalSlots));
+        } else {
+          return; // Cancel the aspect removal
+        }
+      }
     } else if (selectedAspects.length < 2) {
       setSelectedAspects([...selectedAspects, aspectName]);
+    } else {
+      alert('You can only equip 2 aspects. Remove one first.');
     }
   };
 
   const handleFragmentToggle = (fragmentName: string) => {
     if (selectedFragments.includes(fragmentName)) {
       setSelectedFragments(selectedFragments.filter(f => f !== fragmentName));
-    } else if (selectedFragments.length < 6) {
+    } else if (selectedFragments.length < maxFragments) {
       setSelectedFragments([...selectedFragments, fragmentName]);
+    } else {
+      alert(`You can only equip ${maxFragments} fragments based on your selected aspects.`);
     }
   };
 
@@ -178,8 +219,8 @@ export default function BuildPlanner() {
     setStats({ ...stats, [stat]: Math.min(200, Math.max(0, value)) });
   };
 
-  const getSubclassColor = (subclass: Subclass) => {
-    const colors = {
+  const getSubclassColor = (subclass: string) => {
+    const colors: Record<string, string> = {
       Solar: 'text-destiny-solar',
       Arc: 'text-destiny-arc',
       Void: 'text-destiny-void',
@@ -187,7 +228,7 @@ export default function BuildPlanner() {
       Strand: 'text-destiny-strand',
       Prismatic: 'text-destiny-prismatic',
     };
-    return colors[subclass];
+    return colors[subclass] || 'text-gray-400';
   };
 
   // Get current subclass details
@@ -197,9 +238,6 @@ export default function BuildPlanner() {
 
   // Get selected super details
   const selectedSuperInfo = supersData.find(s => s.name === selectedSuper);
-
-  // Get selected aspect details
-  const selectedAspectDetails = aspectsData.filter(a => selectedAspects.includes(a.name));
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -432,12 +470,24 @@ export default function BuildPlanner() {
                   }`}
                 >
                   <div className="flex justify-between items-start mb-1">
-                    <div className="font-bold text-white">{aspect.name}</div>
+                    <div>
+                      <div className="font-bold text-white">{aspect.name}</div>
+                      <div className="flex gap-1 mt-1">
+                        <span className={`text-xs px-1.5 py-0.5 rounded ${getSubclassColor(aspect.subclass)} bg-gray-800/80`}>
+                          {aspect.subclass}
+                        </span>
+                        {aspect.class && (
+                          <span className="text-xs px-1.5 py-0.5 rounded bg-gray-700 text-gray-300">
+                            {aspect.class}
+                          </span>
+                        )}
+                      </div>
+                    </div>
                     <span className="text-xs text-gray-400 bg-gray-700 px-2 py-0.5 rounded">
                       {aspect.fragmentSlots} {aspect.fragmentSlots === 1 ? 'slot' : 'slots'}
                     </span>
                   </div>
-                  <div className="text-xs text-gray-400 mt-1">{aspect.description}</div>
+                  <div className="text-xs text-gray-400 mt-2">{aspect.description}</div>
                 </button>
               ))}
             </div>
@@ -456,7 +506,7 @@ export default function BuildPlanner() {
                   ))}
                 </div>
                 <div className="mt-2 text-xs text-gray-500">
-                  Total Fragment Slots Available: {selectedAspectDetails.reduce((sum, a) => sum + a.fragmentSlots, 0)}
+                  Total Fragment Slots Available: {totalFragmentSlots}
                 </div>
               </div>
             )}
@@ -465,21 +515,41 @@ export default function BuildPlanner() {
           {/* Fragments */}
           <div className="card">
             <h2 className="text-xl font-bold text-white mb-2">
-              Fragments <span className="text-sm text-gray-400">({selectedFragments.length}/6)</span>
+              Fragments <span className="text-sm text-gray-400">({selectedFragments.length}/{maxFragments})</span>
             </h2>
+            {totalFragmentSlots === 0 && (
+              <p className="text-xs text-yellow-400 mb-3">
+                ⚠️ Select 2 aspects first to unlock fragment slots
+              </p>
+            )}
+            {totalFragmentSlots > 0 && (
+              <p className="text-xs text-gray-400 mb-3">
+                Available slots: {maxFragments} (from selected aspects)
+              </p>
+            )}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {availableFragments.map(fragment => (
                 <button
                   key={fragment.name}
                   onClick={() => handleFragmentToggle(fragment.name)}
+                  disabled={totalFragmentSlots === 0 && !selectedFragments.includes(fragment.name)}
                   className={`p-3 rounded border-2 text-left transition-colors ${
                     selectedFragments.includes(fragment.name)
                       ? 'border-destiny-primary bg-destiny-primary/10'
+                      : totalFragmentSlots === 0
+                      ? 'border-gray-700 bg-gray-800/30 cursor-not-allowed opacity-50'
                       : 'border-gray-600 hover:border-gray-500'
                   }`}
                 >
-                  <div className="font-bold text-white">{fragment.name}</div>
-                  <div className="text-xs text-gray-400 mt-1">{fragment.effect}</div>
+                  <div>
+                    <div className="flex justify-between items-start mb-1">
+                      <div className="font-bold text-white">{fragment.name}</div>
+                      <span className={`text-xs px-1.5 py-0.5 rounded ${getSubclassColor(fragment.subclass)} bg-gray-800/80`}>
+                        {fragment.subclass}
+                      </span>
+                    </div>
+                    <div className="text-xs text-gray-400 mt-1">{fragment.effect}</div>
+                  </div>
                 </button>
               ))}
             </div>

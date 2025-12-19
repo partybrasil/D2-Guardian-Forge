@@ -2,6 +2,7 @@
   {
     "name": "Celestial Fire",
     "element": "Solar",
+    "class": "Warlock",
     "type": "Projectile",
     "effect": "Seeking fire",
     "range": "25m",
@@ -11,6 +12,7 @@
   {
     "name": "Phoenix Dive",
     "element": "Solar",
+    "class": "Warlock",
     "type": "AoE",
     "effect": "Dive + heal",
     "range": "20m",
@@ -20,6 +22,7 @@
   {
     "name": "Incinerator Snap",
     "element": "Solar",
+    "class": "Warlock",
     "type": "Burst",
     "effect": "Impact explosion",
     "range": "15m",
@@ -29,6 +32,7 @@
   {
     "name": "Chain Lightning",
     "element": "Arc",
+    "class": "Warlock",
     "type": "Chain",
     "effect": "Multi-target",
     "range": "20m",
@@ -38,6 +42,7 @@
   {
     "name": "Ball Lightning",
     "element": "Arc",
+    "class": "Warlock",
     "type": "Projectile",
     "effect": "Fast + ammo",
     "range": "15m",
@@ -47,6 +52,7 @@
   {
     "name": "Arc Web",
     "element": "Arc",
+    "class": "Warlock",
     "type": "Chain",
     "effect": "Enemy connect",
     "range": "18m",
@@ -56,6 +62,7 @@
   {
     "name": "Entropic Pull",
     "element": "Void",
+    "class": "Warlock",
     "type": "Pull",
     "effect": "Tractor + restore",
     "range": "20m",
@@ -65,6 +72,7 @@
   {
     "name": "Pocket Singularity",
     "element": "Void",
+    "class": "Warlock",
     "type": "AoE",
     "effect": "Tentacle burst",
     "range": "16m",
@@ -74,6 +82,7 @@
   {
     "name": "Devour Strike",
     "element": "Void",
+    "class": "Warlock",
     "type": "Sustain",
     "effect": "Heal on hit",
     "range": "12m",
@@ -83,6 +92,7 @@
   {
     "name": "Penumbral Blast",
     "element": "Stasis",
+    "class": "Warlock",
     "type": "Wave",
     "effect": "Freeze missile",
     "range": "18m",
@@ -90,17 +100,99 @@
     "description": "Send out a freezing projectile that slows targets."
   },
   {
-    "name": "Glacial Spike",
-    "element": "Stasis",
+    "name": "Hammer Strike",
+    "element": "Solar",
+    "class": "Titan",
+    "type": "AoE",
+    "effect": "Ignite + weaken",
+    "range": "12m",
+    "cooldown": "9s",
+    "description": "Strike an enemy with a hammer that ignites and weakens them."
+  },
+  {
+    "name": "Throwing Hammer",
+    "element": "Solar",
+    "class": "Titan",
     "type": "Projectile",
-    "effect": "Ice spike",
-    "range": "22m",
+    "effect": "Throwable + retrieve",
+    "range": "25m",
+    "cooldown": "Per throw",
+    "description": "Throw a hammer that can be picked up to recharge melee."
+  },
+  {
+    "name": "Consecration",
+    "element": "Solar",
+    "class": "Titan",
+    "type": "AoE",
+    "effect": "Slam combo",
+    "range": "20m",
+    "cooldown": "12s",
+    "description": "Slide then melee to launch and slam with Solar energy."
+  },
+  {
+    "name": "Seismic Strike",
+    "element": "Arc",
+    "class": "Titan",
+    "type": "AoE",
+    "effect": "Dash strike",
+    "range": "15m",
     "cooldown": "8s",
-    "description": "Launch a Stasis crystal that freezes on impact."
+    "description": "Shoulder charge that deals Arc damage."
+  },
+  {
+    "name": "Ballistic Slam",
+    "element": "Arc",
+    "class": "Titan",
+    "type": "AoE",
+    "effect": "Air slam",
+    "range": "18m",
+    "cooldown": "10s",
+    "description": "Leap into the air and slam down with Arc energy."
+  },
+  {
+    "name": "Thunderclap",
+    "element": "Arc",
+    "class": "Titan",
+    "type": "Burst",
+    "effect": "Charged punch",
+    "range": "20m",
+    "cooldown": "Variable",
+    "description": "Hold melee to charge a powerful Arc punch."
+  },
+  {
+    "name": "Shield Bash",
+    "element": "Void",
+    "class": "Titan",
+    "type": "AoE",
+    "effect": "Dash + overshield",
+    "range": "15m",
+    "cooldown": "9s",
+    "description": "Charge forward with Void energy, granting overshield."
+  },
+  {
+    "name": "Shield Throw",
+    "element": "Void",
+    "class": "Titan",
+    "type": "Projectile",
+    "effect": "Ricochet shield",
+    "range": "25m",
+    "cooldown": "8s",
+    "description": "Throw your Void shield that ricochets between enemies."
+  },
+  {
+    "name": "Offensive Bulwark",
+    "element": "Void",
+    "class": "Titan",
+    "type": "Sustain",
+    "effect": "Overshield boost",
+    "range": "12m",
+    "cooldown": "Variable",
+    "description": "Melee hits with overshield grant ability energy."
   },
   {
     "name": "Shiver Strike",
     "element": "Stasis",
+    "class": "Titan",
     "type": "AoE",
     "effect": "Crystal burst",
     "range": "20m",
@@ -108,30 +200,143 @@
     "description": "Charge forward and shatter enemies with Stasis."
   },
   {
-    "name": "Grapple Melee",
-    "element": "Strand",
-    "type": "Hook",
-    "effect": "Swing mobility",
-    "range": "25m",
-    "cooldown": "Per swing",
-    "description": "Pull yourself to a surface or enemy."
+    "name": "Weighted Knife",
+    "element": "Solar",
+    "class": "Hunter",
+    "type": "Projectile",
+    "effect": "Precision throw",
+    "range": "30m",
+    "cooldown": "Per throw",
+    "description": "Throw a knife that does precision damage and can refund on kill."
   },
   {
-    "name": "Strand Strike",
-    "element": "Strand",
+    "name": "Knife Trick",
+    "element": "Solar",
+    "class": "Hunter",
+    "type": "Multi",
+    "effect": "Fan of knives",
+    "range": "15m",
+    "cooldown": "8s",
+    "description": "Throw a fan of knives that burn enemies."
+  },
+  {
+    "name": "Proximity Knife",
+    "element": "Solar",
+    "class": "Hunter",
     "type": "Projectile",
-    "effect": "Strand shot",
+    "effect": "Explosive knife",
+    "range": "20m",
+    "cooldown": "9s",
+    "description": "Throw an explosive knife that detonates near enemies."
+  },
+  {
+    "name": "Combination Blow",
+    "element": "Arc",
+    "class": "Hunter",
+    "type": "Multi",
+    "effect": "Damage stack",
+    "range": "8m",
+    "cooldown": "7s",
+    "description": "Melee kills increase damage and restore health."
+  },
+  {
+    "name": "Disorienting Blow",
+    "element": "Arc",
+    "class": "Hunter",
+    "type": "AoE",
+    "effect": "Disorient",
+    "range": "10m",
+    "cooldown": "8s",
+    "description": "Strike that disorients enemies."
+  },
+  {
+    "name": "Tempest Strike",
+    "element": "Arc",
+    "class": "Hunter",
+    "type": "Wave",
+    "effect": "Slide wave",
+    "range": "25m",
+    "cooldown": "10s",
+    "description": "Slide then melee to launch an Arc wave."
+  },
+  {
+    "name": "Smoke Bomb",
+    "element": "Void",
+    "class": "Hunter",
+    "type": "AoE",
+    "effect": "Invisibility cloud",
+    "range": "15m",
+    "cooldown": "9s",
+    "description": "Throw a smoke bomb that grants invisibility."
+  },
+  {
+    "name": "Snare Bomb",
+    "element": "Void",
+    "class": "Hunter",
+    "type": "Projectile",
+    "effect": "Trap explosive",
+    "range": "20m",
+    "cooldown": "10s",
+    "description": "Throw a trap that slows and damages enemies."
+  },
+  {
+    "name": "Stylish Executioner",
+    "element": "Void",
+    "class": "Hunter",
+    "type": "Sustain",
+    "effect": "Invis on weaken",
+    "range": "12m",
+    "cooldown": "Variable",
+    "description": "Defeating weakened targets grants invisibility."
+  },
+  {
+    "name": "Withering Blade",
+    "element": "Stasis",
+    "class": "Hunter",
+    "type": "Projectile",
+    "effect": "Ricochet slow",
+    "range": "25m",
+    "cooldown": "8s",
+    "description": "Throw Stasis shurikens that slow and ricochet."
+  },
+  {
+    "name": "Threaded Spike",
+    "element": "Strand",
+    "class": "Hunter",
+    "type": "Projectile",
+    "effect": "Strand spike",
     "range": "20m",
     "cooldown": "8s",
-    "description": "Fire a rope of Strand that suspends targets."
+    "description": "Throw a rope dart that suspends targets."
   },
   {
-    "name": "Severing Slash",
+    "name": "Ensnaring Slam",
     "element": "Strand",
+    "class": "Hunter",
+    "type": "AoE",
+    "effect": "Air suspend",
+    "range": "15m",
+    "cooldown": "10s",
+    "description": "Slam down from the air to suspend nearby enemies."
+  },
+  {
+    "name": "Frenzied Blade",
+    "element": "Strand",
+    "class": "Titan",
     "type": "Multi",
-    "effect": "Multiple shots",
-    "range": "18m",
+    "effect": "Combo strikes",
+    "range": "12m",
     "cooldown": "7s",
-    "description": "Sever enemies with Strand, dealing damage over time."
+    "description": "Perform a series of Strand melee strikes."
+  },
+  {
+    "name": "Arcane Needle",
+    "element": "Strand",
+    "class": "Warlock",
+    "type": "Projectile",
+    "effect": "Strand bolt",
+    "range": "20m",
+    "cooldown": "8s",
+    "description": "Fire a bolt of Strand energy that unravels targets."
   }
 ]
