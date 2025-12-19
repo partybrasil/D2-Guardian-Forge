@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import type { Build, GuardianClass, Subclass, Stats, SubclassDefinition } from '../types';
 import localforage from 'localforage';
@@ -240,8 +240,8 @@ export default function BuildPlanner() {
   // Get selected super details
   const selectedSuperInfo = supersData.find(s => s.name === selectedSuper);
 
-  // Calculate fragment stat modifiers
-  const calculateFragmentStatModifiers = () => {
+  // Calculate fragment stat modifiers with memoization
+  const fragmentStatModifiers = useMemo(() => {
     const selectedFragmentDetails = fragmentsData.filter(f => selectedFragments.includes(f.name));
     const totalModifiers: Stats = {
       weapons: 0,
@@ -261,9 +261,14 @@ export default function BuildPlanner() {
     });
 
     return totalModifiers;
-  };
+  }, [selectedFragments]);
 
-  const fragmentStatModifiers = calculateFragmentStatModifiers();
+  // Calculate total gains and losses
+  const { totalGains, totalLosses } = useMemo(() => {
+    const gains = Object.values(fragmentStatModifiers).filter(v => v > 0).reduce((sum, v) => sum + v, 0);
+    const losses = Object.values(fragmentStatModifiers).filter(v => v < 0).reduce((sum, v) => sum + v, 0);
+    return { totalGains: gains, totalLosses: losses };
+  }, [fragmentStatModifiers]);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -749,13 +754,13 @@ export default function BuildPlanner() {
                     <div className="flex justify-between items-center text-xs">
                       <span className="text-gray-400">Total Gains:</span>
                       <span className="text-green-400 font-bold">
-                        +{Object.values(fragmentStatModifiers).filter(v => v > 0).reduce((sum, v) => sum + v, 0)}
+                        +{totalGains}
                       </span>
                     </div>
                     <div className="flex justify-between items-center text-xs">
                       <span className="text-gray-400">Total Losses:</span>
                       <span className="text-red-400 font-bold">
-                        {Object.values(fragmentStatModifiers).filter(v => v < 0).reduce((sum, v) => sum + v, 0)}
+                        {totalLosses}
                       </span>
                     </div>
                   </div>
