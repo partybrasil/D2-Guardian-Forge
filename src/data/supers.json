@@ -95,8 +95,8 @@
     "subclass": "Prismatic",
     "type": "Burst",
     "duration": "Instant",
-    "description": "Combines Light and Darkness abilities with Transcendence for increased damage and ability regen.",
-    "keyBenefit": "Transcendence state"
+    "description": "Dive toward the ground to create a burst of energy that heals you and nearby allies while damaging nearby enemies.",
+    "keyBenefit": "Instant dive heal + impact damage"
   },
   {
     "name": "Fist of Havoc",
