@@ -13,7 +13,7 @@ The aspects.json file contained many aspects with 1 fragment slot, which is inco
 - [TheGamer - Solar/Void/Stasis Guides](https://www.thegamer.com/)
 - Community forums and verified build planners (Mobalytics, D2Checklist)
 
-### Corrected Aspects (29 total corrections)
+### Corrected Aspects (fragment slot and data corrections)
 
 #### Warlock Aspects
 | Aspect Name | Element | Old Slots | New Slots | Verified Source |
