@@ -185,8 +185,8 @@
     "subclass": "Prismatic",
     "type": "Hybrid",
     "duration": "Variable",
-    "description": "Combines Light and Darkness abilities with Transcendence for increased damage and ability regen.",
-    "keyBenefit": "Transcendence state"
+    "description": "Activate your class ability to send forth a Strand shockwave that suspends targets in its path.",
+    "keyBenefit": "Class ability Strand shockwave that suspends targets"
   },
   {
     "name": "Golden Gun",
