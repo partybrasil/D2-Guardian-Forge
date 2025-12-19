@@ -36,6 +36,9 @@ export default function BuildPlanner() {
     super: 100,
   });
 
+  const [gameplayLoop, setGameplayLoop] = useState('');
+  const [buildDetails, setBuildDetails] = useState('');
+
   const [saving, setSaving] = useState(false);
   const [createdTimestamp, setCreatedTimestamp] = useState<string | null>(null);
 
@@ -59,6 +62,8 @@ export default function BuildPlanner() {
         setSelectedAspects(build.aspects);
         setSelectedFragments(build.fragments);
         setStats(build.stats);
+        setGameplayLoop(build.gameplayLoop || '');
+        setBuildDetails(build.buildDetails || '');
         setCreatedTimestamp(build.timestamps?.created || null);
       }
     } catch (error) {
@@ -98,6 +103,8 @@ export default function BuildPlanner() {
         },
         stats,
         mods: [],
+        gameplayLoop,
+        buildDetails,
         version: '1.0.0-EdgeOfFate',
         timestamps: {
           created: createdTimestamp || new Date().toISOString(),
@@ -397,6 +404,35 @@ export default function BuildPlanner() {
                 <span className="text-white font-bold">
                   {Object.values(stats).reduce((sum, val) => sum + val, 0)}
                 </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Gameplay Loop & Build Details */}
+          <div className="card">
+            <h2 className="text-xl font-bold text-white mb-4">Build Notes</h2>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  Gameplay Loop
+                </label>
+                <textarea
+                  value={gameplayLoop}
+                  onChange={(e) => setGameplayLoop(e.target.value)}
+                  className="input-field min-h-[100px] resize-y"
+                  placeholder="Describe your gameplay loop and rotation..."
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-300 mb-2">
+                  Build Details / Notes
+                </label>
+                <textarea
+                  value={buildDetails}
+                  onChange={(e) => setBuildDetails(e.target.value)}
+                  className="input-field min-h-[120px] resize-y"
+                  placeholder="Add build details, synergies, tips, or any other notes..."
+                />
               </div>
             </div>
           </div>
