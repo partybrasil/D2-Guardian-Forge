@@ -19,7 +19,7 @@ function App() {
         const link = document.createElement('link');
         link.rel = 'preload';
         link.as = 'image';
-        link.href = `/D2-Guardian-Forge/icons/${hash}.png`;
+        link.href = `${import.meta.env.BASE_URL}icons/${hash}.png`;
         document.head.appendChild(link);
       });
     };
