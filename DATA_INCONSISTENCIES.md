@@ -63,10 +63,11 @@ The aspects.json file contained many aspects with 1 fragment slot, which is inco
 5. **Spark of Beacons** - This is an Arc **fragment**, not an aspect
 6. **Ember of Tempering** - This is a Solar **fragment**, not an aspect
 7. **Echo of Obscurity** - This is a Void **fragment**, not an aspect
+8. **Ensnaring Slam (Warlock)** - This was a duplicate **aspect entry**; the extra copy was removed from aspects.json
 
 ### Summary
 - **Total aspects corrected**: 26 aspects had fragment slot counts changed from 1 to either 2 or 3
-- **Total items removed**: 7 non-aspect items removed from aspects.json
+- **Total items removed**: 8 non-aspect/duplicate items removed from aspects.json
 - **Fragment slot range**: All aspects now correctly have 2 or 3 slots (never 1)
 - **Total fragment slots possible**: 4-6 slots (when equipping 2 aspects)
 
