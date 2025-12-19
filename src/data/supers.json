@@ -284,7 +284,7 @@
     "subclass": "Prismatic",
     "type": "Hybrid",
     "duration": "Variable",
-    "description": "Combines Light and Darkness abilities with Transcendence for increased damage and ability regen.",
-    "keyBenefit": "Transcendence state"
+    "description": "Summons a Prismatic bow whose hip-fired shots mark and weaken targets, while fully drawn arrows detonate marked foes in chained Light-and-Darkness explosions that amplify your Transcendence.",
+    "keyBenefit": "Transcendent bow that marks and detonates targets"
   }
 ]
