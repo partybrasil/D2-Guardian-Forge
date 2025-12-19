@@ -27,8 +27,8 @@ instructions: |
   **Grenades**: Shared across all classes, filtered by element (15 total: 3 Solar, 3 Arc, 3 Void, 3 Stasis, 3 Strand)
   **Melees**: Class-specific, filtered by class AND element (32 total: 11 Warlock, 10 Titan, 11 Hunter)
   **Class Abilities**: 1 per class (Rift for Warlock, Barricade for Titan, Dodge for Hunter)
-  **Aspects**: Class-specific, 2 selectable max, each with 1-3 fragment slots
-  **Fragments**: Element-specific, dynamically limited by aspect slots (2-6 total based on selected aspects)
+  **Aspects**: Class-specific, 2 selectable max, each with 2-3 fragment slots
+  **Fragments**: Element-specific, dynamically limited by aspect slots (4-6 total based on selected aspects)
   
   ## Prismatic Subclass Rules
   **Filtering**: Prismatic allows mixing Light + Dark abilities BUT only from the selected class
@@ -39,8 +39,8 @@ instructions: |
   - Fragments: All fragments from all elements (Solar/Arc/Void/Stasis/Strand/Prismatic)
   
   **Fragment Slots System**:
-  - Each aspect provides 1-3 fragment slots
-  - Total available slots = sum of 2 selected aspects (2-6 slots)
+  - Each aspect provides 2-3 fragment slots (never 1)
+  - Total available slots = sum of 2 selected aspects (4-6 slots)
   - Fragment counter shows "X/Y" where Y is dynamic based on selected aspects
   - Changing aspects recalculates available slots and may remove excess fragments
   - Fragments disabled until 2 aspects are selected
