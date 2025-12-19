@@ -13,7 +13,7 @@ The aspects.json file contained many aspects with 1 fragment slot, which is inco
 - [TheGamer - Solar/Void/Stasis Guides](https://www.thegamer.com/)
 - Community forums and verified build planners (Mobalytics, D2Checklist)
 
-### Corrected Aspects (fragment slot and data corrections)
+### Corrected Aspects (fragment slot changes only)
 
 #### Warlock Aspects
 | Aspect Name | Element | Old Slots | New Slots | Verified Source |
@@ -22,10 +22,15 @@ The aspects.json file contained many aspects with 1 fragment slot, which is inco
 | Arc Soul | Arc | 1 | 2 | light.gg, Destinypedia |
 | Lightning Surge | Arc | 1 | 2 | TheGamer Arc Guide |
 | Child of the Old Gods | Void | 1 | 2 | light.gg, Polygon |
-| Pocket Singularity | Void | 1 | REMOVED | **Not an aspect - this is a melee ability** |
 | Glacial Harvest | Stasis | 1 | 2 | TheGamer Stasis Guide |
 | Frostpulse | Stasis | 1 | 2 | TheGamer Stasis Guide |
 | Weaver's Call | Strand | 1 | 2 | Community guides |
+| Heat Rises | Solar | 2 | 3 | light.gg, Solar guides |
+| Electrostatic Mind | Arc | 2 | 3 | Arc 3.0 guides |
+| Feed the Void | Void | 2 | 3 | Void 3.0 guides |
+| Bleak Watcher | Stasis | 2 | 3 | Stasis guides |
+| Iceflare Bolts | Stasis | 2 | 3 | Stasis guides |
+| Mindspun Invocation | Strand | 2 | 3 | Strand guides |
 
 #### Titan Aspects
 | Aspect Name | Element | Old Slots | New Slots | Verified Source |
@@ -33,13 +38,17 @@ The aspects.json file contained many aspects with 1 fragment slot, which is inco
 | Knockout | Arc | 1 | 2 | light.gg |
 | Juggernaut | Arc | 1 | 2 | light.gg |
 | Offensive Bulwark | Void | 1 | 3 | Void 3.0 guides |
-| Sentinel Shield | Void | 1 | REMOVED | **Not a standalone aspect** |
 | Roaring Flames | Solar | 1 | 2 | Solar 3.0 guides |
-| Hammer Strike | Solar | 1 | REMOVED | **This is a melee ability, not an aspect** |
 | Tectonic Harvest | Stasis | 1 | 2 | Stasis guides |
 | Cryoclasm | Stasis | 1 | 2 | Stasis guides |
 | Into the Fray | Strand | 1 | 2 | Strand guides |
 | Drengr's Lash | Strand | 1 | 3 | Strand guides |
+| Touch of Thunder | Arc | 2 | 3 | Arc 3.0 guides |
+| Controlled Demolition | Void | 2 | 3 | Void 3.0 guides |
+| Sol Invictus | Solar | 2 | 3 | Solar 3.0 guides |
+| Howl of the Storm | Stasis | 2 | 3 | Stasis guides |
+| Diamond Lance | Stasis | 2 | 3 | Stasis guides |
+| Banner of War | Strand | 2 | 3 | Strand guides |
 
 #### Hunter Aspects
 | Aspect Name | Element | Old Slots | New Slots | Verified Source |
@@ -47,13 +56,16 @@ The aspects.json file contained many aspects with 1 fragment slot, which is inco
 | Knock 'Em Down | Solar | 1 | 2 | Solar 3.0 guides |
 | On Your Mark | Solar | 1 | 3 | Solar 3.0 guides |
 | Tempest Strike | Arc | 1 | 3 | Arc 3.0 guides |
-| Arc Assassin | Arc | 1 | REMOVED | **This is not an aspect** |
 | Trapper's Ambush | Void | 1 | 2 | Void 3.0 guides |
 | Vanishing Step | Void | 1 | 2 | Void 3.0 guides |
 | Grim Harvest | Stasis | 1 | 2 | Stasis guides |
 | Touch of Winter | Stasis | 1 | 3 | Stasis guides |
 | Threaded Specter | Strand | 1 | 2 | Strand guides |
 | Whirling Maelstrom | Strand | 1 | 3 | Strand guides |
+| Gunpowder Gamble | Solar | 2 | 3 | Solar 3.0 guides |
+| Lethal Current | Arc | 2 | 3 | Arc 3.0 guides |
+| Stylish Executioner | Void | 2 | 3 | Void 3.0 guides |
+| Winter's Shroud | Stasis | 2 | 3 | Stasis guides |
 
 ### Items Removed (Not Actually Aspects)
 1. **Pocket Singularity** - This is a Void Warlock **melee ability**, not an aspect
@@ -66,7 +78,9 @@ The aspects.json file contained many aspects with 1 fragment slot, which is inco
 8. **Ensnaring Slam (Warlock)** - This was a duplicate **aspect entry**; the extra copy was removed from aspects.json
 
 ### Summary
-- **Total aspects corrected**: 26 aspects had fragment slot counts changed from 1 to either 2 or 3
+- **Total aspects corrected**: 41 aspects had fragment slot counts changed
+  - 25 aspects changed from 1 slot to either 2 or 3 slots
+  - 16 aspects changed from 2 slots to 3 slots
 - **Total items removed**: 8 non-aspect/duplicate items removed from aspects.json
 - **Fragment slot range**: All aspects now correctly have 2 or 3 slots (never 1)
 - **Total fragment slots possible**: 4-6 slots (when equipping 2 aspects)
