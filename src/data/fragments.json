@@ -231,7 +231,7 @@
     "name": "Weavewalk Persistence",
     "subclass": "Strand",
     "effect": "Grapple: +3s invulnerability",
-    "description": "Grapple teleport grants +3s invulnerability. Reactivatable."
+    "description": "Grapple teleport grants +3s invulnerability. Can be reactivated."
   },
   {
     "name": "Strand Resilience",
