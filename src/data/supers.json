@@ -9,13 +9,31 @@
     "keyBenefit": "+25% ally damage + regen"
   },
   {
-    "name": "Phoenix Dive",
+    "name": "Daybreak",
     "class": "Warlock",
-    "subclass": "Prismatic",
-    "type": "Burst",
-    "duration": "Instant",
-    "description": "Fast dive with explosion that heals and damages enemies.",
-    "keyBenefit": "Fast dive + heal + AoE"
+    "subclass": "Solar",
+    "type": "DPS",
+    "duration": "20s",
+    "description": "Summons a flaming sword that damages combatants caught in the projectile's path.",
+    "keyBenefit": "Aerial sword projectiles"
+  },
+  {
+    "name": "Song of Flame",
+    "class": "Warlock",
+    "subclass": "Solar",
+    "type": "Support",
+    "duration": "25s",
+    "description": "Utilize the Sunsinger's supercharging Solar powers to buff allies.",
+    "keyBenefit": "Ally ability regen boost"
+  },
+  {
+    "name": "Radiance",
+    "class": "Warlock",
+    "subclass": "Solar",
+    "type": "Support",
+    "duration": "15s",
+    "description": "Manipulates Solar energy to support allies and bring the wielder back from death.",
+    "keyBenefit": "Self-resurrection + ability spam"
   },
   {
     "name": "Chaos Reach",
@@ -23,17 +41,17 @@
     "subclass": "Arc",
     "type": "DPS",
     "duration": "8s",
-    "description": "Sustained beam of Arc energy that deals massive damage.",
+    "description": "Conjures a concentrated beam of Arc energy that deals sustained damage.",
     "keyBenefit": "Sustained high damage"
   },
   {
-    "name": "Arc Soul",
+    "name": "Stormtrance",
     "class": "Warlock",
     "subclass": "Arc",
-    "type": "Support",
-    "duration": "Per grenade",
-    "description": "Summons an Arc Soul that fires at enemies automatically.",
-    "keyBenefit": "Familiar damage + regen"
+    "type": "Hybrid",
+    "duration": "16s",
+    "description": "Channels and chains lightning to damage multiple enemies.",
+    "keyBenefit": "Roaming Arc chain damage"
   },
   {
     "name": "Nova Bomb",
@@ -41,17 +59,17 @@
     "subclass": "Void",
     "type": "Burst",
     "duration": "Instant",
-    "description": "Hurls a massive sphere of Void energy that explodes on impact.",
+    "description": "Hurls a giant ball of Void energy that explodes on impact with devastating damage.",
     "keyBenefit": "Massive explosion"
   },
   {
-    "name": "Void Sentinel",
+    "name": "Nova Warp",
     "class": "Warlock",
     "subclass": "Void",
-    "type": "Defense",
-    "duration": "Per activation",
-    "description": "Creates a shield that blocks incoming damage.",
-    "keyBenefit": "Shield blocking"
+    "type": "Hybrid",
+    "duration": "14s",
+    "description": "Teleports around the battlefield and damages nearby combatants with Void explosions.",
+    "keyBenefit": "Teleport + burst AoE"
   },
   {
     "name": "Winter's Wrath",
@@ -59,17 +77,8 @@
     "subclass": "Stasis",
     "type": "CC",
     "duration": "10s",
-    "description": "Summons a staff that freezes enemies in large areas.",
-    "keyBenefit": "Area freeze"
-  },
-  {
-    "name": "Shatter Blast",
-    "class": "Warlock",
-    "subclass": "Stasis",
-    "type": "Burst",
-    "duration": "Instant",
-    "description": "Physical knockback that shatters frozen enemies.",
-    "keyBenefit": "Physical knockback"
+    "description": "Summons a Stasis staff to instantly freeze enemies and detonate them to shatter on command.",
+    "keyBenefit": "Area freeze + shatter"
   },
   {
     "name": "Needlestorm",
@@ -77,44 +86,80 @@
     "subclass": "Strand",
     "type": "CC",
     "duration": "12s",
-    "description": "Rain of Strand projectiles that suspend enemies.",
-    "keyBenefit": "Rain of projectiles"
+    "description": "Spawns missiles of Strand energy that explode and unleash Threadlings to fight on the battlefield.",
+    "keyBenefit": "Threadling spawn rain"
   },
   {
-    "name": "Grapple",
+    "name": "Phoenix Dive",
     "class": "Warlock",
-    "subclass": "Strand",
+    "subclass": "Prismatic",
+    "type": "Burst",
+    "duration": "Instant",
+    "description": "Combines Light and Darkness abilities with Transcendence for increased damage and ability regen.",
+    "keyBenefit": "Transcendence state"
+  },
+  {
+    "name": "Fist of Havoc",
+    "class": "Titan",
+    "subclass": "Arc",
     "type": "Hybrid",
-    "duration": "Per use",
-    "description": "Deploy a grappling hook for mobility.",
-    "keyBenefit": "Hook deployment"
+    "duration": "20s",
+    "description": "Charges Arc energy into your body to slam into the ground and damage nearby combatants.",
+    "keyBenefit": "Roaming ground slams"
+  },
+  {
+    "name": "Thundercrash",
+    "class": "Titan",
+    "subclass": "Arc",
+    "type": "Burst",
+    "duration": "Instant",
+    "description": "Become a missile to deal massive Arc damage on impact.",
+    "keyBenefit": "Massive single-target damage"
+  },
+  {
+    "name": "Ward of Dawn",
+    "class": "Titan",
+    "subclass": "Void",
+    "type": "Support",
+    "duration": "30s",
+    "description": "Creates a protective bubble of Void energy that buffs and protects allies inside from enemy damage.",
+    "keyBenefit": "Damage immunity + weapon buff"
   },
   {
     "name": "Sentinel Shield",
     "class": "Titan",
-    "subclass": "Solar",
+    "subclass": "Void",
     "type": "Hybrid",
     "duration": "25s",
-    "description": "Summons a shield for defense and offense.",
-    "keyBenefit": "Defense + DPS"
+    "description": "Summons a glowing Void shield that can be thrown, used as melee, and buffs nearby allies.",
+    "keyBenefit": "Versatile shield combat"
   },
   {
-    "name": "Sentinel Strike",
-    "class": "Titan",
-    "subclass": "Arc",
-    "type": "Burst",
-    "duration": "12s",
-    "description": "Lightning-infused strikes that chain to nearby enemies.",
-    "keyBenefit": "Lightning chain"
-  },
-  {
-    "name": "Sentinel Void",
+    "name": "Twilight Arsenal",
     "class": "Titan",
     "subclass": "Void",
-    "type": "Trap",
+    "type": "Support",
     "duration": "20s",
-    "description": "Creates Void traps that absorb and return damage.",
-    "keyBenefit": "Damage absorption + traps"
+    "description": "Summons a trio of Void axes that pull in nearby combatants and can be used by allies.",
+    "keyBenefit": "Shared weapon summon"
+  },
+  {
+    "name": "Hammer of Sol",
+    "class": "Titan",
+    "subclass": "Solar",
+    "type": "DPS",
+    "duration": "22s",
+    "description": "Summons a Solar hammer that controls large groups of combatants by throwing flames.",
+    "keyBenefit": "Ranged hammer throws"
+  },
+  {
+    "name": "Burning Maul",
+    "class": "Titan",
+    "subclass": "Solar",
+    "type": "Hybrid",
+    "duration": "18s",
+    "description": "Summons a flaming Solar cudgel to damage nearby combatants with massive melee strikes.",
+    "keyBenefit": "Heavy melee AoE"
   },
   {
     "name": "Glacial Quake",
@@ -122,17 +167,26 @@
     "subclass": "Stasis",
     "type": "CC",
     "duration": "15s",
-    "description": "Ground-pound attacks that freeze enemies.",
-    "keyBenefit": "Jumping freeze"
+    "description": "Summons a glove capable of spawning Stasis crystals that can be shattered to damage enemies.",
+    "keyBenefit": "Crystal creation + shatter"
   },
   {
-    "name": "Strand Grenade",
+    "name": "Bladefury",
     "class": "Titan",
     "subclass": "Strand",
-    "type": "Minion",
+    "type": "Hybrid",
+    "duration": "16s",
+    "description": "Summons a pair of Strand claws to sever and suspend combatants.",
+    "keyBenefit": "Sever + suspend combo"
+  },
+  {
+    "name": "Drengr's Lash",
+    "class": "Titan",
+    "subclass": "Prismatic",
+    "type": "Hybrid",
     "duration": "Variable",
-    "description": "Throws grenades that spawn Threadlings.",
-    "keyBenefit": "Threadling generation"
+    "description": "Combines Light and Darkness abilities with Transcendence for increased damage and ability regen.",
+    "keyBenefit": "Transcendence state"
   },
   {
     "name": "Golden Gun",
@@ -140,17 +194,53 @@
     "subclass": "Solar",
     "type": "Sniper",
     "duration": "12s",
-    "description": "A flaming hand cannon with 6 precision shots.",
-    "keyBenefit": "6 precision shots"
+    "description": "Summons a flaming Solar hand cannon that deals massive damage to single targets.",
+    "keyBenefit": "High-damage precision shots"
   },
   {
-    "name": "Arcstaff",
+    "name": "Blade Barrage",
+    "class": "Hunter",
+    "subclass": "Solar",
+    "type": "Burst",
+    "duration": "Instant",
+    "description": "Conjures a cluster of explosive Solar knives to devastate enemies.",
+    "keyBenefit": "Explosive knife barrage"
+  },
+  {
+    "name": "Arc Blade",
+    "class": "Hunter",
+    "subclass": "Arc",
+    "type": "Melee",
+    "duration": "18s",
+    "description": "Summons a pair of Arc knives that damage nearby combatants up close.",
+    "keyBenefit": "Fast melee strikes"
+  },
+  {
+    "name": "Arc Staff",
     "class": "Hunter",
     "subclass": "Arc",
     "type": "Melee",
     "duration": "20s",
-    "description": "Summons an Arc staff for rapid melee attacks.",
-    "keyBenefit": "Rapid melee + chain"
+    "description": "Summons a Bō staff that can electrocute enemies and deflect projectiles.",
+    "keyBenefit": "Melee + projectile deflect"
+  },
+  {
+    "name": "Gathering Storm",
+    "class": "Hunter",
+    "subclass": "Arc",
+    "type": "Trap",
+    "duration": "25s",
+    "description": "Throws staff like a spear to damage combatants entering the impacted area and jolts them.",
+    "keyBenefit": "Area control + jolt"
+  },
+  {
+    "name": "Storm's Edge",
+    "class": "Hunter",
+    "subclass": "Arc",
+    "type": "Melee",
+    "duration": "15s",
+    "description": "Throws an electrified Arc knife to Blink and ambush nearby combatants at its location.",
+    "keyBenefit": "Blink teleport strikes"
   },
   {
     "name": "Shadowshot",
@@ -158,25 +248,43 @@
     "subclass": "Void",
     "type": "Debuff",
     "duration": "30s",
-    "description": "Tether enemies, making them take more damage.",
-    "keyBenefit": "-30% enemy damage"
+    "description": "Spreads Void anchors to make combatants slowed and suppressed.",
+    "keyBenefit": "Tether + suppress"
   },
   {
-    "name": "Stasis Revolver",
+    "name": "Spectral Blades",
+    "class": "Hunter",
+    "subclass": "Void",
+    "type": "Hybrid",
+    "duration": "18s",
+    "description": "Summons Void blades that damage combatants and turn the wielder invisible.",
+    "keyBenefit": "Stealth + melee damage"
+  },
+  {
+    "name": "Silence and Squall",
     "class": "Hunter",
     "subclass": "Stasis",
-    "type": "Sniper",
-    "duration": "12s",
-    "description": "Fast precision weapon that freezes on hit.",
-    "keyBenefit": "Fast precision freeze"
+    "type": "CC",
+    "duration": "20s",
+    "description": "Summons and throws a pair of Stasis kamas to slow, freeze, and shatter nearby combatants.",
+    "keyBenefit": "Dual kama tornado"
   },
   {
-    "name": "Threadling Net",
+    "name": "Silkstrike",
     "class": "Hunter",
     "subclass": "Strand",
-    "type": "Minion",
-    "duration": "20s",
-    "description": "Spawns multiple Threadlings to attack enemies.",
-    "keyBenefit": "Multiple pet spawn"
+    "type": "Hybrid",
+    "duration": "18s",
+    "description": "Summons a Strand rope dart to whip combatants with jab and spin attacks and swing with infinite grapples.",
+    "keyBenefit": "Rope dart + grapple"
+  },
+  {
+    "name": "Spirit of the Lyre",
+    "class": "Hunter",
+    "subclass": "Prismatic",
+    "type": "Hybrid",
+    "duration": "Variable",
+    "description": "Combines Light and Darkness abilities with Transcendence for increased damage and ability regen.",
+    "keyBenefit": "Transcendence state"
   }
 ]
