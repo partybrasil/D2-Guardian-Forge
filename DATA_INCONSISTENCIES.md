@@ -26,7 +26,6 @@ The aspects.json file contained many aspects with 1 fragment slot, which is inco
 | Glacial Harvest | Stasis | 1 | 2 | TheGamer Stasis Guide |
 | Frostpulse | Stasis | 1 | 2 | TheGamer Stasis Guide |
 | Weaver's Call | Strand | 1 | 2 | Community guides |
-| Ensnaring Slam | Strand | 1 | 2 | Community guides |
 
 #### Titan Aspects
 | Aspect Name | Element | Old Slots | New Slots | Verified Source |
@@ -55,21 +54,19 @@ The aspects.json file contained many aspects with 1 fragment slot, which is inco
 | Touch of Winter | Stasis | 1 | 3 | Stasis guides |
 | Threaded Specter | Strand | 1 | 2 | Strand guides |
 | Whirling Maelstrom | Strand | 1 | 3 | Strand guides |
-| Ensnaring Slam (Hunter) | Strand | 1 | 2 | Strand guides |
 
 ### Items Removed (Not Actually Aspects)
 1. **Pocket Singularity** - This is a Void Warlock **melee ability**, not an aspect
 2. **Sentinel Shield** - This is a **Super ability** for Titan, not an aspect
 3. **Hammer Strike** - This is a Solar Titan **melee ability**, not an aspect
 4. **Arc Assassin** - This is not a valid aspect in the game
-
-### Aspects with Incorrect Slot Counts (Verified Corrections)
-1. **Chaos Accelerant** (Warlock Void) - Changed from 2 to 1 (per older sources showing 1 slot)
-   - **Update**: Recent sources show this should be **2 slots** - keeping at 2
+5. **Spark of Beacons** - This is an Arc **fragment**, not an aspect
+6. **Ember of Tempering** - This is a Solar **fragment**, not an aspect
+7. **Echo of Obscurity** - This is a Void **fragment**, not an aspect
 
 ### Summary
-- **Total aspects corrected**: 29 aspects had fragment slot counts changed
-- **Total aspects removed**: 4 non-aspect abilities removed from aspects.json
+- **Total aspects corrected**: 26 aspects had fragment slot counts changed from 1 to either 2 or 3
+- **Total items removed**: 7 non-aspect items removed from aspects.json
 - **Fragment slot range**: All aspects now correctly have 2 or 3 slots (never 1)
 - **Total fragment slots possible**: 4-6 slots (when equipping 2 aspects)
 
