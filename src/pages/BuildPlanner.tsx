@@ -29,12 +29,12 @@ export default function BuildPlanner() {
   const [selectedFragments, setSelectedFragments] = useState<string[]>([]);
   
   const [stats, setStats] = useState<Stats>({
-    weapons: 100,
-    health: 100,
-    class: 100,
-    melee: 100,
-    grenade: 100,
-    super: 100,
+    weapons: 0,
+    health: 0,
+    class: 0,
+    melee: 0,
+    grenade: 0,
+    super: 0,
   });
 
   const [gameplayLoop, setGameplayLoop] = useState('');
@@ -269,6 +269,30 @@ export default function BuildPlanner() {
     const losses = Object.values(fragmentStatModifiers).filter(v => v < 0).reduce((sum, v) => sum + v, 0);
     return { totalGains: gains, totalLosses: losses };
   }, [fragmentStatModifiers]);
+
+  // Calculate final stats (base + fragment modifiers)
+  const finalStats = useMemo(() => {
+    const result: Stats = {
+      weapons: stats.weapons + fragmentStatModifiers.weapons,
+      health: stats.health + fragmentStatModifiers.health,
+      class: stats.class + fragmentStatModifiers.class,
+      melee: stats.melee + fragmentStatModifiers.melee,
+      grenade: stats.grenade + fragmentStatModifiers.grenade,
+      super: stats.super + fragmentStatModifiers.super,
+    };
+    return result;
+  }, [stats, fragmentStatModifiers]);
+
+  // Get fragments that affect each stat
+  const getFragmentsAffectingStat = (statName: keyof Stats) => {
+    const selectedFragmentDetails = fragmentsData.filter(f => selectedFragments.includes(f.name));
+    return selectedFragmentDetails.filter(f => 
+      f.statModifiers && f.statModifiers[statName] !== undefined
+    ).map(f => ({
+      name: f.name,
+      modifier: f.statModifiers![statName]!
+    }));
+  };
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -769,13 +793,52 @@ export default function BuildPlanner() {
 
               <div className="pt-3 border-t border-gray-700">
                 <div className="text-gray-400 mb-2">Stats Distribution</div>
-                <div className="space-y-1">
-                  {Object.entries(stats).map(([stat, value]) => (
-                    <div key={stat} className="flex justify-between">
-                      <span className="text-gray-300 capitalize text-xs">{stat}</span>
-                      <span className="text-white font-mono">{value}</span>
-                    </div>
-                  ))}
+                <div className="space-y-2">
+                  {Object.entries(stats).map(([stat]) => {
+                    const statName = stat as keyof Stats;
+                    const modifierValue = fragmentStatModifiers[statName];
+                    const finalValue = finalStats[statName];
+                    const affectingFragments = getFragmentsAffectingStat(statName);
+                    
+                    return (
+                      <div key={stat} className="text-xs">
+                        <div className="flex justify-between items-start">
+                          <span className="text-gray-300 capitalize font-medium">{stat}:</span>
+                          <div className="text-right">
+                            <span className={`font-mono font-bold ${
+                              modifierValue !== 0 
+                                ? (modifierValue > 0 ? 'text-green-400' : 'text-red-400')
+                                : 'text-white'
+                            }`}>
+                              {finalValue}
+                            </span>
+                            {modifierValue !== 0 && (
+                              <span className="text-gray-500 ml-1">
+                                ({modifierValue > 0 ? '+' : ''}{modifierValue})
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                        {affectingFragments.length > 0 && (
+                          <div className="ml-2 mt-1 space-y-0.5">
+                            {affectingFragments.map(frag => (
+                              <div key={frag.name} className="text-gray-500 italic">
+                                • {frag.modifier > 0 ? '+' : ''}{frag.modifier} • {frag.name} [Cause: FRAGMENT]
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+                <div className="mt-3 pt-2 border-t border-gray-700/50">
+                  <div className="flex justify-between text-xs">
+                    <span className="text-gray-400">Total Stats (Final):</span>
+                    <span className="text-white font-bold">
+                      {Object.values(finalStats).reduce((sum, val) => sum + val, 0)}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
