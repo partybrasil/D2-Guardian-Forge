@@ -180,16 +180,6 @@
     "description": "Throw your Void shield that ricochets between enemies."
   },
   {
-    "name": "Offensive Bulwark",
-    "element": "Void",
-    "class": "Titan",
-    "type": "Sustain",
-    "effect": "Overshield boost",
-    "range": "12m",
-    "cooldown": "Variable",
-    "description": "Melee hits with overshield grant ability energy."
-  },
-  {
     "name": "Shiver Strike",
     "element": "Stasis",
     "class": "Titan",
