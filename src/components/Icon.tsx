@@ -44,13 +44,13 @@ export default function Icon({
   const handleError = (e: React.SyntheticEvent<HTMLImageElement>) => {
     if (!hasError) {
       setHasError(true);
-      e.currentTarget.src = fallback || '/D2-Guardian-Forge/icons/default.png';
+      e.currentTarget.src = fallback || `${import.meta.env.BASE_URL}icons/default.png`;
       onError?.();
     }
   };
   
-  // Construct the icon path (respects the basename for GitHub Pages)
-  const iconPath = `/D2-Guardian-Forge/icons/${hash}.png`;
+  // Construct the icon path (respects the basename for GitHub Pages and dev mode)
+  const iconPath = `${import.meta.env.BASE_URL}icons/${hash}.png`;
   
   return (
     <img
