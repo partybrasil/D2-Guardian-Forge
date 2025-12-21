@@ -7,6 +7,9 @@ import { downloadBuildsBackup, restoreBuildsFromBackup } from '../utils/backupMa
 import Icon from '../components/Icon';
 import { getIconHash } from '../utils/iconUtils';
 
+// Constants
+const FRAGMENT_PREVIEW_LIMIT = 6;
+
 export default function Dashboard() {
   const [builds, setBuilds] = useState<Build[]>([]);
   const [filterClass, setFilterClass] = useState<GuardianClass | ''>('');
@@ -210,18 +213,6 @@ export default function Dashboard() {
                 All Subclasses
               </button>
               {(['Solar', 'Arc', 'Void', 'Stasis', 'Strand', 'Prismatic'] as Subclass[]).map((subclass) => {
-                const getSubclassColorClass = (sub: Subclass) => {
-                  const colors: Record<Subclass, string> = {
-                    Solar: 'text-destiny-solar',
-                    Arc: 'text-destiny-arc',
-                    Void: 'text-destiny-void',
-                    Stasis: 'text-destiny-stasis',
-                    Strand: 'text-destiny-strand',
-                    Prismatic: 'text-destiny-prismatic',
-                  };
-                  return colors[sub];
-                };
-                
                 return (
                   <button
                     key={subclass}
@@ -232,7 +223,7 @@ export default function Dashboard() {
                         : 'border-gray-600 hover:border-gray-500'
                     }`}
                   >
-                    <span className={`font-medium ${getSubclassColorClass(subclass)}`}>
+                    <span className={`font-medium text-${getSubclassColor(subclass)}`}>
                       {subclass}
                     </span>
                   </button>
@@ -362,7 +353,7 @@ export default function Dashboard() {
                     <div>
                       <div className="text-xs text-gray-400 mb-2">Fragments ({build.fragments.length})</div>
                       <div className="flex flex-wrap gap-1">
-                        {build.fragments.slice(0, 6).map(fragment => (
+                        {build.fragments.slice(0, FRAGMENT_PREVIEW_LIMIT).map(fragment => (
                           <Icon 
                             key={fragment}
                             hash={getIconHash('fragments', fragment)} 
@@ -371,9 +362,9 @@ export default function Dashboard() {
                             className="opacity-70"
                           />
                         ))}
-                        {build.fragments.length > 6 && (
+                        {build.fragments.length > FRAGMENT_PREVIEW_LIMIT && (
                           <div className="flex items-center justify-center w-6 h-6 text-xs text-gray-500">
-                            +{build.fragments.length - 6}
+                            +{build.fragments.length - FRAGMENT_PREVIEW_LIMIT}
                           </div>
                         )}
                       </div>
