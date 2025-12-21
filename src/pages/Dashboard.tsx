@@ -4,6 +4,8 @@ import type { Build, GuardianClass, Subclass } from '../types';
 import localforage from 'localforage';
 import { calculateFinalStats, getFragmentStatSummary } from '../utils/statsCalculator';
 import { downloadBuildsBackup, restoreBuildsFromBackup } from '../utils/backupManager';
+import Icon from '../components/Icon';
+import { getIconHash } from '../utils/iconUtils';
 
 export default function Dashboard() {
   const [builds, setBuilds] = useState<Build[]>([]);
@@ -157,39 +159,86 @@ export default function Dashboard() {
 
       {/* Filters */}
       <div className="card mb-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="space-y-4">
+          {/* Class Filter */}
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-gray-300 mb-3">
               Filter by Class
             </label>
-            <select
-              value={filterClass}
-              onChange={(e) => setFilterClass(e.target.value as GuardianClass | '')}
-              className="input-field"
-            >
-              <option value="">All Classes</option>
-              <option value="Warlock">Warlock</option>
-              <option value="Titan">Titan</option>
-              <option value="Hunter">Hunter</option>
-            </select>
+            <div className="flex gap-3">
+              <button
+                onClick={() => setFilterClass('')}
+                className={`px-4 py-2 rounded border-2 transition-colors ${
+                  filterClass === ''
+                    ? 'border-destiny-primary bg-destiny-primary/10 text-white'
+                    : 'border-gray-600 hover:border-gray-500 text-gray-300'
+                }`}
+              >
+                All Classes
+              </button>
+              {(['Warlock', 'Titan', 'Hunter'] as GuardianClass[]).map((className) => (
+                <button
+                  key={className}
+                  onClick={() => setFilterClass(className)}
+                  className={`flex items-center gap-2 px-3 py-2 rounded border-2 transition-colors ${
+                    filterClass === className
+                      ? 'border-destiny-primary bg-destiny-primary/10'
+                      : 'border-gray-600 hover:border-gray-500'
+                  }`}
+                >
+                  <Icon hash={getIconHash('classes', className)} size={24} alt={className} />
+                  <span className="text-white font-medium">{className}</span>
+                </button>
+              ))}
+            </div>
           </div>
+
+          {/* Subclass Filter */}
           <div>
-            <label className="block text-sm font-medium text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-gray-300 mb-3">
               Filter by Subclass
             </label>
-            <select
-              value={filterSubclass}
-              onChange={(e) => setFilterSubclass(e.target.value as Subclass | '')}
-              className="input-field"
-            >
-              <option value="">All Subclasses</option>
-              <option value="Solar">Solar</option>
-              <option value="Arc">Arc</option>
-              <option value="Void">Void</option>
-              <option value="Stasis">Stasis</option>
-              <option value="Strand">Strand</option>
-              <option value="Prismatic">Prismatic</option>
-            </select>
+            <div className="flex flex-wrap gap-3">
+              <button
+                onClick={() => setFilterSubclass('')}
+                className={`px-4 py-2 rounded border-2 transition-colors ${
+                  filterSubclass === ''
+                    ? 'border-destiny-primary bg-destiny-primary/10 text-white'
+                    : 'border-gray-600 hover:border-gray-500 text-gray-300'
+                }`}
+              >
+                All Subclasses
+              </button>
+              {(['Solar', 'Arc', 'Void', 'Stasis', 'Strand', 'Prismatic'] as Subclass[]).map((subclass) => {
+                const getSubclassColorClass = (sub: Subclass) => {
+                  const colors: Record<Subclass, string> = {
+                    Solar: 'text-destiny-solar',
+                    Arc: 'text-destiny-arc',
+                    Void: 'text-destiny-void',
+                    Stasis: 'text-destiny-stasis',
+                    Strand: 'text-destiny-strand',
+                    Prismatic: 'text-destiny-prismatic',
+                  };
+                  return colors[sub];
+                };
+                
+                return (
+                  <button
+                    key={subclass}
+                    onClick={() => setFilterSubclass(subclass)}
+                    className={`flex items-center gap-2 px-3 py-2 rounded border-2 transition-colors ${
+                      filterSubclass === subclass
+                        ? 'border-destiny-primary bg-destiny-primary/10'
+                        : 'border-gray-600 hover:border-gray-500'
+                    }`}
+                  >
+                    <span className={`font-medium ${getSubclassColorClass(subclass)}`}>
+                      {subclass}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>
@@ -218,14 +267,28 @@ export default function Dashboard() {
             
             return (
               <div key={build.id} className="card hover:border-destiny-primary border-2 border-transparent transition-colors">
+                {/* Header with Class and Subclass Icons */}
                 <div className="flex justify-between items-start mb-4">
-                  <div>
-                    <h3 className="text-xl font-bold text-white mb-1">{build.name}</h3>
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm text-gray-400">{build.class}</span>
-                      <span className={`text-sm text-${getSubclassColor(build.subclass)}`}>
-                        {build.subclass}
-                      </span>
+                  <div className="flex items-center gap-3">
+                    <Icon 
+                      hash={getIconHash('classes', build.class)} 
+                      size={48} 
+                      alt={build.class}
+                      className="flex-shrink-0" 
+                    />
+                    <div>
+                      <h3 className="text-xl font-bold text-white mb-1">{build.name}</h3>
+                      <div className="flex items-center gap-2">
+                        <Icon 
+                          hash={getIconHash('subclasses', `${build.subclass.toLowerCase()}_${build.class.toLowerCase()}`)} 
+                          size={24} 
+                          alt={build.subclass}
+                        />
+                        <span className="text-sm text-gray-400">{build.class}</span>
+                        <span className={`text-sm text-${getSubclassColor(build.subclass)}`}>
+                          {build.subclass}
+                        </span>
+                      </div>
                     </div>
                   </div>
                   <button
@@ -237,15 +300,86 @@ export default function Dashboard() {
                   </button>
                 </div>
                 
-                <div className="space-y-2 text-sm mb-4">
-                  <div>
-                    <span className="text-gray-400">Super:</span>
-                    <span className="text-white ml-2">{build.super}</span>
-                  </div>
-                  <div>
-                    <span className="text-gray-400">Grenade:</span>
-                    <span className="text-white ml-2">{build.abilities.grenade}</span>
-                  </div>
+                {/* Abilities with Icons */}
+                <div className="space-y-3 mb-4">
+                  {build.super && (
+                    <div className="flex items-center gap-2">
+                      <Icon hash={getIconHash('supers', build.super)} size={32} alt={build.super} />
+                      <div className="flex-1">
+                        <div className="text-xs text-gray-400">Super</div>
+                        <div className="text-sm text-white font-medium">{build.super}</div>
+                      </div>
+                    </div>
+                  )}
+                  {build.abilities.grenade && (
+                    <div className="flex items-center gap-2">
+                      <Icon hash={getIconHash('grenades', build.abilities.grenade)} size={32} alt={build.abilities.grenade} />
+                      <div className="flex-1">
+                        <div className="text-xs text-gray-400">Grenade</div>
+                        <div className="text-sm text-white font-medium">{build.abilities.grenade}</div>
+                      </div>
+                    </div>
+                  )}
+                  {build.abilities.melee && (
+                    <div className="flex items-center gap-2">
+                      <Icon hash={getIconHash('melees', build.abilities.melee)} size={32} alt={build.abilities.melee} />
+                      <div className="flex-1">
+                        <div className="text-xs text-gray-400">Melee</div>
+                        <div className="text-sm text-white font-medium">{build.abilities.melee}</div>
+                      </div>
+                    </div>
+                  )}
+                  {build.abilities.classAbility && (
+                    <div className="flex items-center gap-2">
+                      <Icon hash={getIconHash('classAbilities', build.abilities.classAbility)} size={32} alt={build.abilities.classAbility} />
+                      <div className="flex-1">
+                        <div className="text-xs text-gray-400">Class Ability</div>
+                        <div className="text-sm text-white font-medium">{build.abilities.classAbility}</div>
+                      </div>
+                    </div>
+                  )}
+                  
+                  {/* Aspects Preview */}
+                  {build.aspects && build.aspects.length > 0 && (
+                    <div className="pt-2 border-t border-gray-700">
+                      <div className="text-xs text-gray-400 mb-2">Aspects ({build.aspects.length}/2)</div>
+                      <div className="flex gap-2">
+                        {build.aspects.map(aspect => (
+                          <Icon 
+                            key={aspect}
+                            hash={getIconHash('aspects', aspect)} 
+                            size={28} 
+                            alt={aspect}
+                            className="opacity-80"
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  
+                  {/* Fragments Preview */}
+                  {build.fragments && build.fragments.length > 0 && (
+                    <div>
+                      <div className="text-xs text-gray-400 mb-2">Fragments ({build.fragments.length})</div>
+                      <div className="flex flex-wrap gap-1">
+                        {build.fragments.slice(0, 6).map(fragment => (
+                          <Icon 
+                            key={fragment}
+                            hash={getIconHash('fragments', fragment)} 
+                            size={24} 
+                            alt={fragment}
+                            className="opacity-70"
+                          />
+                        ))}
+                        {build.fragments.length > 6 && (
+                          <div className="flex items-center justify-center w-6 h-6 text-xs text-gray-500">
+                            +{build.fragments.length - 6}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                </div>
                   
                   {/* Stats Display with Fragment Modifiers */}
                   <div className="mt-3 pt-3 border-t border-gray-700">
