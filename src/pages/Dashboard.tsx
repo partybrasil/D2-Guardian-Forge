@@ -1,13 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import type { Build, GuardianClass, Subclass } from '../types';
 import localforage from 'localforage';
+import { calculateFinalStats, getFragmentStatSummary } from '../utils/statsCalculator';
+import { downloadBuildsBackup, restoreBuildsFromBackup } from '../utils/backupManager';
 
 export default function Dashboard() {
   const [builds, setBuilds] = useState<Build[]>([]);
   const [filterClass, setFilterClass] = useState<GuardianClass | ''>('');
   const [filterSubclass, setFilterSubclass] = useState<Subclass | ''>('');
   const [loading, setLoading] = useState(true);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     loadBuilds();
@@ -42,6 +45,44 @@ export default function Dashboard() {
       } catch (error) {
         console.error('Error deleting build:', error);
       }
+    }
+  };
+
+  const handleBackupDownload = async () => {
+    await downloadBuildsBackup();
+  };
+
+  const handleBackupRestore = () => {
+    fileInputRef.current?.click();
+  };
+
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    try {
+      const result = await restoreBuildsFromBackup(file);
+      
+      if (result.success > 0 || result.skipped > 0) {
+        alert(
+          `Backup restore completed!\n\n` +
+          `✓ Successfully imported: ${result.success}\n` +
+          `⊘ Skipped: ${result.skipped}\n` +
+          `✗ Failed: ${result.failed}`
+        );
+        
+        // Reload builds
+        await loadBuilds();
+      } else {
+        alert(`No builds were imported. ${result.failed} failed.`);
+      }
+    } catch (error) {
+      console.error('Error restoring backup:', error);
+    }
+    
+    // Reset file input
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
     }
   };
 
@@ -81,13 +122,38 @@ export default function Dashboard() {
             {filteredBuilds.length} {filteredBuilds.length === 1 ? 'build' : 'builds'} found
           </p>
         </div>
-        <Link
-          to="/planner"
-          className="btn-primary"
-        >
-          + Create New Build
-        </Link>
+        <div className="flex gap-3">
+          <button
+            onClick={handleBackupDownload}
+            className="btn-secondary"
+            title="Download backup of all builds"
+          >
+            📥 Download Backup
+          </button>
+          <button
+            onClick={handleBackupRestore}
+            className="btn-secondary"
+            title="Restore builds from backup file"
+          >
+            📤 Restore Backup
+          </button>
+          <Link
+            to="/planner"
+            className="btn-primary"
+          >
+            + Create New Build
+          </Link>
+        </div>
       </div>
+
+      {/* Hidden file input for backup restore */}
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept=".json"
+        onChange={handleFileChange}
+        className="hidden"
+      />
 
       {/* Filters */}
       <div className="card mb-6">
@@ -144,59 +210,100 @@ export default function Dashboard() {
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredBuilds.map(build => (
-            <div key={build.id} className="card hover:border-destiny-primary border-2 border-transparent transition-colors">
-              <div className="flex justify-between items-start mb-4">
-                <div>
-                  <h3 className="text-xl font-bold text-white mb-1">{build.name}</h3>
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm text-gray-400">{build.class}</span>
-                    <span className={`text-sm text-${getSubclassColor(build.subclass)}`}>
-                      {build.subclass}
-                    </span>
+          {filteredBuilds.map(build => {
+            // Calculate final stats with fragment modifiers
+            const finalStats = calculateFinalStats(build.stats, build.fragments);
+            const statSummary = getFragmentStatSummary(build.fragments);
+            const hasFragmentModifiers = statSummary.gains > 0 || statSummary.losses > 0;
+            
+            return (
+              <div key={build.id} className="card hover:border-destiny-primary border-2 border-transparent transition-colors">
+                <div className="flex justify-between items-start mb-4">
+                  <div>
+                    <h3 className="text-xl font-bold text-white mb-1">{build.name}</h3>
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm text-gray-400">{build.class}</span>
+                      <span className={`text-sm text-${getSubclassColor(build.subclass)}`}>
+                        {build.subclass}
+                      </span>
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => deleteBuild(build.id)}
+                    className="text-red-500 hover:text-red-400"
+                    title="Delete build"
+                  >
+                    ✕
+                  </button>
+                </div>
+                
+                <div className="space-y-2 text-sm mb-4">
+                  <div>
+                    <span className="text-gray-400">Super:</span>
+                    <span className="text-white ml-2">{build.super}</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-400">Grenade:</span>
+                    <span className="text-white ml-2">{build.abilities.grenade}</span>
+                  </div>
+                  
+                  {/* Stats Display with Fragment Modifiers */}
+                  <div className="mt-3 pt-3 border-t border-gray-700">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-xs text-gray-400 uppercase font-semibold">Final Stats</span>
+                      {hasFragmentModifiers && (
+                        <div className="flex gap-2 text-xs">
+                          {statSummary.gains > 0 && (
+                            <span className="text-green-400">+{statSummary.gains}</span>
+                          )}
+                          {statSummary.losses > 0 && (
+                            <span className="text-red-400">-{statSummary.losses}</span>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                    <div className="grid grid-cols-3 gap-1">
+                      {Object.entries(finalStats).map(([stat, value]) => {
+                        const baseStat = build.stats[stat as keyof typeof build.stats];
+                        const modifier = statSummary.modifiers[stat as keyof typeof statSummary.modifiers];
+                        const hasModifier = modifier !== 0;
+                        
+                        return (
+                          <div key={stat} className="text-center">
+                            <div className="text-xs text-gray-400 uppercase">{stat.substring(0, 3)}</div>
+                            <div className={`font-bold ${
+                              hasModifier 
+                                ? (modifier > 0 ? 'text-green-400' : 'text-red-400')
+                                : 'text-white'
+                            }`}>
+                              {value}
+                            </div>
+                            {hasModifier && (
+                              <div className="text-xs text-gray-500">
+                                ({baseStat}{modifier > 0 ? '+' : ''}{modifier})
+                              </div>
+                            )}
+                          </div>
+                        );
+                      })}
+                    </div>
                   </div>
                 </div>
-                <button
-                  onClick={() => deleteBuild(build.id)}
-                  className="text-red-500 hover:text-red-400"
-                  title="Delete build"
-                >
-                  ✕
-                </button>
-              </div>
-              
-              <div className="space-y-2 text-sm mb-4">
-                <div>
-                  <span className="text-gray-400">Super:</span>
-                  <span className="text-white ml-2">{build.super}</span>
-                </div>
-                <div>
-                  <span className="text-gray-400">Grenade:</span>
-                  <span className="text-white ml-2">{build.abilities.grenade}</span>
-                </div>
-                <div className="grid grid-cols-3 gap-1 mt-3">
-                  {Object.entries(build.stats).map(([stat, value]) => (
-                    <div key={stat} className="text-center">
-                      <div className="text-xs text-gray-400 uppercase">{stat.substring(0, 3)}</div>
-                      <div className="text-white font-bold">{value}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
 
-              <div className="flex gap-2">
-                <Link
-                  to={`/planner?id=${build.id}`}
-                  className="btn-secondary flex-1 text-center"
-                >
-                  Edit
-                </Link>
-                <button className="btn-secondary flex-1">
-                  Export
-                </button>
+                <div className="flex gap-2">
+                  <Link
+                    to={`/planner?id=${build.id}`}
+                    className="btn-secondary flex-1 text-center"
+                  >
+                    Edit
+                  </Link>
+                  <button className="btn-secondary flex-1">
+                    Export
+                  </button>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
     </div>
