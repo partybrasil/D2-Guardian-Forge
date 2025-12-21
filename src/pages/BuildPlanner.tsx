@@ -353,28 +353,41 @@ export default function BuildPlanner() {
 
             {/* Subclass Selection */}
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-gray-300 mb-3">
                 Subclass
               </label>
-              <select
-                value={selectedSubclass}
-                onChange={(e) => {
-                  setSelectedSubclass(e.target.value as Subclass);
-                  setSelectedSuper('');
-                  setSelectedGrenade('');
-                  setSelectedMelee('');
-                  setSelectedAspects([]);
-                  setSelectedFragments([]);
-                }}
-                className="input-field"
-              >
-                <option value="Solar">Solar</option>
-                <option value="Arc">Arc</option>
-                <option value="Void">Void</option>
-                <option value="Stasis">Stasis</option>
-                <option value="Strand">Strand</option>
-                <option value="Prismatic">Prismatic</option>
-              </select>
+              <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
+                {(['Solar', 'Arc', 'Void', 'Stasis', 'Strand', 'Prismatic'] as Subclass[]).map((subclass) => {
+                  const subclassKey = `${subclass.toLowerCase()}_${selectedClass.toLowerCase()}`;
+                  return (
+                    <button
+                      key={subclass}
+                      onClick={() => {
+                        setSelectedSubclass(subclass);
+                        setSelectedSuper('');
+                        setSelectedGrenade('');
+                        setSelectedMelee('');
+                        setSelectedAspects([]);
+                        setSelectedFragments([]);
+                      }}
+                      className={`flex flex-col items-center p-3 rounded-lg border-2 transition-colors ${
+                        selectedSubclass === subclass
+                          ? 'border-destiny-primary bg-destiny-primary/10'
+                          : 'border-gray-600 hover:border-gray-500'
+                      }`}
+                    >
+                      <Icon 
+                        hash={getIconHash('subclasses', subclassKey)} 
+                        size={40} 
+                        alt={subclass} 
+                      />
+                      <span className={`mt-2 text-xs font-semibold ${getSubclassColor(subclass)}`}>
+                        {subclass}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
 
             {/* Subclass Info Panel */}
@@ -459,66 +472,107 @@ export default function BuildPlanner() {
               </div>
             )}
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Super
-                </label>
-                <select
-                  value={selectedSuper}
-                  onChange={(e) => setSelectedSuper(e.target.value)}
-                  className="input-field"
-                >
-                  <option value="">Select Super...</option>
-                  {availableSupers.map(s => (
-                    <option key={s.name} value={s.name}>{s.name}</option>
-                  ))}
-                </select>
+            {/* Super Selection */}
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-300 mb-3">
+                Super {selectedSuper && <span className="text-destiny-primary">✓</span>}
+              </label>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+                {availableSupers.map(s => (
+                  <button
+                    key={s.name}
+                    onClick={() => setSelectedSuper(s.name)}
+                    className={`flex flex-col items-center p-3 rounded-lg border-2 transition-colors ${
+                      selectedSuper === s.name
+                        ? 'border-destiny-primary bg-destiny-primary/10'
+                        : 'border-gray-600 hover:border-gray-500'
+                    }`}
+                    title={s.description}
+                  >
+                    <Icon hash={getIconHash('supers', s.name)} size={40} alt={s.name} />
+                    <span className="mt-2 text-xs text-center text-white font-medium leading-tight">
+                      {s.name}
+                    </span>
+                  </button>
+                ))}
               </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Grenade
-                </label>
-                <select
-                  value={selectedGrenade}
-                  onChange={(e) => setSelectedGrenade(e.target.value)}
-                  className="input-field"
-                >
-                  <option value="">Select Grenade...</option>
-                  {availableGrenades.map(g => (
-                    <option key={g.name} value={g.name}>{g.name}</option>
-                  ))}
-                </select>
+            </div>
+
+            {/* Grenade Selection */}
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-300 mb-3">
+                Grenade {selectedGrenade && <span className="text-destiny-primary">✓</span>}
+              </label>
+              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3">
+                {availableGrenades.map(g => (
+                  <button
+                    key={g.name}
+                    onClick={() => setSelectedGrenade(g.name)}
+                    className={`flex flex-col items-center p-3 rounded-lg border-2 transition-colors ${
+                      selectedGrenade === g.name
+                        ? 'border-destiny-primary bg-destiny-primary/10'
+                        : 'border-gray-600 hover:border-gray-500'
+                    }`}
+                    title={g.description}
+                  >
+                    <Icon hash={getIconHash('grenades', g.name)} size={36} alt={g.name} />
+                    <span className="mt-2 text-xs text-center text-white leading-tight">
+                      {g.name.replace(' Grenade', '')}
+                    </span>
+                  </button>
+                ))}
               </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Melee
-                </label>
-                <select
-                  value={selectedMelee}
-                  onChange={(e) => setSelectedMelee(e.target.value)}
-                  className="input-field"
-                >
-                  <option value="">Select Melee...</option>
-                  {availableMelees.map(m => (
-                    <option key={m.name} value={m.name}>{m.name}</option>
-                  ))}
-                </select>
+            </div>
+
+            {/* Melee Selection */}
+            <div className="mb-4">
+              <label className="block text-sm font-medium text-gray-300 mb-3">
+                Melee {selectedMelee && <span className="text-destiny-primary">✓</span>}
+              </label>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+                {availableMelees.map(m => (
+                  <button
+                    key={m.name}
+                    onClick={() => setSelectedMelee(m.name)}
+                    className={`flex flex-col items-center p-3 rounded-lg border-2 transition-colors ${
+                      selectedMelee === m.name
+                        ? 'border-destiny-primary bg-destiny-primary/10'
+                        : 'border-gray-600 hover:border-gray-500'
+                    }`}
+                    title={m.description}
+                  >
+                    <Icon hash={getIconHash('melees', m.name)} size={36} alt={m.name} />
+                    <span className="mt-2 text-xs text-center text-white leading-tight">
+                      {m.name}
+                    </span>
+                  </button>
+                ))}
               </div>
-              <div>
-                <label className="block text-sm font-medium text-gray-300 mb-2">
-                  Class Ability
-                </label>
-                <select
-                  value={selectedClassAbility}
-                  onChange={(e) => setSelectedClassAbility(e.target.value)}
-                  className="input-field"
-                >
-                  <option value="">Select Class Ability...</option>
-                  {availableClassAbilities.map(a => (
-                    <option key={a.name} value={a.name}>{a.name}</option>
-                  ))}
-                </select>
+            </div>
+
+            {/* Class Ability Selection */}
+            <div>
+              <label className="block text-sm font-medium text-gray-300 mb-3">
+                Class Ability {selectedClassAbility && <span className="text-destiny-primary">✓</span>}
+              </label>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                {availableClassAbilities.map(a => (
+                  <button
+                    key={a.name}
+                    onClick={() => setSelectedClassAbility(a.name)}
+                    className={`flex flex-col items-center p-3 rounded-lg border-2 transition-colors ${
+                      selectedClassAbility === a.name
+                        ? 'border-destiny-primary bg-destiny-primary/10'
+                        : 'border-gray-600 hover:border-gray-500'
+                    }`}
+                    title={a.description}
+                  >
+                    <Icon hash={getIconHash('classAbilities', a.name)} size={40} alt={a.name} />
+                    <span className="mt-2 text-xs text-center text-white font-medium">
+                      {a.name}
+                    </span>
+                  </button>
+                ))}
               </div>
             </div>
           </div>
