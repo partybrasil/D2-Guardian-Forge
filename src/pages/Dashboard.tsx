@@ -99,12 +99,12 @@ export default function Dashboard() {
 
   const getSubclassColor = (subclass: Subclass) => {
     const colors = {
-      Solar: 'destiny-solar',
-      Arc: 'destiny-arc',
-      Void: 'destiny-void',
-      Stasis: 'destiny-stasis',
-      Strand: 'destiny-strand',
-      Prismatic: 'destiny-prismatic',
+      Solar: 'text-destiny-solar',
+      Arc: 'text-destiny-arc',
+      Void: 'text-destiny-void',
+      Stasis: 'text-destiny-stasis',
+      Strand: 'text-destiny-strand',
+      Prismatic: 'text-destiny-prismatic',
     };
     return colors[subclass];
   };
@@ -223,7 +223,7 @@ export default function Dashboard() {
                         : 'border-gray-600 hover:border-gray-500'
                     }`}
                   >
-                    <span className={`font-medium text-${getSubclassColor(subclass)}`}>
+                    <span className={`font-medium ${getSubclassColor(subclass)}`}>
                       {subclass}
                     </span>
                   </button>
@@ -276,7 +276,7 @@ export default function Dashboard() {
                           alt={build.subclass}
                         />
                         <span className="text-sm text-gray-400">{build.class}</span>
-                        <span className={`text-sm text-${getSubclassColor(build.subclass)}`}>
+                        <span className={`text-sm ${getSubclassColor(build.subclass)}`}>
                           {build.subclass}
                         </span>
                       </div>
