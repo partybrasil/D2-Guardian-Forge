@@ -5,7 +5,7 @@
  * Each slot displays an empty icon placeholder that opens a modal when clicked.
  */
 
-import { useState } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import Icon from './Icon';
 import { getIconHash } from '../utils/iconUtils';
 
@@ -49,6 +49,28 @@ export default function AspectSelector({
     }
   };
 
+  // Add keyboard support for Escape key
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isOpen) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscape);
+      return () => document.removeEventListener('keydown', handleEscape);
+    }
+  }, [isOpen]);
+
+  // Memoize total fragment slots calculation to avoid redundant lookups
+  const totalFragmentSlots = useMemo(() => {
+    return selectedAspects.reduce((sum, name) => {
+      const aspect = availableAspects.find(a => a.name === name);
+      return sum + (aspect?.fragmentSlots || 0);
+    }, 0);
+  }, [selectedAspects, availableAspects]);
+
   return (
     <>
       {/* Empty Icon Selector Button */}
@@ -74,6 +96,7 @@ export default function AspectSelector({
                 onClick={handleClear}
                 className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-red-600 hover:bg-red-500 text-white text-xs flex items-center justify-center"
                 title="Clear selection"
+                aria-label="Clear selection"
               >
                 ×
               </button>
@@ -104,6 +127,8 @@ export default function AspectSelector({
         <div 
           className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4"
           onClick={() => setIsOpen(false)}
+          role="dialog"
+          aria-modal="true"
         >
           <div 
             className="bg-gray-900 rounded-lg border-2 border-gray-700 p-6 max-w-5xl w-full max-h-[90vh] overflow-y-auto"
@@ -116,6 +141,7 @@ export default function AspectSelector({
               <button
                 onClick={() => setIsOpen(false)}
                 className="text-gray-400 hover:text-white text-2xl leading-none"
+                aria-label="Close modal"
               >
                 ×
               </button>
@@ -198,10 +224,7 @@ export default function AspectSelector({
                   })}
                 </div>
                 <div className="mt-2 text-xs text-gray-500">
-                  Total Fragment Slots: {selectedAspects.reduce((sum, name) => {
-                    const aspect = availableAspects.find(a => a.name === name);
-                    return sum + (aspect?.fragmentSlots || 0);
-                  }, 0)}
+                  Total Fragment Slots: {totalFragmentSlots}
                 </div>
               </div>
             )}

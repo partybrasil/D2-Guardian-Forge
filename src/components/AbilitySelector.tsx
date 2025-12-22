@@ -5,7 +5,7 @@
  * Clicking opens a modal overlay with a grid of available options.
  */
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Icon from './Icon';
 import { getIconHash } from '../utils/iconUtils';
 import type { IconCategory } from '../utils/iconUtils';
@@ -57,6 +57,20 @@ export default function AbilitySelector({
     onSelect('');
   };
 
+  // Add keyboard support for Escape key
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isOpen) {
+        setIsOpen(false);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscape);
+      return () => document.removeEventListener('keydown', handleEscape);
+    }
+  }, [isOpen]);
+
   return (
     <>
       {/* Empty Icon Selector Button */}
@@ -82,6 +96,7 @@ export default function AbilitySelector({
                 onClick={handleClear}
                 className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-red-600 hover:bg-red-500 text-white text-xs flex items-center justify-center"
                 title="Clear selection"
+                aria-label="Clear selection"
               >
                 ×
               </button>
@@ -107,6 +122,8 @@ export default function AbilitySelector({
         <div 
           className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4"
           onClick={() => setIsOpen(false)}
+          role="dialog"
+          aria-modal="true"
         >
           <div 
             className="bg-gray-900 rounded-lg border-2 border-gray-700 p-6 max-w-4xl w-full max-h-[90vh] overflow-y-auto"
@@ -119,6 +136,7 @@ export default function AbilitySelector({
               <button
                 onClick={() => setIsOpen(false)}
                 className="text-gray-400 hover:text-white text-2xl leading-none"
+                aria-label="Close modal"
               >
                 ×
               </button>
@@ -142,7 +160,7 @@ export default function AbilitySelector({
                     alt={option.name} 
                   />
                   <span className="mt-2 text-xs text-center text-white leading-tight">
-                    {option.name.replace(' Grenade', '')}
+                    {option.name}
                   </span>
                   {option.element && (
                     <span className={`mt-1 text-xs ${getSubclassColor(option.element)}`}>
