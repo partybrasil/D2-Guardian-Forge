@@ -14,7 +14,16 @@ export interface AbilityOption {
   name: string;
   element?: string;
   description?: string;
-  [key: string]: any;
+  effect?: string;
+  type?: string;
+  range?: string;
+  cooldown?: string;
+  mechanic?: string;
+  radius?: string;
+  duration?: string;
+  class?: string;
+  primaryEffect?: string;
+  secondaryEffect?: string;
 }
 
 export interface AbilitySelectorProps {
