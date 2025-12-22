@@ -3,6 +3,8 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import type { Build, GuardianClass, Subclass, Stats, SubclassDefinition } from '../types';
 import localforage from 'localforage';
 import Icon from '../components/Icon';
+import AbilitySelector from '../components/AbilitySelector';
+import AspectSelector from '../components/AspectSelector';
 import { getIconHash } from '../utils/iconUtils';
 
 // Import data
@@ -498,81 +500,50 @@ export default function BuildPlanner() {
               </div>
             </div>
 
-            {/* Grenade Selection */}
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-300 mb-3">
-                Grenade {selectedGrenade && <span className="text-destiny-primary">✓</span>}
-              </label>
-              <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3">
-                {availableGrenades.map(g => (
-                  <button
-                    key={g.name}
-                    onClick={() => setSelectedGrenade(g.name)}
-                    className={`flex flex-col items-center p-3 rounded-lg border-2 transition-colors ${
-                      selectedGrenade === g.name
-                        ? 'border-destiny-primary bg-destiny-primary/10'
-                        : 'border-gray-600 hover:border-gray-500'
-                    }`}
-                    title={g.description}
-                  >
-                    <Icon hash={getIconHash('grenades', g.name)} size={36} alt={g.name} />
-                    <span className="mt-2 text-xs text-center text-white leading-tight">
-                      {g.name.replace(' Grenade', '')}
-                    </span>
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Melee Selection */}
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-300 mb-3">
-                Melee {selectedMelee && <span className="text-destiny-primary">✓</span>}
-              </label>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
-                {availableMelees.map(m => (
-                  <button
-                    key={m.name}
-                    onClick={() => setSelectedMelee(m.name)}
-                    className={`flex flex-col items-center p-3 rounded-lg border-2 transition-colors ${
-                      selectedMelee === m.name
-                        ? 'border-destiny-primary bg-destiny-primary/10'
-                        : 'border-gray-600 hover:border-gray-500'
-                    }`}
-                    title={m.description}
-                  >
-                    <Icon hash={getIconHash('melees', m.name)} size={36} alt={m.name} />
-                    <span className="mt-2 text-xs text-center text-white leading-tight">
-                      {m.name}
-                    </span>
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Class Ability Selection */}
+            {/* Compact Ability Selectors */}
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-3">
-                Class Ability {selectedClassAbility && <span className="text-destiny-primary">✓</span>}
+                Choose Your Abilities
               </label>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                {availableClassAbilities.map(a => (
-                  <button
-                    key={a.name}
-                    onClick={() => setSelectedClassAbility(a.name)}
-                    className={`flex flex-col items-center p-3 rounded-lg border-2 transition-colors ${
-                      selectedClassAbility === a.name
-                        ? 'border-destiny-primary bg-destiny-primary/10'
-                        : 'border-gray-600 hover:border-gray-500'
-                    }`}
-                    title={a.description}
-                  >
-                    <Icon hash={getIconHash('classAbilities', a.name)} size={40} alt={a.name} />
-                    <span className="mt-2 text-xs text-center text-white font-medium">
-                      {a.name}
-                    </span>
-                  </button>
-                ))}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 justify-items-center">
+                <AbilitySelector
+                  label="Grenade"
+                  iconCategory="grenades"
+                  selectedValue={selectedGrenade}
+                  options={availableGrenades}
+                  onSelect={setSelectedGrenade}
+                  getSubclassColor={getSubclassColor}
+                />
+                <AbilitySelector
+                  label="Melee"
+                  iconCategory="melees"
+                  selectedValue={selectedMelee}
+                  options={availableMelees}
+                  onSelect={setSelectedMelee}
+                  getSubclassColor={getSubclassColor}
+                />
+                <AbilitySelector
+                  label="Class Ability"
+                  iconCategory="classAbilities"
+                  selectedValue={selectedClassAbility}
+                  options={availableClassAbilities}
+                  onSelect={setSelectedClassAbility}
+                  getSubclassColor={getSubclassColor}
+                />
+                {/* Placeholder for Jump/Movement (future feature) */}
+                <div className="flex flex-col items-center opacity-50">
+                  <div className="p-3 rounded-lg border-2 border-gray-700 bg-gray-800/30">
+                    <div className="w-12 h-12 flex items-center justify-center">
+                      <div className="w-10 h-10 rounded-full border-2 border-dashed border-gray-700 flex items-center justify-center text-gray-700 text-xl">
+                        ?
+                      </div>
+                    </div>
+                  </div>
+                  <span className="mt-2 text-xs text-gray-600 text-center">
+                    Jump/Movement
+                  </span>
+                  <span className="text-xs text-gray-700 mt-1">Coming Soon</span>
+                </div>
               </div>
             </div>
           </div>
@@ -583,39 +554,23 @@ export default function BuildPlanner() {
               Aspects <span className="text-sm text-gray-400">({selectedAspects.length}/2)</span>
             </h2>
             <p className="text-xs text-gray-400 mb-3">Select up to 2 aspects to customize your subclass</p>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              {availableAspects.map(aspect => (
-                <button
-                  key={aspect.name}
-                  onClick={() => handleAspectToggle(aspect.name)}
-                  className={`p-3 rounded border-2 text-left transition-colors ${
-                    selectedAspects.includes(aspect.name)
-                      ? 'border-destiny-primary bg-destiny-primary/10'
-                      : 'border-gray-600 hover:border-gray-500'
-                  }`}
-                >
-                  <div className="flex items-start gap-3 mb-2">
-                    <Icon hash={getIconHash('aspects', aspect.name)} size={40} alt={aspect.name} className="flex-shrink-0" />
-                    <div className="flex-1 min-w-0">
-                      <div className="font-bold text-white">{aspect.name}</div>
-                      <div className="flex gap-1 mt-1">
-                        <span className={`text-xs px-1.5 py-0.5 rounded ${getSubclassColor(aspect.subclass)} bg-gray-800/80`}>
-                          {aspect.subclass}
-                        </span>
-                        {aspect.class && (
-                          <span className="text-xs px-1.5 py-0.5 rounded bg-gray-700 text-gray-300">
-                            {aspect.class}
-                          </span>
-                        )}
-                      </div>
-                    </div>
-                    <span className="text-xs text-gray-400 bg-gray-700 px-2 py-0.5 rounded flex-shrink-0">
-                      {aspect.fragmentSlots} {aspect.fragmentSlots === 1 ? 'slot' : 'slots'}
-                    </span>
-                  </div>
-                  <div className="text-xs text-gray-400">{aspect.description}</div>
-                </button>
-              ))}
+            
+            {/* Compact Aspect Selectors */}
+            <div className="grid grid-cols-2 gap-4 justify-items-center mb-4">
+              <AspectSelector
+                slotIndex={0}
+                selectedAspects={selectedAspects}
+                availableAspects={availableAspects}
+                onToggle={handleAspectToggle}
+                getSubclassColor={getSubclassColor}
+              />
+              <AspectSelector
+                slotIndex={1}
+                selectedAspects={selectedAspects}
+                availableAspects={availableAspects}
+                onToggle={handleAspectToggle}
+                getSubclassColor={getSubclassColor}
+              />
             </div>
             
             {/* Show selected aspects details */}
