@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import type { Build, GuardianClass, Subclass } from '../types';
 import localforage from 'localforage';
@@ -25,13 +25,21 @@ export default function Dashboard({ setBackupHandlers }: DashboardProps) {
     loadBuilds();
   }, []);
 
+  const handleBackupDownload = useCallback(async () => {
+    await downloadBuildsBackup();
+  }, []);
+
+  const handleBackupRestore = useCallback(() => {
+    fileInputRef.current?.click();
+  }, []);
+
   // Set backup handlers for the HamburgerMenu
   useEffect(() => {
     setBackupHandlers({
       onDownload: handleBackupDownload,
       onRestore: handleBackupRestore,
     });
-  }, [setBackupHandlers]);
+  }, [setBackupHandlers, handleBackupDownload, handleBackupRestore]);
 
   const loadBuilds = async () => {
     try {
@@ -63,14 +71,6 @@ export default function Dashboard({ setBackupHandlers }: DashboardProps) {
         console.error('Error deleting build:', error);
       }
     }
-  };
-
-  const handleBackupDownload = async () => {
-    await downloadBuildsBackup();
-  };
-
-  const handleBackupRestore = () => {
-    fileInputRef.current?.click();
   };
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {

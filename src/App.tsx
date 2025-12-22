@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import Dashboard from './pages/Dashboard';
 import BuildPlanner from './pages/BuildPlanner';
 import HamburgerMenu from './components/HamburgerMenu';
@@ -11,6 +11,11 @@ function App() {
     onDownload?: () => void;
     onRestore?: () => void;
   }>({});
+
+  // Wrap setBackupHandlers in useCallback to prevent unnecessary re-renders
+  const updateBackupHandlers = useCallback((handlers: { onDownload?: () => void; onRestore?: () => void }) => {
+    setBackupHandlers(handlers);
+  }, []);
 
   // Preload critical icons on app mount
   useEffect(() => {
@@ -62,7 +67,7 @@ function App() {
         {/* Main Content */}
         <main>
           <Routes>
-            <Route path="/" element={<Dashboard setBackupHandlers={setBackupHandlers} />} />
+            <Route path="/" element={<Dashboard setBackupHandlers={updateBackupHandlers} />} />
             <Route path="/planner" element={<BuildPlanner />} />
           </Routes>
         </main>
