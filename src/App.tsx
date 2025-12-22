@@ -1,11 +1,17 @@
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import Dashboard from './pages/Dashboard';
 import BuildPlanner from './pages/BuildPlanner';
+import HamburgerMenu from './components/HamburgerMenu';
 import { getAllIconHashes } from './utils/iconUtils';
 import './App.css';
 
 function App() {
+  const [backupHandlers, setBackupHandlers] = useState<{
+    onDownload?: () => void;
+    onRestore?: () => void;
+  }>({});
+
   // Preload critical icons on app mount
   useEffect(() => {
     const preloadIcons = () => {
@@ -43,28 +49,20 @@ function App() {
                 </h1>
                 <span className="ml-3 text-sm text-gray-400">v1.0.0 - Edge of Fate</span>
               </div>
-              <div className="flex space-x-4">
-                <Link
-                  to="/"
-                  className="text-gray-300 hover:text-destiny-primary px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  Dashboard
-                </Link>
-                <Link
-                  to="/planner"
-                  className="text-gray-300 hover:text-destiny-primary px-3 py-2 rounded-md text-sm font-medium"
-                >
-                  Build Planner
-                </Link>
-              </div>
             </div>
           </div>
         </nav>
 
+        {/* Hamburger Menu */}
+        <HamburgerMenu
+          onDownloadBackup={backupHandlers.onDownload}
+          onRestoreBackup={backupHandlers.onRestore}
+        />
+
         {/* Main Content */}
         <main>
           <Routes>
-            <Route path="/" element={<Dashboard />} />
+            <Route path="/" element={<Dashboard setBackupHandlers={setBackupHandlers} />} />
             <Route path="/planner" element={<BuildPlanner />} />
           </Routes>
         </main>
