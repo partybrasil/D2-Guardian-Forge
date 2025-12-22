@@ -90,15 +90,6 @@
     "element": "Void"
   },
   {
-    "name": "Phoenix Dive",
-    "class": "Warlock",
-    "type": "Movement",
-    "primaryEffect": "Fast descent",
-    "secondaryEffect": "Healing/Damage burst",
-    "description": "Rapid dive to the ground with healing or damage effect depending on Solar aspects. Available on Solar and Prismatic.",
-    "element": "Solar"
-  },
-  {
     "name": "Icarus Dash",
     "class": "Warlock",
     "type": "Movement",
