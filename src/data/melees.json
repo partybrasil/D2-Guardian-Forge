@@ -10,16 +10,6 @@
     "description": "Sends out a spiral of three explosive Solar energy blasts."
   },
   {
-    "name": "Phoenix Dive",
-    "element": "Solar",
-    "class": "Warlock",
-    "type": "AoE",
-    "effect": "Dive + heal",
-    "range": "20m",
-    "cooldown": "10s",
-    "description": "Dive to the ground and create a healing burst."
-  },
-  {
     "name": "Incinerator Snap",
     "element": "Solar",
     "class": "Warlock",

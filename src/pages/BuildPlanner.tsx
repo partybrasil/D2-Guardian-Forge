@@ -5,6 +5,7 @@ import localforage from 'localforage';
 import Icon from '../components/Icon';
 import AbilitySelector from '../components/AbilitySelector';
 import AspectSelector from '../components/AspectSelector';
+import UnifiedSelector from '../components/UnifiedSelector';
 import { getIconHash } from '../utils/iconUtils';
 
 // Import data
@@ -12,6 +13,7 @@ import supersData from '../data/supers.json';
 import grenadesData from '../data/grenades.json';
 import meleesData from '../data/melees.json';
 import classAbilitiesData from '../data/classAbilities.json';
+import movementAbilitiesData from '../data/movementAbilities.json';
 import aspectsData from '../data/aspects.json';
 import fragmentsData from '../data/fragments.json';
 import subclassesData from '../data/subclasses.json';
@@ -29,6 +31,7 @@ export default function BuildPlanner() {
   const [selectedGrenade, setSelectedGrenade] = useState('');
   const [selectedMelee, setSelectedMelee] = useState('');
   const [selectedClassAbility, setSelectedClassAbility] = useState('');
+  const [selectedMovement, setSelectedMovement] = useState('');
   const [selectedAspects, setSelectedAspects] = useState<string[]>([]);
   const [selectedFragments, setSelectedFragments] = useState<string[]>([]);
   
@@ -154,9 +157,39 @@ export default function BuildPlanner() {
     return matchesClass && m.element === selectedSubclass;
   });
   
-  const availableClassAbilities = classAbilitiesData.filter(a => 
-    a.class === selectedClass
-  );
+  // Class abilities - filter by class and element (if specified)
+  // Phoenix Dive is only available for Solar and Prismatic Warlocks
+  const availableClassAbilities = classAbilitiesData.filter(a => {
+    if (a.class !== selectedClass) return false;
+    
+    // If ability has element requirement, check if it matches
+    if (a.element) {
+      if (selectedSubclass === 'Prismatic') {
+        // Prismatic can use element-specific abilities
+        return true;
+      }
+      return a.element === selectedSubclass;
+    }
+    
+    // Abilities without element requirement are always available
+    return true;
+  });
+
+  // Movement abilities - filter by class
+  const availableMovementAbilities = movementAbilitiesData.filter(m => {
+    if (m.class !== selectedClass) return false;
+    
+    // If movement ability has element requirement (like Blink), check if it matches
+    if (m.element) {
+      if (selectedSubclass === 'Prismatic') {
+        return true; // Prismatic can use element-specific movements
+      }
+      return m.element === selectedSubclass;
+    }
+    
+    // Movement abilities without element requirement are always available
+    return true;
+  });
 
   // Aspects are class-specific - filter by both class and subclass
   // Prismatic has access to aspects from all Light and Dark subclasses for the selected class
@@ -324,72 +357,57 @@ export default function BuildPlanner() {
 
           {/* Class & Subclass Selection */}
           <div className="card">
-            <h2 className="text-xl font-bold text-white mb-4">Class & Subclass</h2>
+            <h2 className="text-xl font-bold text-white mb-6 text-center">Class & Subclass</h2>
             
-            {/* Class Selection with Icons */}
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-300 mb-3">
-                Guardian Class
-              </label>
-              <div className="grid grid-cols-3 gap-3">
-                {(['Warlock', 'Titan', 'Hunter'] as GuardianClass[]).map((className) => (
-                  <button
-                    key={className}
-                    onClick={() => {
-                      setSelectedClass(className);
-                      setSelectedSuper('');
-                      setSelectedClassAbility('');
-                    }}
-                    className={`flex flex-col items-center p-4 rounded-lg border-2 transition-colors ${
-                      selectedClass === className
-                        ? 'border-destiny-primary bg-destiny-primary/10'
-                        : 'border-gray-600 hover:border-gray-500'
-                    }`}
-                  >
-                    <Icon hash={getIconHash('classes', className)} size={48} alt={className} />
-                    <span className="mt-2 font-semibold text-white">{className}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Subclass Selection */}
-            <div>
-              <label className="block text-sm font-medium text-gray-300 mb-3">
-                Subclass
-              </label>
-              <div className="grid grid-cols-3 md:grid-cols-6 gap-3">
-                {(['Solar', 'Arc', 'Void', 'Stasis', 'Strand', 'Prismatic'] as Subclass[]).map((subclass) => {
-                  const subclassKey = `${subclass.toLowerCase()}_${selectedClass.toLowerCase()}`;
-                  return (
-                    <button
-                      key={subclass}
-                      onClick={() => {
-                        setSelectedSubclass(subclass);
-                        setSelectedSuper('');
-                        setSelectedGrenade('');
-                        setSelectedMelee('');
-                        setSelectedAspects([]);
-                        setSelectedFragments([]);
-                      }}
-                      className={`flex flex-col items-center p-3 rounded-lg border-2 transition-colors ${
-                        selectedSubclass === subclass
-                          ? 'border-destiny-primary bg-destiny-primary/10'
-                          : 'border-gray-600 hover:border-gray-500'
-                      }`}
-                    >
-                      <Icon 
-                        hash={getIconHash('subclasses', subclassKey)} 
-                        size={40} 
-                        alt={subclass} 
-                      />
-                      <span className={`mt-2 text-xs font-semibold ${getSubclassColor(subclass)}`}>
-                        {subclass}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
+            {/* Centered Unified Selectors */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+              {/* Class Selection */}
+              <UnifiedSelector
+                label="Guardian Class"
+                iconCategory="classes"
+                selectedValue={selectedClass}
+                options={(['Warlock', 'Titan', 'Hunter'] as GuardianClass[]).map(c => ({ name: c }))}
+                onSelect={(value) => {
+                  setSelectedClass(value as GuardianClass);
+                  setSelectedSuper('');
+                  setSelectedClassAbility('');
+                  setSelectedMovement('');
+                }}
+              />
+              
+              {/* Subclass Selection */}
+              <UnifiedSelector
+                label="Subclass"
+                iconCategory="subclasses"
+                selectedValue={selectedSubclass}
+                options={(['Solar', 'Arc', 'Void', 'Stasis', 'Strand', 'Prismatic'] as Subclass[]).map(s => ({ 
+                  name: s, 
+                  element: s,
+                  [`${s.toLowerCase()}_${selectedClass.toLowerCase()}`]: s 
+                }))}
+                iconKey={`${selectedSubclass.toLowerCase()}_${selectedClass.toLowerCase()}`}
+                onSelect={(value) => {
+                  setSelectedSubclass(value as Subclass);
+                  setSelectedSuper('');
+                  setSelectedGrenade('');
+                  setSelectedMelee('');
+                  setSelectedClassAbility('');
+                  setSelectedMovement('');
+                  setSelectedAspects([]);
+                  setSelectedFragments([]);
+                }}
+                getSubclassColor={getSubclassColor}
+              />
+              
+              {/* Super Selection */}
+              <UnifiedSelector
+                label="Super Ability"
+                iconCategory="supers"
+                selectedValue={selectedSuper}
+                options={availableSupers}
+                onSelect={setSelectedSuper}
+                getSubclassColor={getSubclassColor}
+              />
             </div>
 
             {/* Subclass Info Panel */}
@@ -473,32 +491,6 @@ export default function BuildPlanner() {
                 </div>
               </div>
             )}
-            
-            {/* Super Selection */}
-            <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-300 mb-3">
-                Super {selectedSuper && <span className="text-destiny-primary">✓</span>}
-              </label>
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
-                {availableSupers.map(s => (
-                  <button
-                    key={s.name}
-                    onClick={() => setSelectedSuper(s.name)}
-                    className={`flex flex-col items-center p-3 rounded-lg border-2 transition-colors ${
-                      selectedSuper === s.name
-                        ? 'border-destiny-primary bg-destiny-primary/10'
-                        : 'border-gray-600 hover:border-gray-500'
-                    }`}
-                    title={s.description}
-                  >
-                    <Icon hash={getIconHash('supers', s.name)} size={40} alt={s.name} />
-                    <span className="mt-2 text-xs text-center text-white font-medium leading-tight">
-                      {s.name}
-                    </span>
-                  </button>
-                ))}
-              </div>
-            </div>
 
             {/* Compact Ability Selectors */}
             <div>
@@ -530,20 +522,14 @@ export default function BuildPlanner() {
                   onSelect={setSelectedClassAbility}
                   getSubclassColor={getSubclassColor}
                 />
-                {/* Placeholder for Jump/Movement (future feature) */}
-                <div className="flex flex-col items-center opacity-50">
-                  <div className="p-3 rounded-lg border-2 border-gray-700 bg-gray-800/30">
-                    <div className="w-12 h-12 flex items-center justify-center">
-                      <div className="w-10 h-10 rounded-full border-2 border-dashed border-gray-700 flex items-center justify-center text-gray-700 text-xl">
-                        ?
-                      </div>
-                    </div>
-                  </div>
-                  <span className="mt-2 text-xs text-gray-600 text-center">
-                    Jump/Movement
-                  </span>
-                  <span className="text-xs text-gray-700 mt-1">Coming Soon</span>
-                </div>
+                <AbilitySelector
+                  label="Jump/Movement"
+                  iconCategory="classAbilities"
+                  selectedValue={selectedMovement}
+                  options={availableMovementAbilities}
+                  onSelect={setSelectedMovement}
+                  getSubclassColor={getSubclassColor}
+                />
               </div>
             </div>
           </div>
