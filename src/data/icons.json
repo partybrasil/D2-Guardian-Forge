@@ -180,7 +180,9 @@
     "Coldsnap Grenade": 4085636045,
     "Grapple Grenade": 3301268407,
     "Shackle Grenade": 3908463278,
-    "Threadling Grenade": 4085636046
+    "Threadling Grenade": 4085636046,
+    "Hailfire Spike": 123456809,
+    "Vortex/Duskfield Hybrid": 123456810
   },
   "melees": {
     "Incinerator Snap": 1897393189,
@@ -208,7 +210,10 @@
     "Snare Bomb": 2345678903,
     "Smoke Bomb": 3456789014,
     "Withering Blade": 4567890125,
-    "Threaded Spike": 5678901236
+    "Threaded Spike": 5678901236,
+    "Prismatic Spike": 123456811,
+    "Prismatic Hammer": 123456812,
+    "Prismatic Final": 123456813
   },
   "classAbilities": {
     "Healing Rift": 1319291826,

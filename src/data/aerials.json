@@ -1,0 +1,83 @@
+[
+  {
+    "name": "Icarus Dash",
+    "class": "Warlock",
+    "element": "Solar",
+    "aspectRequired": "Icarus Dash",
+    "description": "Dodge while airborne. Activate by double-tapping jump while in the air. Heat Rises grants an additional dodge charge.",
+    "activation": "Double-tap Jump button while airborne",
+    "usage": "Use for quick aerial repositioning, dodging incoming fire, or extending airborne time during combat."
+  },
+  {
+    "name": "Lightning Surge",
+    "class": "Warlock",
+    "element": "Arc",
+    "aspectRequired": "Lightning Surge",
+    "description": "Activate your charged melee while sliding to transform into a ball of lightning that travels forward and jolts targets.",
+    "activation": "Activate charged melee ability while sliding",
+    "usage": "Slide into enemy groups to jolt multiple targets at once. Effective for crowd control and triggering Arc synergies."
+  },
+  {
+    "name": "Thruster",
+    "class": "Titan",
+    "element": "Arc",
+    "aspectRequired": "Thruster",
+    "description": "Dodge in your direction of movement while airborne or on ground. Breaking shields with this aspect equipped jolts nearby targets.",
+    "activation": "Press Class Ability button while moving (ground or air)",
+    "usage": "Quick lateral dodge for repositioning. Breaking enemy shields jolts nearby targets, triggering Arc effects."
+  },
+  {
+    "name": "Consecration",
+    "class": "Titan",
+    "element": "Solar",
+    "aspectRequired": "Consecration",
+    "description": "Slide then melee to launch into the air and slam down, creating a damaging wave of Solar energy that scorches targets.",
+    "activation": "Slide then press Melee button",
+    "usage": "Combo for burst damage and scorch application. First slam launches you up, second slam crashes down dealing AoE damage."
+  },
+  {
+    "name": "Howl of the Storm",
+    "class": "Titan",
+    "element": "Stasis",
+    "aspectRequired": "Howl of the Storm",
+    "description": "Slide then melee to create a wave of Stasis energy that freezes targets and creates Stasis crystals.",
+    "activation": "Slide then press Melee button",
+    "usage": "Excellent for freezing groups of enemies and creating crystals for shattering. Great crowd control tool."
+  },
+  {
+    "name": "Flechette Storm",
+    "class": "Titan",
+    "element": "Strand",
+    "aspectRequired": "Flechette Storm",
+    "description": "While sliding or immediately after a slide, activate your charged melee to launch a volley of damaging Strand projectiles.",
+    "activation": "Press charged Melee button while sliding or just after",
+    "usage": "Ranged damage option while sliding. Effective for hit-and-run tactics and applying Strand effects from distance."
+  },
+  {
+    "name": "Tempest Strike",
+    "class": "Hunter",
+    "element": "Arc",
+    "aspectRequired": "Tempest Strike",
+    "description": "Slide then melee to launch a wave of Arc energy forward that damages and jolts targets in its path.",
+    "activation": "Slide then press Melee button",
+    "usage": "Ranged melee attack that jolts enemies. Great for engaging from mid-range and triggering Arc synergies."
+  },
+  {
+    "name": "Shatterdive",
+    "class": "Hunter",
+    "element": "Stasis",
+    "aspectRequired": "Shatterdive",
+    "description": "While airborne, quickly descend and shatter all frozen targets and Stasis crystals near the impact point.",
+    "activation": "Press Melee button while airborne",
+    "usage": "Aerial slam that shatters crystals and frozen enemies. Combine with grenades to freeze then shatter for massive damage."
+  },
+  {
+    "name": "Ensnaring Slam",
+    "class": "Hunter",
+    "element": "Strand",
+    "aspectRequired": "Ensnaring Slam",
+    "description": "While airborne, press the charged melee button to slam down and suspend all nearby targets on impact.",
+    "activation": "Press charged Melee button while airborne",
+    "usage": "Aerial crowd control ability. Suspends enemies in an area, leaving them vulnerable to follow-up attacks."
+  }
+]

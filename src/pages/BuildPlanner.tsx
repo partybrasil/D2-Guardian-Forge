@@ -1,11 +1,12 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import type { Build, GuardianClass, Subclass, Stats, SubclassDefinition } from '../types';
+import type { Build, GuardianClass, Subclass, Stats, SubclassDefinition, AerialAbility, PassiveAbility, TranscendenceAbility } from '../types';
 import localforage from 'localforage';
 import Icon from '../components/Icon';
 import AbilitySelector from '../components/AbilitySelector';
 import AspectSelector from '../components/AspectSelector';
 import UnifiedSelector from '../components/UnifiedSelector';
+import AutoSelectAbility from '../components/AutoSelectAbility';
 import { getIconHash } from '../utils/iconUtils';
 
 // Import data
@@ -17,6 +18,9 @@ import movementAbilitiesData from '../data/movementAbilities.json';
 import aspectsData from '../data/aspects.json';
 import fragmentsData from '../data/fragments.json';
 import subclassesData from '../data/subclasses.json';
+import aerialsData from '../data/aerials.json';
+import passivesData from '../data/passives.json';
+import transcendenceData from '../data/transcendence.json';
 
 export default function BuildPlanner() {
   const [searchParams] = useSearchParams();
@@ -34,6 +38,13 @@ export default function BuildPlanner() {
   const [selectedMovement, setSelectedMovement] = useState('');
   const [selectedAspects, setSelectedAspects] = useState<string[]>([]);
   const [selectedFragments, setSelectedFragments] = useState<string[]>([]);
+  
+  // Extra Abilities state (auto-selected)
+  const [selectedAerial, setSelectedAerial] = useState('');
+  const [selectedPassive1, setSelectedPassive1] = useState('');
+  const [selectedPassive2, setSelectedPassive2] = useState('');
+  const [selectedTranscendenceMelee, setSelectedTranscendenceMelee] = useState('');
+  const [selectedTranscendenceGrenade, setSelectedTranscendenceGrenade] = useState('');
   
   const [stats, setStats] = useState<Stats>({
     weapons: 0,
@@ -56,6 +67,48 @@ export default function BuildPlanner() {
     }
   }, [buildId]);
 
+  // Auto-select extra abilities based on aspects
+  useEffect(() => {
+    const aerials = aerialsData as AerialAbility[];
+    const passives = passivesData as PassiveAbility[];
+    
+    // Find aerial ability from selected aspects
+    const aerial = aerials.find(a => 
+      selectedAspects.includes(a.aspectRequired) && a.class === selectedClass
+    );
+    setSelectedAerial(aerial?.name || '');
+    
+    // Find passive abilities from selected aspects, preserving aspect selection order
+    const aspectPassives = selectedAspects
+      .map(aspectName =>
+        passives.find(p => p.aspectRequired === aspectName && p.class === selectedClass)
+      )
+      .filter((p): p is PassiveAbility => Boolean(p));
+    
+    setSelectedPassive1(aspectPassives[0]?.name || '');
+    setSelectedPassive2(aspectPassives[1]?.name || '');
+  }, [selectedAspects, selectedClass]);
+
+  // Auto-select transcendence abilities for Prismatic subclass
+  useEffect(() => {
+    if (selectedSubclass === 'Prismatic') {
+      const transcendence = transcendenceData as TranscendenceAbility[];
+      
+      const melee = transcendence.find(t => 
+        t.class === selectedClass && t.type === 'melee'
+      );
+      const grenade = transcendence.find(t => 
+        t.class === selectedClass && t.type === 'grenade'
+      );
+      
+      setSelectedTranscendenceMelee(melee?.name || '');
+      setSelectedTranscendenceGrenade(grenade?.name || '');
+    } else {
+      setSelectedTranscendenceMelee('');
+      setSelectedTranscendenceGrenade('');
+    }
+  }, [selectedSubclass, selectedClass]);
+
   const loadBuild = async (id: string) => {
     try {
       const build = await localforage.getItem<Build>(`build_${id}`);
@@ -73,6 +126,10 @@ export default function BuildPlanner() {
         setGameplayLoop(build.gameplayLoop || '');
         setBuildDetails(build.buildDetails || '');
         setCreatedTimestamp(build.timestamps?.created || null);
+        
+        // Note: Extra abilities are auto-calculated from aspects via useEffect,
+        // so we don't need to manually load them here. They will be recalculated
+        // based on the current aspect definitions.
       }
     } catch (error) {
       console.error('Error loading build:', error);
@@ -94,6 +151,13 @@ export default function BuildPlanner() {
           grenade: selectedGrenade,
           melee: selectedMelee,
           classAbility: selectedClassAbility,
+        },
+        extraAbilities: {
+          aerial: selectedAerial,
+          passive1: selectedPassive1,
+          passive2: selectedPassive2,
+          transcendenceMelee: selectedTranscendenceMelee,
+          transcendenceGrenade: selectedTranscendenceGrenade,
         },
         aspects: selectedAspects,
         fragments: selectedFragments,
@@ -324,6 +388,37 @@ export default function BuildPlanner() {
     return result;
   }, [stats, fragmentStatModifiers]);
 
+  // Memoize extra abilities details lookups for performance
+  const selectedAerialDetails = useMemo(() => {
+    return selectedAerial
+      ? (aerialsData as AerialAbility[]).find(a => a.name === selectedAerial)
+      : undefined;
+  }, [selectedAerial]);
+
+  const selectedPassive1Details = useMemo(() => {
+    return selectedPassive1
+      ? (passivesData as PassiveAbility[]).find(p => p.name === selectedPassive1)
+      : undefined;
+  }, [selectedPassive1]);
+
+  const selectedPassive2Details = useMemo(() => {
+    return selectedPassive2
+      ? (passivesData as PassiveAbility[]).find(p => p.name === selectedPassive2)
+      : undefined;
+  }, [selectedPassive2]);
+
+  const selectedTranscendenceMeleeDetails = useMemo(() => {
+    return selectedTranscendenceMelee
+      ? (transcendenceData as TranscendenceAbility[]).find(t => t.name === selectedTranscendenceMelee)
+      : undefined;
+  }, [selectedTranscendenceMelee]);
+
+  const selectedTranscendenceGrenadeDetails = useMemo(() => {
+    return selectedTranscendenceGrenade
+      ? (transcendenceData as TranscendenceAbility[]).find(t => t.name === selectedTranscendenceGrenade)
+      : undefined;
+  }, [selectedTranscendenceGrenade]);
+
   // Get fragments that affect each stat
   const getFragmentsAffectingStat = (statName: keyof Stats) => {
     const selectedFragmentDetails = fragmentsData.filter(f => selectedFragments.includes(f.name));
@@ -534,6 +629,81 @@ export default function BuildPlanner() {
                   onSelect={setSelectedMovement}
                   getSubclassColor={getSubclassColor}
                 />
+              </div>
+            </div>
+          </div>
+
+          {/* Extra Abilities Section */}
+          <div className="card">
+            <h2 className="text-xl font-bold text-white mb-2">Extra Abilities</h2>
+            <p className="text-xs text-gray-400 mb-4">
+              Auto-selected based on equipped aspects and subclass
+            </p>
+            
+            {/* Top Row: Aerials, Passive 1, Passive 2 */}
+            <div className="grid grid-cols-3 gap-4 justify-items-center mb-6">
+              <AutoSelectAbility
+                label="Aerial"
+                iconCategory="classAbilities"
+                selectedValue={selectedAerial}
+                selectedDetails={selectedAerialDetails}
+                getSubclassColor={getSubclassColor}
+                isEmpty={!selectedAerial}
+              />
+              <AutoSelectAbility
+                label="Passive 1"
+                iconCategory="aspects"
+                selectedValue={selectedPassive1}
+                selectedDetails={selectedPassive1Details}
+                getSubclassColor={getSubclassColor}
+                isEmpty={!selectedPassive1}
+              />
+              <AutoSelectAbility
+                label="Passive 2"
+                iconCategory="aspects"
+                selectedValue={selectedPassive2}
+                selectedDetails={selectedPassive2Details}
+                getSubclassColor={getSubclassColor}
+                isEmpty={!selectedPassive2}
+              />
+            </div>
+
+            {/* Bottom Row: Transcendence Abilities (centered) */}
+            {selectedSubclass === 'Prismatic' && (
+              <div>
+                <div className="text-xs text-destiny-prismatic font-semibold mb-2 text-center">
+                  ⚡ TRANSCENDENCE MODE
+                </div>
+                <div className="grid grid-cols-2 gap-4 justify-items-center max-w-md mx-auto">
+                  <AutoSelectAbility
+                    label="Prismatic Melee"
+                    iconCategory="melees"
+                    selectedValue={selectedTranscendenceMelee}
+                    selectedDetails={selectedTranscendenceMeleeDetails}
+                    getSubclassColor={getSubclassColor}
+                    isEmpty={!selectedTranscendenceMelee}
+                  />
+                  <AutoSelectAbility
+                    label="Prismatic Grenade"
+                    iconCategory="grenades"
+                    selectedValue={selectedTranscendenceGrenade}
+                    selectedDetails={selectedTranscendenceGrenadeDetails}
+                    getSubclassColor={getSubclassColor}
+                    isEmpty={!selectedTranscendenceGrenade}
+                  />
+                </div>
+              </div>
+            )}
+
+            {/* Info about auto-selection */}
+            <div className="mt-4 p-3 rounded-lg bg-gray-800/50 border border-gray-700">
+              <div className="text-xs text-gray-400">
+                <div className="font-semibold text-destiny-primary mb-1">About Extra Abilities:</div>
+                <ul className="space-y-1 ml-4 list-disc">
+                  <li><strong>Aerials:</strong> Movement abilities activated in air or while sliding, unlocked by specific aspects</li>
+                  <li><strong>Passives:</strong> Automatic effects provided by aspects (some require interaction)</li>
+                  <li><strong>Transcendence:</strong> Prismatic-only enhanced abilities during Transcendence mode (~30s + kills)</li>
+                </ul>
               </div>
             </div>
           </div>

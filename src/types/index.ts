@@ -40,6 +40,14 @@ export interface Abilities {
   movement?: string;
 }
 
+export interface ExtraAbilities {
+  aerial?: string;           // Auto-selected from aspects
+  passive1?: string;         // Auto-selected from aspects
+  passive2?: string;         // Auto-selected from aspects
+  transcendenceMelee?: string;   // Auto-selected for Prismatic
+  transcendenceGrenade?: string; // Auto-selected for Prismatic
+}
+
 export interface ArmorPiece {
   name: string;
   archetype: ArmorArchetype;
@@ -81,6 +89,7 @@ export interface Build {
   subclass: Subclass;
   super: string;
   abilities: Abilities;
+  extraAbilities?: ExtraAbilities; // New: Aerials, Passives, Transcendence
   aspects: string[];        // 2 max
   fragments: string[];      // 5-6 max
   weapons: Weapons;
@@ -216,4 +225,38 @@ export interface SynergyAnalysis {
   strengths: string[];
   weaknesses: string[];
   recommendations: string[];
+}
+
+// Extra Abilities types
+export interface AerialAbility {
+  name: string;
+  class: GuardianClass;
+  element: Subclass;
+  aspectRequired: string;
+  description: string;
+  activation: string;
+  usage: string;
+}
+
+export interface PassiveAbility {
+  name: string;
+  class: GuardianClass;
+  element: Subclass;
+  aspectRequired: string;
+  description: string;
+  type: 'passive' | 'passive-interactive';
+  effect: string;
+  interaction?: string;
+}
+
+export interface TranscendenceAbility {
+  name: string;
+  class: GuardianClass;
+  type: 'grenade' | 'melee';
+  element: string; // Hybrid elements like "Solar/Stasis" or "Arc/Void", not a single Subclass
+  description: string;
+  activation: string;
+  cooldown: string;
+  duration: string;
+  buffs: string;
 }

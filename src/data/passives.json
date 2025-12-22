@@ -1,0 +1,386 @@
+[
+  {
+    "name": "Touch of Flame",
+    "class": "Warlock",
+    "element": "Solar",
+    "aspectRequired": "Touch of Flame",
+    "description": "Your grenades ignite targets, causing them to burn over time and deal increased damage. Improves grenade functionality passively.",
+    "type": "passive",
+    "effect": "Grenades automatically ignite enemies on hit"
+  },
+  {
+    "name": "Heat Rises",
+    "class": "Warlock",
+    "element": "Solar",
+    "aspectRequired": "Heat Rises",
+    "description": "Consuming your grenade allows you to fire weapons while gliding and extends airborne time. Provides airborne weapon accuracy and time extension.",
+    "type": "passive-interactive",
+    "effect": "Hold grenade button to consume and activate airborne benefits",
+    "interaction": "Hold grenade button to consume grenade"
+  },
+  {
+    "name": "Electrostatic Mind",
+    "class": "Warlock",
+    "element": "Arc",
+    "aspectRequired": "Electrostatic Mind",
+    "description": "Arc ability or jolted enemy defeats grant Ionic Traces that automatically return ability energy when collected.",
+    "type": "passive",
+    "effect": "Automatically spawns Ionic Traces from Arc kills"
+  },
+  {
+    "name": "Arc Soul",
+    "class": "Warlock",
+    "element": "Arc",
+    "aspectRequired": "Arc Soul",
+    "description": "Gain an Arc Soul when using Rift, becoming amplified, or casting your Super. The Arc Soul automatically fires at enemies.",
+    "type": "passive",
+    "effect": "Automatically summons Arc Soul companion"
+  },
+  {
+    "name": "Feed the Void",
+    "class": "Warlock",
+    "element": "Void",
+    "aspectRequired": "Feed the Void",
+    "description": "Void ability kills activate Devour, automatically healing you and granting grenade energy with each kill.",
+    "type": "passive",
+    "effect": "Void kills activate Devour automatically"
+  },
+  {
+    "name": "Child of the Old Gods",
+    "class": "Warlock",
+    "element": "Void",
+    "aspectRequired": "Child of the Old Gods",
+    "description": "Cast Rift to automatically summon a Void Soul that seeks out enemies, weakening and draining them.",
+    "type": "passive",
+    "effect": "Rift automatically spawns Void Soul"
+  },
+  {
+    "name": "Chaos Accelerant",
+    "class": "Warlock",
+    "element": "Void",
+    "aspectRequired": "Chaos Accelerant",
+    "description": "Hold the grenade button to overcharge your grenades, increasing their damage and enhancing their effects.",
+    "type": "passive-interactive",
+    "effect": "Improves grenade effectiveness when charged",
+    "interaction": "Hold grenade button to overcharge before throwing"
+  },
+  {
+    "name": "Bleak Watcher",
+    "class": "Warlock",
+    "element": "Stasis",
+    "aspectRequired": "Bleak Watcher",
+    "description": "Convert your grenade into a stationary Stasis turret that automatically slows and freezes nearby targets.",
+    "type": "passive-interactive",
+    "effect": "Grenade becomes a turret that automatically engages enemies",
+    "interaction": "Throw grenade to place turret"
+  },
+  {
+    "name": "Iceflare Bolts",
+    "class": "Warlock",
+    "element": "Stasis",
+    "aspectRequired": "Iceflare Bolts",
+    "description": "Shattering frozen targets automatically creates seekers that track and freeze other nearby enemies.",
+    "type": "passive",
+    "effect": "Shattering spawns automatic tracking projectiles"
+  },
+  {
+    "name": "Glacial Harvest",
+    "class": "Warlock",
+    "element": "Stasis",
+    "aspectRequired": "Glacial Harvest",
+    "description": "Freezing targets automatically creates Stasis shards around the frozen target for ability energy.",
+    "type": "passive",
+    "effect": "Freezing spawns Stasis shards automatically"
+  },
+  {
+    "name": "Frostpulse",
+    "class": "Warlock",
+    "element": "Stasis",
+    "aspectRequired": "Frostpulse",
+    "description": "Casting Rift automatically sends out a freezing wave that freezes all nearby targets.",
+    "type": "passive",
+    "effect": "Rift automatically freezes nearby enemies"
+  },
+  {
+    "name": "Mindspun Invocation",
+    "class": "Warlock",
+    "element": "Strand",
+    "aspectRequired": "Mindspun Invocation",
+    "description": "Grappling to targets grants melee energy. Consuming a Tangle grants class ability energy. Passive energy gains.",
+    "type": "passive",
+    "effect": "Automatic energy regeneration from Strand interactions"
+  },
+  {
+    "name": "Weaver's Call",
+    "class": "Warlock",
+    "element": "Strand",
+    "aspectRequired": "Weaver's Call",
+    "description": "Casting Rift automatically creates Threadlings that seek out and attack enemies autonomously.",
+    "type": "passive",
+    "effect": "Rift spawns Threadlings automatically"
+  },
+  {
+    "name": "The Wanderer",
+    "class": "Warlock",
+    "element": "Strand",
+    "aspectRequired": "The Wanderer",
+    "description": "Destroying Tangles creates a Rift at their location. Your Rifts grant you and allies Woven Mail automatically.",
+    "type": "passive",
+    "effect": "Rifts provide automatic Woven Mail buff"
+  },
+  {
+    "name": "Knockout",
+    "class": "Titan",
+    "element": "Arc",
+    "aspectRequired": "Knockout",
+    "description": "Critically wounding targets or breaking shields increases melee damage and restores health automatically.",
+    "type": "passive",
+    "effect": "Critical hits and shield breaks trigger automatic buffs"
+  },
+  {
+    "name": "Touch of Thunder",
+    "class": "Titan",
+    "element": "Arc",
+    "aspectRequired": "Touch of Thunder",
+    "description": "Your Arc grenades have enhanced functionality automatically, with improved effects and capabilities.",
+    "type": "passive",
+    "effect": "Grenades receive automatic enhancements"
+  },
+  {
+    "name": "Juggernaut",
+    "class": "Titan",
+    "element": "Arc",
+    "aspectRequired": "Juggernaut",
+    "description": "While sprinting, you automatically build up a frontal shield that blocks incoming damage.",
+    "type": "passive",
+    "effect": "Sprinting generates shield automatically"
+  },
+  {
+    "name": "Controlled Demolition",
+    "class": "Titan",
+    "element": "Void",
+    "aspectRequired": "Controlled Demolition",
+    "description": "Hitting targets with Void damage causes them to explode automatically when killed, chaining damage.",
+    "type": "passive",
+    "effect": "Void-damaged enemies explode on death automatically"
+  },
+  {
+    "name": "Offensive Bulwark",
+    "class": "Titan",
+    "element": "Void",
+    "aspectRequired": "Offensive Bulwark",
+    "description": "While you have an overshield, grenades charge faster and melee damage is increased automatically.",
+    "type": "passive",
+    "effect": "Overshield provides automatic combat bonuses"
+  },
+  {
+    "name": "Bastion",
+    "class": "Titan",
+    "element": "Void",
+    "aspectRequired": "Bastion",
+    "description": "Cast Barricade to grant you and nearby allies an overshield. You deal increased melee damage passively.",
+    "type": "passive",
+    "effect": "Barricade grants overshields, passive melee damage boost"
+  },
+  {
+    "name": "Sol Invictus",
+    "class": "Titan",
+    "element": "Solar",
+    "aspectRequired": "Sol Invictus",
+    "description": "Solar ability kills restore health and create Sunspots automatically that grant restoration when standing in them.",
+    "type": "passive",
+    "effect": "Solar kills spawn healing Sunspots automatically"
+  },
+  {
+    "name": "Roaring Flames",
+    "class": "Titan",
+    "element": "Solar",
+    "aspectRequired": "Roaring Flames",
+    "description": "Solar ignitions and final blows increase your Super and ability damage automatically. Stacks up to 3 times.",
+    "type": "passive",
+    "effect": "Solar kills grant automatic damage stacks"
+  },
+  {
+    "name": "Tectonic Harvest",
+    "class": "Titan",
+    "element": "Stasis",
+    "aspectRequired": "Tectonic Harvest",
+    "description": "Shattering a Stasis crystal automatically creates Stasis shards that grant melee energy when picked up.",
+    "type": "passive",
+    "effect": "Shattering spawns Stasis shards automatically"
+  },
+  {
+    "name": "Cryoclasm",
+    "class": "Titan",
+    "element": "Stasis",
+    "aspectRequired": "Cryoclasm",
+    "description": "Slide further and automatically shatter Stasis crystals and frozen targets you slide into.",
+    "type": "passive",
+    "effect": "Enhanced slide with automatic shattering"
+  },
+  {
+    "name": "Diamond Lance",
+    "class": "Titan",
+    "element": "Stasis",
+    "aspectRequired": "Diamond Lance",
+    "description": "Shatter or defeat frozen targets to create a Stasis lance automatically that can be thrown to freeze enemies.",
+    "type": "passive",
+    "effect": "Freezing effects spawn throwable lances automatically"
+  },
+  {
+    "name": "Into the Fray",
+    "class": "Titan",
+    "element": "Strand",
+    "aspectRequired": "Into the Fray",
+    "description": "Destroying a Tangle grants you and nearby allies Woven Mail and grants grenade energy automatically.",
+    "type": "passive",
+    "effect": "Tangle destruction provides automatic buffs"
+  },
+  {
+    "name": "Drengr's Lash",
+    "class": "Titan",
+    "element": "Strand",
+    "aspectRequired": "Drengr's Lash",
+    "description": "Activate your class ability to snap a devastating Strand whip that suspends targets.",
+    "type": "passive-interactive",
+    "effect": "Class ability enhanced with whip attack",
+    "interaction": "Normal class ability activation triggers whip"
+  },
+  {
+    "name": "Banner of War",
+    "class": "Titan",
+    "element": "Strand",
+    "aspectRequired": "Banner of War",
+    "description": "Defeat targets with abilities to plant your banner automatically, granting restoration and melee damage to you and allies.",
+    "type": "passive",
+    "effect": "Ability kills spawn buff banner automatically"
+  },
+  {
+    "name": "Knock 'Em Down",
+    "class": "Hunter",
+    "element": "Solar",
+    "aspectRequired": "Knock 'Em Down",
+    "description": "Golden Gun precision hits and ignitions grant bonus Super energy automatically. Golden Gun has increased duration.",
+    "type": "passive",
+    "effect": "Precision hits extend Super and grant energy"
+  },
+  {
+    "name": "Gunpowder Gamble",
+    "class": "Hunter",
+    "element": "Solar",
+    "aspectRequired": "Gunpowder Gamble",
+    "description": "Defeat targets with Solar ignitions to charge an explosive Solar projectile automatically.",
+    "type": "passive-interactive",
+    "effect": "Ignition kills charge a throwable explosive",
+    "interaction": "Press charged melee when ready to throw"
+  },
+  {
+    "name": "On Your Mark",
+    "class": "Hunter",
+    "element": "Solar",
+    "aspectRequired": "On Your Mark",
+    "description": "Precision final blows grant you and allies increased weapon reload and handling automatically for a short time.",
+    "type": "passive",
+    "effect": "Precision kills provide automatic weapon buffs"
+  },
+  {
+    "name": "Flow State",
+    "class": "Hunter",
+    "element": "Arc",
+    "aspectRequired": "Flow State",
+    "description": "Defeating jolted targets makes you amplified automatically. While amplified, dodging reloads your equipped weapon.",
+    "type": "passive",
+    "effect": "Jolt kills trigger amplified automatically"
+  },
+  {
+    "name": "Lethal Current",
+    "class": "Hunter",
+    "element": "Arc",
+    "aspectRequired": "Lethal Current",
+    "description": "After dodging, your melee lunge range is increased and your next melee strike jolts the target automatically.",
+    "type": "passive",
+    "effect": "Dodge grants automatic melee enhancements"
+  },
+  {
+    "name": "Trapper's Ambush",
+    "class": "Hunter",
+    "element": "Void",
+    "aspectRequired": "Trapper's Ambush",
+    "description": "Activate Quickfall to perform a dive that makes you and nearby allies invisible and weakens enemies.",
+    "type": "passive-interactive",
+    "effect": "Dodge becomes a dive with additional effects",
+    "interaction": "Normal dodge activation triggers dive"
+  },
+  {
+    "name": "Stylish Executioner",
+    "class": "Hunter",
+    "element": "Void",
+    "aspectRequired": "Stylish Executioner",
+    "description": "Defeating weakened, suppressed, or volatile targets grants invisibility and Truesight automatically.",
+    "type": "passive",
+    "effect": "Debuffed enemy kills grant automatic invisibility"
+  },
+  {
+    "name": "Vanishing Step",
+    "class": "Hunter",
+    "element": "Void",
+    "aspectRequired": "Vanishing Step",
+    "description": "Dodging makes you invisible and grants you and nearby allies damage resistance automatically.",
+    "type": "passive",
+    "effect": "Dodge provides automatic invisibility and buffs"
+  },
+  {
+    "name": "Grim Harvest",
+    "class": "Hunter",
+    "element": "Stasis",
+    "aspectRequired": "Grim Harvest",
+    "description": "Defeating frozen or slowed targets automatically creates Stasis shards that grant melee energy.",
+    "type": "passive",
+    "effect": "Stasis kills spawn shards automatically"
+  },
+  {
+    "name": "Winter's Shroud",
+    "class": "Hunter",
+    "element": "Stasis",
+    "aspectRequired": "Winter's Shroud",
+    "description": "Dodging slows nearby targets automatically. Slow dodges also grant you and nearby allies increased damage.",
+    "type": "passive",
+    "effect": "Dodge applies slow and damage buffs automatically"
+  },
+  {
+    "name": "Touch of Winter",
+    "class": "Hunter",
+    "element": "Stasis",
+    "aspectRequired": "Touch of Winter",
+    "description": "Your grenades have enhanced functionality automatically, creating additional freezing effects.",
+    "type": "passive",
+    "effect": "Grenades receive automatic enhancements"
+  },
+  {
+    "name": "Threaded Specter",
+    "class": "Hunter",
+    "element": "Strand",
+    "aspectRequired": "Threaded Specter",
+    "description": "Activating your class ability leaves behind a decoy that draws enemy fire and explodes automatically.",
+    "type": "passive",
+    "effect": "Dodge spawns decoy automatically"
+  },
+  {
+    "name": "Widow's Silk",
+    "class": "Hunter",
+    "element": "Strand",
+    "aspectRequired": "Widow's Silk",
+    "description": "Your grapple creates a persistent tangle automatically that can be picked up by allies and exploded.",
+    "type": "passive",
+    "effect": "Grapple creates tangles automatically"
+  },
+  {
+    "name": "Whirling Maelstrom",
+    "class": "Hunter",
+    "element": "Strand",
+    "aspectRequired": "Whirling Maelstrom",
+    "description": "Destroying Tangles grants you bonus class ability energy and grants Woven Mail automatically.",
+    "type": "passive",
+    "effect": "Tangle destruction provides automatic benefits"
+  }
+]
