@@ -253,7 +253,7 @@ export interface TranscendenceAbility {
   name: string;
   class: GuardianClass;
   type: 'grenade' | 'melee';
-  element: string;
+  element: string; // Hybrid elements like "Solar/Stasis" or "Arc/Void", not a single Subclass
   description: string;
   activation: string;
   cooldown: string;

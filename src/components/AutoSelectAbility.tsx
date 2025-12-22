@@ -2,10 +2,12 @@
  * AutoSelectAbility Component - D2-Guardian-Forge
  * 
  * A non-interactive display component that shows abilities automatically
- * selected based on equipped aspects. Cannot be clicked or manually changed.
+ * selected based on equipped aspects. The ability selection is automatic and
+ * cannot be manually changed. However, clicking a populated ability opens an
+ * informational modal showing details about the ability.
  */
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Icon from './Icon';
 import { getIconHash } from '../utils/iconUtils';
 import type { IconCategory } from '../utils/iconUtils';
@@ -40,20 +42,54 @@ export default function AutoSelectAbility({
   isEmpty = false,
 }: AutoSelectAbilityProps) {
   const [showDetails, setShowDetails] = useState(false);
+  const modalRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const triggerRef = useRef<HTMLDivElement>(null);
 
   const displayEmpty = isEmpty || !selectedValue;
+
+  // Handle keyboard events for modal
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && showDetails) {
+        setShowDetails(false);
+      }
+    };
+
+    if (showDetails) {
+      document.addEventListener('keydown', handleKeyDown);
+      // Focus the close button when modal opens
+      closeButtonRef.current?.focus();
+      
+      return () => {
+        document.removeEventListener('keydown', handleKeyDown);
+        // Return focus to trigger element when modal closes
+        triggerRef.current?.focus();
+      };
+    }
+  }, [showDetails]);
 
   return (
     <>
       {/* Non-Interactive Display */}
       <div className="flex flex-col items-center">
         <div
+          ref={triggerRef}
           className={`relative p-3 rounded-lg border-2 ${
             displayEmpty
               ? 'border-gray-700 bg-gray-800/20 cursor-not-allowed'
               : 'border-destiny-primary/50 bg-destiny-primary/5 cursor-pointer hover:border-destiny-primary'
           }`}
           onClick={() => !displayEmpty && setShowDetails(true)}
+          onKeyDown={(e) => {
+            if ((e.key === 'Enter' || e.key === ' ') && !displayEmpty) {
+              e.preventDefault();
+              setShowDetails(true);
+            }
+          }}
+          role="button"
+          tabIndex={displayEmpty ? -1 : 0}
+          aria-label={displayEmpty ? 'Auto-selected by aspects' : `View ${label} details`}
           title={displayEmpty ? 'Auto-selected by aspects' : `View ${label} details`}
         >
           {displayEmpty ? (
@@ -91,8 +127,10 @@ export default function AutoSelectAbility({
           onClick={() => setShowDetails(false)}
           role="dialog"
           aria-modal="true"
+          aria-labelledby="modal-title"
         >
           <div 
+            ref={modalRef}
             className="bg-gray-900 rounded-lg border-2 border-destiny-primary/50 p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
@@ -105,7 +143,7 @@ export default function AutoSelectAbility({
                   className="flex-shrink-0"
                 />
                 <div>
-                  <h3 className="text-2xl font-bold text-white mb-1">
+                  <h3 id="modal-title" className="text-2xl font-bold text-white mb-1">
                     {selectedValue}
                   </h3>
                   {selectedDetails.element && getSubclassColor && (
@@ -116,6 +154,7 @@ export default function AutoSelectAbility({
                 </div>
               </div>
               <button
+                ref={closeButtonRef}
                 onClick={() => setShowDetails(false)}
                 className="text-gray-400 hover:text-white text-2xl leading-none ml-4"
                 aria-label="Close modal"

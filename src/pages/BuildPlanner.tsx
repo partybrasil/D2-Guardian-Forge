@@ -78,10 +78,12 @@ export default function BuildPlanner() {
     );
     setSelectedAerial(aerial?.name || '');
     
-    // Find passive abilities from selected aspects
-    const aspectPassives = passives.filter(p => 
-      selectedAspects.includes(p.aspectRequired) && p.class === selectedClass
-    );
+    // Find passive abilities from selected aspects, preserving aspect selection order
+    const aspectPassives = selectedAspects
+      .map(aspectName =>
+        passives.find(p => p.aspectRequired === aspectName && p.class === selectedClass)
+      )
+      .filter((p): p is PassiveAbility => Boolean(p));
     
     setSelectedPassive1(aspectPassives[0]?.name || '');
     setSelectedPassive2(aspectPassives[1]?.name || '');
@@ -125,14 +127,9 @@ export default function BuildPlanner() {
         setBuildDetails(build.buildDetails || '');
         setCreatedTimestamp(build.timestamps?.created || null);
         
-        // Load extra abilities if present
-        if (build.extraAbilities) {
-          setSelectedAerial(build.extraAbilities.aerial || '');
-          setSelectedPassive1(build.extraAbilities.passive1 || '');
-          setSelectedPassive2(build.extraAbilities.passive2 || '');
-          setSelectedTranscendenceMelee(build.extraAbilities.transcendenceMelee || '');
-          setSelectedTranscendenceGrenade(build.extraAbilities.transcendenceGrenade || '');
-        }
+        // Note: Extra abilities are auto-calculated from aspects via useEffect,
+        // so we don't need to manually load them here. They will be recalculated
+        // based on the current aspect definitions.
       }
     } catch (error) {
       console.error('Error loading build:', error);
@@ -391,6 +388,37 @@ export default function BuildPlanner() {
     return result;
   }, [stats, fragmentStatModifiers]);
 
+  // Memoize extra abilities details lookups for performance
+  const selectedAerialDetails = useMemo(() => {
+    return selectedAerial
+      ? (aerialsData as AerialAbility[]).find(a => a.name === selectedAerial)
+      : undefined;
+  }, [selectedAerial]);
+
+  const selectedPassive1Details = useMemo(() => {
+    return selectedPassive1
+      ? (passivesData as PassiveAbility[]).find(p => p.name === selectedPassive1)
+      : undefined;
+  }, [selectedPassive1]);
+
+  const selectedPassive2Details = useMemo(() => {
+    return selectedPassive2
+      ? (passivesData as PassiveAbility[]).find(p => p.name === selectedPassive2)
+      : undefined;
+  }, [selectedPassive2]);
+
+  const selectedTranscendenceMeleeDetails = useMemo(() => {
+    return selectedTranscendenceMelee
+      ? (transcendenceData as TranscendenceAbility[]).find(t => t.name === selectedTranscendenceMelee)
+      : undefined;
+  }, [selectedTranscendenceMelee]);
+
+  const selectedTranscendenceGrenadeDetails = useMemo(() => {
+    return selectedTranscendenceGrenade
+      ? (transcendenceData as TranscendenceAbility[]).find(t => t.name === selectedTranscendenceGrenade)
+      : undefined;
+  }, [selectedTranscendenceGrenade]);
+
   // Get fragments that affect each stat
   const getFragmentsAffectingStat = (statName: keyof Stats) => {
     const selectedFragmentDetails = fragmentsData.filter(f => selectedFragments.includes(f.name));
@@ -618,11 +646,7 @@ export default function BuildPlanner() {
                 label="Aerial"
                 iconCategory="classAbilities"
                 selectedValue={selectedAerial}
-                selectedDetails={
-                  selectedAerial
-                    ? (aerialsData as AerialAbility[]).find(a => a.name === selectedAerial)
-                    : undefined
-                }
+                selectedDetails={selectedAerialDetails}
                 getSubclassColor={getSubclassColor}
                 isEmpty={!selectedAerial}
               />
@@ -630,11 +654,7 @@ export default function BuildPlanner() {
                 label="Passive 1"
                 iconCategory="aspects"
                 selectedValue={selectedPassive1}
-                selectedDetails={
-                  selectedPassive1
-                    ? (passivesData as PassiveAbility[]).find(p => p.name === selectedPassive1)
-                    : undefined
-                }
+                selectedDetails={selectedPassive1Details}
                 getSubclassColor={getSubclassColor}
                 isEmpty={!selectedPassive1}
               />
@@ -642,11 +662,7 @@ export default function BuildPlanner() {
                 label="Passive 2"
                 iconCategory="aspects"
                 selectedValue={selectedPassive2}
-                selectedDetails={
-                  selectedPassive2
-                    ? (passivesData as PassiveAbility[]).find(p => p.name === selectedPassive2)
-                    : undefined
-                }
+                selectedDetails={selectedPassive2Details}
                 getSubclassColor={getSubclassColor}
                 isEmpty={!selectedPassive2}
               />
@@ -663,13 +679,7 @@ export default function BuildPlanner() {
                     label="Prismatic Melee"
                     iconCategory="melees"
                     selectedValue={selectedTranscendenceMelee}
-                    selectedDetails={
-                      selectedTranscendenceMelee
-                        ? (transcendenceData as TranscendenceAbility[]).find(
-                            t => t.name === selectedTranscendenceMelee
-                          )
-                        : undefined
-                    }
+                    selectedDetails={selectedTranscendenceMeleeDetails}
                     getSubclassColor={getSubclassColor}
                     isEmpty={!selectedTranscendenceMelee}
                   />
@@ -677,13 +687,7 @@ export default function BuildPlanner() {
                     label="Prismatic Grenade"
                     iconCategory="grenades"
                     selectedValue={selectedTranscendenceGrenade}
-                    selectedDetails={
-                      selectedTranscendenceGrenade
-                        ? (transcendenceData as TranscendenceAbility[]).find(
-                            t => t.name === selectedTranscendenceGrenade
-                          )
-                        : undefined
-                    }
+                    selectedDetails={selectedTranscendenceGrenadeDetails}
                     getSubclassColor={getSubclassColor}
                     isEmpty={!selectedTranscendenceGrenade}
                   />
