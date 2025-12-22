@@ -29,7 +29,7 @@
     "type": "Jump",
     "primaryEffect": "Teleport",
     "secondaryEffect": "Repositioning",
-    "description": "Short teleport instead of normal jump. Available on some Arc/Void subclasses.",
+    "description": "Short teleport instead of normal jump. Only available on the Void (Nightstalker) subclass.",
     "element": "Void"
   },
   {

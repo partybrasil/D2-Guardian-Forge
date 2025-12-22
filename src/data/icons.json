@@ -213,10 +213,26 @@
   "classAbilities": {
     "Healing Rift": 1319291826,
     "Empowering Rift": 2319291827,
+    "Ionic Rift": 7319291832,
+    "Phoenix Dive": 392767113,
     "Towering Barricade": 3319291828,
     "Rally Barricade": 4319291829,
+    "Towering + Weapon Amp": 8319291833,
     "Marksman's Dodge": 5319291830,
-    "Gambler's Dodge": 6319291831
+    "Gambler's Dodge": 6319291831,
+    "Evasion Dodge": 9319291834,
+    "High Jump": 1001001001,
+    "Strafe Jump": 1001001002,
+    "Triple Jump": 1001001003,
+    "Blink": 1001001004,
+    "High Lift": 2001001001,
+    "Strafe Lift": 2001001002,
+    "Catapult Lift": 2001001003,
+    "Strafe Glide": 3001001001,
+    "Burst Glide": 3001001002,
+    "Balanced Glide": 3001001003,
+    "Icarus Dash": 3920911077,
+    "Thruster": 2942954611
   },
   "supers": {
     "Well of Radiance": 2164260293,

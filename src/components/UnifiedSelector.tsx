@@ -64,7 +64,11 @@ export default function UnifiedSelector({
 
   // Get the icon hash - use iconKey if provided
   const getOptionIconHash = (option: UnifiedOption) => {
-    if (iconKey) {
+    if (iconKey && option.iconKey) {
+      // Use the iconKey property from the option if it exists
+      return getIconHash(iconCategory, option.iconKey);
+    } else if (iconKey) {
+      // Fall back to using the iconKey parameter as a property name
       return getIconHash(iconCategory, option[iconKey] || option.name);
     }
     return getIconHash(iconCategory, option.name);
