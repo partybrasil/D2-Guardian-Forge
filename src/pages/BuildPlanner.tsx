@@ -389,7 +389,7 @@ export default function BuildPlanner() {
                   element: s,
                   iconKey: `${s.toLowerCase()}_${selectedClass.toLowerCase()}`
                 }))}
-                iconKey="iconKey"
+                iconKey="iconKey" // Property name in each option object that contains the icon lookup key
                 onSelect={(value) => {
                   setSelectedSubclass(value as Subclass);
                   setSelectedSuper('');
