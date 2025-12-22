@@ -1,0 +1,68 @@
+[
+  {
+    "name": "Hailfire Spike",
+    "class": "Hunter",
+    "type": "grenade",
+    "element": "Solar/Stasis",
+    "description": "Prismatic Hunter's Transcendence grenade. A hybrid explosive that combines Solar ignition and Stasis freeze effects. Deals massive damage and controls enemy movement.",
+    "activation": "Grenade button during Transcendence mode",
+    "cooldown": "Instant regeneration during Transcendence (~3-5s)",
+    "duration": "Active for ~30s + kills extend duration",
+    "buffs": "Part of Transcendence: 15% damage resistance, +5% damage output, 3.5x ability regeneration"
+  },
+  {
+    "name": "Prismatic Spike",
+    "class": "Hunter",
+    "type": "melee",
+    "element": "Prismatic",
+    "description": "Prismatic Hunter's Transcendence melee. Enhanced melee attack with both Light and Dark energy properties. High damage output with rapid regeneration.",
+    "activation": "Melee button during Transcendence mode",
+    "cooldown": "Instant regeneration during Transcendence (~2-3s)",
+    "duration": "Active for ~30s + kills extend duration",
+    "buffs": "Part of Transcendence: 15% damage resistance, +5% damage output, 3.5x ability regeneration"
+  },
+  {
+    "name": "Shackle Grenade",
+    "class": "Titan",
+    "type": "grenade",
+    "element": "Arc/Void",
+    "description": "Prismatic Titan's Transcendence grenade. Combines Arc jolt and Void suppression/weaken effects. Creates a hybrid projectile that controls and debuffs enemies.",
+    "activation": "Grenade button during Transcendence mode",
+    "cooldown": "Instant regeneration during Transcendence (~3-5s)",
+    "duration": "Active for ~30s + kills extend duration",
+    "buffs": "Part of Transcendence: 15% damage resistance, +5% damage output, 3.5x ability regeneration"
+  },
+  {
+    "name": "Prismatic Hammer",
+    "class": "Titan",
+    "type": "melee",
+    "element": "Prismatic",
+    "description": "Prismatic Titan's Transcendence melee. A powerful throwing hammer infused with Light and Dark energy that can be retrieved for ability energy.",
+    "activation": "Melee button during Transcendence mode",
+    "cooldown": "Instant regeneration during Transcendence (~2-3s)",
+    "duration": "Active for ~30s + kills extend duration",
+    "buffs": "Part of Transcendence: 15% damage resistance, +5% damage output, 3.5x ability regeneration"
+  },
+  {
+    "name": "Vortex/Duskfield Hybrid",
+    "class": "Warlock",
+    "type": "grenade",
+    "element": "Void/Stasis",
+    "description": "Prismatic Warlock's Transcendence grenade. Merges Void vortex damage-over-time with Stasis duskfield slow/freeze. Creates a dangerous area that controls and damages.",
+    "activation": "Grenade button during Transcendence mode",
+    "cooldown": "Instant regeneration during Transcendence (~3-5s)",
+    "duration": "Active for ~30s + kills extend duration",
+    "buffs": "Part of Transcendence: 15% damage resistance, +5% damage output, 3.5x ability regeneration"
+  },
+  {
+    "name": "Prismatic Final",
+    "class": "Warlock",
+    "type": "melee",
+    "element": "Prismatic",
+    "description": "Prismatic Warlock's Transcendence melee. A devastating ranged melee that combines Light and Dark energy for maximum impact and utility.",
+    "activation": "Melee button during Transcendence mode",
+    "cooldown": "Instant regeneration during Transcendence (~2-3s)",
+    "duration": "Active for ~30s + kills extend duration",
+    "buffs": "Part of Transcendence: 15% damage resistance, +5% damage output, 3.5x ability regeneration"
+  }
+]
