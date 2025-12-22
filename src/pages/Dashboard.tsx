@@ -120,31 +120,31 @@ export default function Dashboard() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Header */}
-      <div className="flex justify-between items-center mb-8">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 sm:gap-0 mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-white mb-2">My Builds</h1>
+          <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">My Builds</h1>
           <p className="text-gray-400">
             {filteredBuilds.length} {filteredBuilds.length === 1 ? 'build' : 'builds'} found
           </p>
         </div>
-        <div className="flex gap-3">
+        <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
           <button
             onClick={handleBackupDownload}
-            className="btn-secondary"
+            className="btn-secondary text-sm sm:text-base"
             title="Download backup of all builds"
           >
             📥 Download Backup
           </button>
           <button
             onClick={handleBackupRestore}
-            className="btn-secondary"
+            className="btn-secondary text-sm sm:text-base"
             title="Restore builds from backup file"
           >
             📤 Restore Backup
           </button>
           <Link
             to="/planner"
-            className="btn-primary"
+            className="btn-primary text-sm sm:text-base text-center"
           >
             + Create New Build
           </Link>
@@ -168,10 +168,10 @@ export default function Dashboard() {
             <label className="block text-sm font-medium text-gray-300 mb-3">
               Filter by Class
             </label>
-            <div className="flex gap-3">
+            <div className="flex flex-wrap gap-2 sm:gap-3">
               <button
                 onClick={() => setFilterClass('')}
-                className={`px-4 py-2 rounded border-2 transition-colors ${
+                className={`px-3 sm:px-4 py-2 rounded border-2 transition-colors text-sm sm:text-base ${
                   filterClass === ''
                     ? 'border-destiny-primary bg-destiny-primary/10 text-white'
                     : 'border-gray-600 hover:border-gray-500 text-gray-300'
@@ -183,14 +183,14 @@ export default function Dashboard() {
                 <button
                   key={className}
                   onClick={() => setFilterClass(className)}
-                  className={`flex items-center gap-2 px-3 py-2 rounded border-2 transition-colors ${
+                  className={`flex items-center gap-2 px-2 sm:px-3 py-2 rounded border-2 transition-colors ${
                     filterClass === className
                       ? 'border-destiny-primary bg-destiny-primary/10'
                       : 'border-gray-600 hover:border-gray-500'
                   }`}
                 >
-                  <Icon hash={getIconHash('classes', className)} size={24} alt={className} />
-                  <span className="text-white font-medium">{className}</span>
+                  <Icon hash={getIconHash('classes', className)} size={20} alt={className} className="sm:w-6 sm:h-6" />
+                  <span className="text-white font-medium text-sm sm:text-base">{className}</span>
                 </button>
               ))}
             </div>
@@ -201,10 +201,10 @@ export default function Dashboard() {
             <label className="block text-sm font-medium text-gray-300 mb-3">
               Filter by Subclass
             </label>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-2 sm:gap-3">
               <button
                 onClick={() => setFilterSubclass('')}
-                className={`px-4 py-2 rounded border-2 transition-colors ${
+                className={`px-3 sm:px-4 py-2 rounded border-2 transition-colors text-sm sm:text-base ${
                   filterSubclass === ''
                     ? 'border-destiny-primary bg-destiny-primary/10 text-white'
                     : 'border-gray-600 hover:border-gray-500 text-gray-300'
@@ -217,13 +217,13 @@ export default function Dashboard() {
                   <button
                     key={subclass}
                     onClick={() => setFilterSubclass(subclass)}
-                    className={`flex items-center gap-2 px-3 py-2 rounded border-2 transition-colors ${
+                    className={`flex items-center gap-2 px-2 sm:px-3 py-2 rounded border-2 transition-colors ${
                       filterSubclass === subclass
                         ? 'border-destiny-primary bg-destiny-primary/10'
                         : 'border-gray-600 hover:border-gray-500'
                     }`}
                   >
-                    <span className={`font-medium ${getSubclassColor(subclass)}`}>
+                    <span className={`font-medium text-sm sm:text-base ${getSubclassColor(subclass)}`}>
                       {subclass}
                     </span>
                   </button>
@@ -260,23 +260,24 @@ export default function Dashboard() {
               <div key={build.id} className="card hover:border-destiny-primary border-2 border-transparent transition-colors">
                 {/* Header with Class and Subclass Icons */}
                 <div className="flex justify-between items-start mb-4">
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-2 sm:gap-3 flex-1 min-w-0">
                     <Icon 
                       hash={getIconHash('classes', build.class)} 
-                      size={48} 
+                      size={40} 
                       alt={build.class}
-                      className="flex-shrink-0" 
+                      className="flex-shrink-0 sm:w-12 sm:h-12" 
                     />
-                    <div>
-                      <h3 className="text-xl font-bold text-white mb-1">{build.name}</h3>
-                      <div className="flex items-center gap-2">
+                    <div className="flex-1 min-w-0">
+                      <h3 className="text-lg sm:text-xl font-bold text-white mb-1 truncate">{build.name}</h3>
+                      <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
                         <Icon 
                           hash={getIconHash('subclasses', `${build.subclass.toLowerCase()}_${build.class.toLowerCase()}`)} 
-                          size={24} 
+                          size={20} 
                           alt={build.subclass}
+                          className="flex-shrink-0"
                         />
-                        <span className="text-sm text-gray-400">{build.class}</span>
-                        <span className={`text-sm ${getSubclassColor(build.subclass)}`}>
+                        <span className="text-xs sm:text-sm text-gray-400">{build.class}</span>
+                        <span className={`text-xs sm:text-sm ${getSubclassColor(build.subclass)}`}>
                           {build.subclass}
                         </span>
                       </div>
@@ -284,7 +285,7 @@ export default function Dashboard() {
                   </div>
                   <button
                     onClick={() => deleteBuild(build.id)}
-                    className="text-red-500 hover:text-red-400"
+                    className="text-red-500 hover:text-red-400 text-xl sm:text-2xl flex-shrink-0 ml-2"
                     title="Delete build"
                   >
                     ✕
@@ -292,40 +293,40 @@ export default function Dashboard() {
                 </div>
                 
                 {/* Abilities with Icons */}
-                <div className="space-y-3 mb-4">
+                <div className="space-y-2 sm:space-y-3 mb-4">
                   {build.super && (
                     <div className="flex items-center gap-2">
-                      <Icon hash={getIconHash('supers', build.super)} size={32} alt={build.super} />
-                      <div className="flex-1">
+                      <Icon hash={getIconHash('supers', build.super)} size={28} alt={build.super} className="flex-shrink-0 sm:w-8 sm:h-8" />
+                      <div className="flex-1 min-w-0">
                         <div className="text-xs text-gray-400">Super</div>
-                        <div className="text-sm text-white font-medium">{build.super}</div>
+                        <div className="text-xs sm:text-sm text-white font-medium truncate">{build.super}</div>
                       </div>
                     </div>
                   )}
                   {build.abilities.grenade && (
                     <div className="flex items-center gap-2">
-                      <Icon hash={getIconHash('grenades', build.abilities.grenade)} size={32} alt={build.abilities.grenade} />
-                      <div className="flex-1">
+                      <Icon hash={getIconHash('grenades', build.abilities.grenade)} size={28} alt={build.abilities.grenade} className="flex-shrink-0 sm:w-8 sm:h-8" />
+                      <div className="flex-1 min-w-0">
                         <div className="text-xs text-gray-400">Grenade</div>
-                        <div className="text-sm text-white font-medium">{build.abilities.grenade}</div>
+                        <div className="text-xs sm:text-sm text-white font-medium truncate">{build.abilities.grenade}</div>
                       </div>
                     </div>
                   )}
                   {build.abilities.melee && (
                     <div className="flex items-center gap-2">
-                      <Icon hash={getIconHash('melees', build.abilities.melee)} size={32} alt={build.abilities.melee} />
-                      <div className="flex-1">
+                      <Icon hash={getIconHash('melees', build.abilities.melee)} size={28} alt={build.abilities.melee} className="flex-shrink-0 sm:w-8 sm:h-8" />
+                      <div className="flex-1 min-w-0">
                         <div className="text-xs text-gray-400">Melee</div>
-                        <div className="text-sm text-white font-medium">{build.abilities.melee}</div>
+                        <div className="text-xs sm:text-sm text-white font-medium truncate">{build.abilities.melee}</div>
                       </div>
                     </div>
                   )}
                   {build.abilities.classAbility && (
                     <div className="flex items-center gap-2">
-                      <Icon hash={getIconHash('classAbilities', build.abilities.classAbility)} size={32} alt={build.abilities.classAbility} />
-                      <div className="flex-1">
+                      <Icon hash={getIconHash('classAbilities', build.abilities.classAbility)} size={28} alt={build.abilities.classAbility} className="flex-shrink-0 sm:w-8 sm:h-8" />
+                      <div className="flex-1 min-w-0">
                         <div className="text-xs text-gray-400">Class Ability</div>
-                        <div className="text-sm text-white font-medium">{build.abilities.classAbility}</div>
+                        <div className="text-xs sm:text-sm text-white font-medium truncate">{build.abilities.classAbility}</div>
                       </div>
                     </div>
                   )}
@@ -334,14 +335,14 @@ export default function Dashboard() {
                   {build.aspects && build.aspects.length > 0 && (
                     <div className="pt-2 border-t border-gray-700">
                       <div className="text-xs text-gray-400 mb-2">Aspects ({build.aspects.length}/2)</div>
-                      <div className="flex gap-2">
+                      <div className="flex gap-1.5 sm:gap-2">
                         {build.aspects.map(aspect => (
                           <Icon 
                             key={aspect}
                             hash={getIconHash('aspects', aspect)} 
-                            size={28} 
+                            size={24} 
                             alt={aspect}
-                            className="opacity-80"
+                            className="opacity-80 sm:w-7 sm:h-7"
                           />
                         ))}
                       </div>
@@ -357,13 +358,13 @@ export default function Dashboard() {
                           <Icon 
                             key={fragment}
                             hash={getIconHash('fragments', fragment)} 
-                            size={24} 
+                            size={20} 
                             alt={fragment}
-                            className="opacity-70"
+                            className="opacity-70 sm:w-6 sm:h-6"
                           />
                         ))}
                         {build.fragments.length > FRAGMENT_PREVIEW_LIMIT && (
-                          <div className="flex items-center justify-center w-6 h-6 text-xs text-gray-500">
+                          <div className="flex items-center justify-center w-5 h-5 sm:w-6 sm:h-6 text-xs text-gray-500">
                             +{build.fragments.length - FRAGMENT_PREVIEW_LIMIT}
                           </div>
                         )}
@@ -377,7 +378,7 @@ export default function Dashboard() {
                     <div className="flex justify-between items-center mb-2">
                       <span className="text-xs text-gray-400 uppercase font-semibold">Final Stats</span>
                       {hasFragmentModifiers && (
-                        <div className="flex gap-2 text-xs">
+                        <div className="flex gap-1.5 sm:gap-2 text-xs">
                           {statSummary.gains > 0 && (
                             <span className="text-green-400">+{statSummary.gains}</span>
                           )}
@@ -387,7 +388,7 @@ export default function Dashboard() {
                         </div>
                       )}
                     </div>
-                    <div className="grid grid-cols-3 gap-1">
+                    <div className="grid grid-cols-3 gap-x-1 gap-y-2 sm:gap-2">
                       {Object.entries(finalStats).map(([stat, value]) => {
                         const baseStat = build.stats[stat as keyof typeof build.stats];
                         const modifier = statSummary.modifiers[stat as keyof typeof statSummary.modifiers];
@@ -396,7 +397,7 @@ export default function Dashboard() {
                         return (
                           <div key={stat} className="text-center">
                             <div className="text-xs text-gray-400 uppercase">{stat.substring(0, 3)}</div>
-                            <div className={`font-bold ${
+                            <div className={`font-bold text-sm sm:text-base ${
                               hasModifier 
                                 ? (modifier > 0 ? 'text-green-400' : 'text-red-400')
                                 : 'text-white'
@@ -414,14 +415,14 @@ export default function Dashboard() {
                     </div>
                 </div>
 
-                <div className="flex gap-2">
+                <div className="flex flex-col sm:flex-row gap-2 mt-4">
                   <Link
                     to={`/planner?id=${build.id}`}
-                    className="btn-secondary flex-1 text-center"
+                    className="btn-secondary flex-1 text-center text-sm sm:text-base"
                   >
                     Edit
                   </Link>
-                  <button className="btn-secondary flex-1">
+                  <button className="btn-secondary flex-1 text-sm sm:text-base">
                     Export
                   </button>
                 </div>
