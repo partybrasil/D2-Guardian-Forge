@@ -189,7 +189,7 @@ export default function Dashboard() {
                       : 'border-gray-600 hover:border-gray-500'
                   }`}
                 >
-                  <Icon hash={getIconHash('classes', className)} size={20} alt={className} className="sm:w-6 sm:h-6" />
+                  <Icon hash={getIconHash('classes', className)} alt={className} className="w-5 h-5 sm:w-6 sm:h-6" />
                   <span className="text-white font-medium text-sm sm:text-base">{className}</span>
                 </button>
               ))}
@@ -263,18 +263,16 @@ export default function Dashboard() {
                   <div className="flex items-center gap-2 sm:gap-3 flex-1 min-w-0">
                     <Icon 
                       hash={getIconHash('classes', build.class)} 
-                      size={40} 
                       alt={build.class}
-                      className="flex-shrink-0 sm:w-12 sm:h-12" 
+                      className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12" 
                     />
                     <div className="flex-1 min-w-0">
                       <h3 className="text-lg sm:text-xl font-bold text-white mb-1 truncate">{build.name}</h3>
                       <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
                         <Icon 
                           hash={getIconHash('subclasses', `${build.subclass.toLowerCase()}_${build.class.toLowerCase()}`)} 
-                          size={20} 
                           alt={build.subclass}
-                          className="flex-shrink-0"
+                          className="flex-shrink-0 w-5 h-5"
                         />
                         <span className="text-xs sm:text-sm text-gray-400">{build.class}</span>
                         <span className={`text-xs sm:text-sm ${getSubclassColor(build.subclass)}`}>
@@ -296,7 +294,7 @@ export default function Dashboard() {
                 <div className="space-y-2 sm:space-y-3 mb-4">
                   {build.super && (
                     <div className="flex items-center gap-2">
-                      <Icon hash={getIconHash('supers', build.super)} size={28} alt={build.super} className="flex-shrink-0 sm:w-8 sm:h-8" />
+                      <Icon hash={getIconHash('supers', build.super)} alt={build.super} className="flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8" />
                       <div className="flex-1 min-w-0">
                         <div className="text-xs text-gray-400">Super</div>
                         <div className="text-xs sm:text-sm text-white font-medium truncate">{build.super}</div>
@@ -305,7 +303,7 @@ export default function Dashboard() {
                   )}
                   {build.abilities.grenade && (
                     <div className="flex items-center gap-2">
-                      <Icon hash={getIconHash('grenades', build.abilities.grenade)} size={28} alt={build.abilities.grenade} className="flex-shrink-0 sm:w-8 sm:h-8" />
+                      <Icon hash={getIconHash('grenades', build.abilities.grenade)} alt={build.abilities.grenade} className="flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8" />
                       <div className="flex-1 min-w-0">
                         <div className="text-xs text-gray-400">Grenade</div>
                         <div className="text-xs sm:text-sm text-white font-medium truncate">{build.abilities.grenade}</div>
@@ -314,7 +312,7 @@ export default function Dashboard() {
                   )}
                   {build.abilities.melee && (
                     <div className="flex items-center gap-2">
-                      <Icon hash={getIconHash('melees', build.abilities.melee)} size={28} alt={build.abilities.melee} className="flex-shrink-0 sm:w-8 sm:h-8" />
+                      <Icon hash={getIconHash('melees', build.abilities.melee)} alt={build.abilities.melee} className="flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8" />
                       <div className="flex-1 min-w-0">
                         <div className="text-xs text-gray-400">Melee</div>
                         <div className="text-xs sm:text-sm text-white font-medium truncate">{build.abilities.melee}</div>
@@ -323,7 +321,7 @@ export default function Dashboard() {
                   )}
                   {build.abilities.classAbility && (
                     <div className="flex items-center gap-2">
-                      <Icon hash={getIconHash('classAbilities', build.abilities.classAbility)} size={28} alt={build.abilities.classAbility} className="flex-shrink-0 sm:w-8 sm:h-8" />
+                      <Icon hash={getIconHash('classAbilities', build.abilities.classAbility)} alt={build.abilities.classAbility} className="flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8" />
                       <div className="flex-1 min-w-0">
                         <div className="text-xs text-gray-400">Class Ability</div>
                         <div className="text-xs sm:text-sm text-white font-medium truncate">{build.abilities.classAbility}</div>
@@ -340,9 +338,8 @@ export default function Dashboard() {
                           <Icon 
                             key={aspect}
                             hash={getIconHash('aspects', aspect)} 
-                            size={24} 
                             alt={aspect}
-                            className="opacity-80 sm:w-7 sm:h-7"
+                            className="opacity-80 w-6 h-6 sm:w-7 sm:h-7"
                           />
                         ))}
                       </div>
@@ -358,9 +355,8 @@ export default function Dashboard() {
                           <Icon 
                             key={fragment}
                             hash={getIconHash('fragments', fragment)} 
-                            size={20} 
                             alt={fragment}
-                            className="opacity-70 sm:w-6 sm:h-6"
+                            className="opacity-70 w-5 h-5 sm:w-6 sm:h-6"
                           />
                         ))}
                         {build.fragments.length > FRAGMENT_PREVIEW_LIMIT && (
