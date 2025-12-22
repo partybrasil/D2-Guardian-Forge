@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import type { Build, GuardianClass, Subclass } from '../types';
 import localforage from 'localforage';
@@ -10,7 +10,11 @@ import { getIconHash } from '../utils/iconUtils';
 // Constants
 const FRAGMENT_PREVIEW_LIMIT = 6;
 
-export default function Dashboard() {
+interface DashboardProps {
+  setBackupHandlers: (handlers: { onDownload?: () => void; onRestore?: () => void }) => void;
+}
+
+export default function Dashboard({ setBackupHandlers }: DashboardProps) {
   const [builds, setBuilds] = useState<Build[]>([]);
   const [filterClass, setFilterClass] = useState<GuardianClass | ''>('');
   const [filterSubclass, setFilterSubclass] = useState<Subclass | ''>('');
@@ -20,6 +24,22 @@ export default function Dashboard() {
   useEffect(() => {
     loadBuilds();
   }, []);
+
+  const handleBackupDownload = useCallback(async () => {
+    await downloadBuildsBackup();
+  }, []);
+
+  const handleBackupRestore = useCallback(() => {
+    fileInputRef.current?.click();
+  }, []);
+
+  // Set backup handlers for the HamburgerMenu
+  useEffect(() => {
+    setBackupHandlers({
+      onDownload: handleBackupDownload,
+      onRestore: handleBackupRestore,
+    });
+  }, [setBackupHandlers, handleBackupDownload, handleBackupRestore]);
 
   const loadBuilds = async () => {
     try {
@@ -51,14 +71,6 @@ export default function Dashboard() {
         console.error('Error deleting build:', error);
       }
     }
-  };
-
-  const handleBackupDownload = async () => {
-    await downloadBuildsBackup();
-  };
-
-  const handleBackupRestore = () => {
-    fileInputRef.current?.click();
   };
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -120,35 +132,11 @@ export default function Dashboard() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 sm:gap-0 mb-8">
-        <div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">My Builds</h1>
-          <p className="text-gray-400">
-            {filteredBuilds.length} {filteredBuilds.length === 1 ? 'build' : 'builds'} found
-          </p>
-        </div>
-        <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
-          <button
-            onClick={handleBackupDownload}
-            className="btn-secondary text-sm sm:text-base"
-            title="Download backup of all builds"
-          >
-            📥 Download Backup
-          </button>
-          <button
-            onClick={handleBackupRestore}
-            className="btn-secondary text-sm sm:text-base"
-            title="Restore builds from backup file"
-          >
-            📤 Restore Backup
-          </button>
-          <Link
-            to="/planner"
-            className="btn-primary text-sm sm:text-base text-center"
-          >
-            + Create New Build
-          </Link>
-        </div>
+      <div className="mb-8">
+        <h1 className="text-2xl sm:text-3xl font-bold text-white mb-2">My Builds</h1>
+        <p className="text-gray-400">
+          {filteredBuilds.length} {filteredBuilds.length === 1 ? 'build' : 'builds'} found
+        </p>
       </div>
 
       {/* Hidden file input for backup restore */}
