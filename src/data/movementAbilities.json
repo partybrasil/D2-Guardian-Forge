@@ -1,0 +1,110 @@
+[
+  {
+    "name": "High Jump",
+    "class": "Hunter",
+    "type": "Jump",
+    "primaryEffect": "Maximum height",
+    "secondaryEffect": "Less horizontal control",
+    "description": "Second jump provides maximum height at the cost of horizontal control."
+  },
+  {
+    "name": "Strafe Jump",
+    "class": "Hunter",
+    "type": "Jump",
+    "primaryEffect": "Directional control",
+    "secondaryEffect": "Balanced height",
+    "description": "Second jump with strong directional control, sacrificing some height."
+  },
+  {
+    "name": "Triple Jump",
+    "class": "Hunter",
+    "type": "Jump",
+    "primaryEffect": "Three jumps",
+    "secondaryEffect": "Distance & control",
+    "description": "Allows up to three air impulses, gaining distance and control at the cost of height."
+  },
+  {
+    "name": "Blink",
+    "class": "Hunter",
+    "type": "Jump",
+    "primaryEffect": "Teleport",
+    "secondaryEffect": "Repositioning",
+    "description": "Short teleport instead of normal jump. Only available on the Void (Nightstalker) subclass.",
+    "element": "Void"
+  },
+  {
+    "name": "High Lift",
+    "class": "Titan",
+    "type": "Lift",
+    "primaryEffect": "Maximum height",
+    "secondaryEffect": "Limited horizontal",
+    "description": "Activates Lift in the air, providing maximum height with limited horizontal control."
+  },
+  {
+    "name": "Strafe Lift",
+    "class": "Titan",
+    "type": "Lift",
+    "primaryEffect": "Directional control",
+    "secondaryEffect": "Less height",
+    "description": "Lift with better directional control, sacrificing height."
+  },
+  {
+    "name": "Catapult Lift",
+    "class": "Titan",
+    "type": "Lift",
+    "primaryEffect": "Initial burst",
+    "secondaryEffect": "High speed",
+    "description": "Lift with a very strong initial impulse, providing good speed but less fine control."
+  },
+  {
+    "name": "Strafe Glide",
+    "class": "Warlock",
+    "type": "Glide",
+    "primaryEffect": "Directional control",
+    "secondaryEffect": "Moderate speed",
+    "description": "Glide with good directional control and moderate speed."
+  },
+  {
+    "name": "Burst Glide",
+    "class": "Warlock",
+    "type": "Glide",
+    "primaryEffect": "Initial burst",
+    "secondaryEffect": "High speed",
+    "description": "Glide with an initial burst of very high speed, less fine control."
+  },
+  {
+    "name": "Balanced Glide",
+    "class": "Warlock",
+    "type": "Glide",
+    "primaryEffect": "Balanced",
+    "secondaryEffect": "Speed & control",
+    "description": "Balanced mix of speed and control in the air."
+  },
+  {
+    "name": "Blink",
+    "class": "Warlock",
+    "type": "Glide",
+    "primaryEffect": "Teleport",
+    "secondaryEffect": "Quick repositioning",
+    "description": "Short teleport instead of glide. Only available on Voidwalker subclass.",
+    "element": "Void"
+  },
+  {
+    "name": "Icarus Dash",
+    "class": "Warlock",
+    "type": "Movement",
+    "primaryEffect": "Aerial dash",
+    "secondaryEffect": "Double/Triple dash",
+    "description": "Aerial dash in Dawnblade (Solar), allows double or triple impulses in the air.",
+    "element": "Solar"
+  },
+  {
+    "name": "Thruster",
+    "class": "Titan",
+    "type": "Movement",
+    "primaryEffect": "Ground dash",
+    "secondaryEffect": "Quick repositioning",
+    "description": "Lateral or forward dash on the ground for quick repositioning. Available on Striker (Arc) variants.",
+    "element": "Arc"
+  }
+]

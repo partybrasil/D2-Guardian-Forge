@@ -1,8 +1,8 @@
 /**
- * AbilitySelector Component - D2-Guardian-Forge
+ * UnifiedSelector Component - D2-Guardian-Forge
  * 
- * A clean selector interface that displays an empty icon placeholder.
- * Clicking opens a modal overlay with a grid of available options.
+ * A centered selector interface for Class, Subclass, and Super selections.
+ * Displays currently selected item with an icon and opens a modal to change selection.
  */
 
 import { useState, useEffect } from 'react';
@@ -10,39 +10,35 @@ import Icon from './Icon';
 import { getIconHash } from '../utils/iconUtils';
 import type { IconCategory } from '../utils/iconUtils';
 
-export interface AbilityOption {
+export interface UnifiedOption {
   name: string;
   element?: string;
   description?: string;
-  effect?: string;
   type?: string;
-  range?: string;
-  cooldown?: string;
-  mechanic?: string;
-  radius?: string;
-  duration?: string;
   class?: string;
-  primaryEffect?: string;
-  secondaryEffect?: string;
+  subclass?: string;
+  [key: string]: any;
 }
 
-export interface AbilitySelectorProps {
+export interface UnifiedSelectorProps {
   label: string;
   iconCategory: IconCategory;
   selectedValue: string;
-  options: AbilityOption[];
+  options: UnifiedOption[];
   onSelect: (value: string) => void;
-  getSubclassColor: (element: string) => string;
+  getSubclassColor?: (element: string) => string;
+  iconKey?: string; // Optional custom key for icon hash lookup
 }
 
-export default function AbilitySelector({
+export default function UnifiedSelector({
   label,
   iconCategory,
   selectedValue,
   options,
   onSelect,
   getSubclassColor,
-}: AbilitySelectorProps) {
+  iconKey,
+}: UnifiedSelectorProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const selectedOption = options.find(opt => opt.name === selectedValue);
@@ -50,11 +46,6 @@ export default function AbilitySelector({
   const handleSelect = (value: string) => {
     onSelect(value);
     // Don't close the modal automatically - let user close via X or clicking outside
-  };
-
-  const handleClear = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    onSelect('');
   };
 
   // Add keyboard support for Escape key
@@ -71,13 +62,28 @@ export default function AbilitySelector({
     }
   }, [isOpen]);
 
+  // Get the icon hash - use iconKey if provided
+  const getOptionIconHash = (option: UnifiedOption) => {
+    if (iconKey && option.iconKey) {
+      // Use the iconKey property from the option if it exists
+      return getIconHash(iconCategory, option.iconKey);
+    } else if (iconKey) {
+      // Fall back to using the iconKey parameter as a property name
+      return getIconHash(iconCategory, option[iconKey] || option.name);
+    }
+    return getIconHash(iconCategory, option.name);
+  };
+
   return (
     <>
-      {/* Empty Icon Selector Button */}
+      {/* Centered Selection Display */}
       <div className="flex flex-col items-center">
+        <label className="block text-sm font-medium text-gray-300 mb-3 text-center">
+          {label}
+        </label>
         <button
           onClick={() => setIsOpen(true)}
-          className={`relative p-3 rounded-lg border-2 transition-colors ${
+          className={`relative p-4 rounded-lg border-2 transition-colors ${
             selectedValue
               ? 'border-destiny-primary bg-destiny-primary/10'
               : 'border-gray-600 hover:border-gray-500 bg-gray-800/30'
@@ -85,35 +91,32 @@ export default function AbilitySelector({
           title={`Select ${label}`}
         >
           {selectedValue && selectedOption ? (
-            <>
+            <div className="flex flex-col items-center gap-2">
               <Icon 
-                hash={getIconHash(iconCategory, selectedOption.name)} 
-                size={48} 
+                hash={getOptionIconHash(selectedOption)} 
+                size={64} 
                 alt={selectedOption.name} 
               />
-              {/* Clear button */}
-              <button
-                onClick={handleClear}
-                className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-red-600 hover:bg-red-500 text-white text-xs flex items-center justify-center"
-                title="Clear selection"
-                aria-label="Clear selection"
-              >
-                ×
-              </button>
-            </>
+              <div className="text-center">
+                <div className={`font-semibold ${
+                  selectedOption.element && getSubclassColor 
+                    ? getSubclassColor(selectedOption.element) 
+                    : 'text-white'
+                }`}>
+                  {selectedOption.name}
+                </div>
+              </div>
+            </div>
           ) : (
-            <div className="w-12 h-12 flex items-center justify-center">
-              <div className="w-10 h-10 rounded-full border-2 border-dashed border-gray-600 flex items-center justify-center text-gray-600 text-xl">
-                +
+            <div className="w-16 h-16 flex items-center justify-center">
+              <div className="w-14 h-14 rounded-full border-2 border-dashed border-gray-600 flex items-center justify-center text-gray-600 text-2xl">
+                ?
               </div>
             </div>
           )}
         </button>
-        <span className="mt-2 text-xs text-gray-400 text-center">
-          {label}
-        </span>
         {selectedValue && (
-          <span className="text-xs text-destiny-primary mt-1">✓</span>
+          <span className="text-xs text-destiny-primary mt-2">✓ Selected</span>
         )}
       </div>
 
@@ -155,14 +158,14 @@ export default function AbilitySelector({
                   title={option.description}
                 >
                   <Icon 
-                    hash={getIconHash(iconCategory, option.name)} 
+                    hash={getOptionIconHash(option)} 
                     size={48} 
                     alt={option.name} 
                   />
                   <span className="mt-2 text-xs text-center text-white leading-tight">
                     {option.name}
                   </span>
-                  {option.element && (
+                  {option.element && getSubclassColor && (
                     <span className={`mt-1 text-xs ${getSubclassColor(option.element)}`}>
                       {option.element}
                     </span>
@@ -176,7 +179,7 @@ export default function AbilitySelector({
               <div className="mt-4 p-4 rounded-lg bg-gray-800/50 border border-gray-700">
                 <div className="flex items-start gap-3">
                   <Icon 
-                    hash={getIconHash(iconCategory, selectedOption.name)} 
+                    hash={getOptionIconHash(selectedOption)} 
                     size={48} 
                     alt={selectedOption.name} 
                     className="flex-shrink-0" 
@@ -186,9 +189,9 @@ export default function AbilitySelector({
                     {selectedOption.description && (
                       <p className="text-xs text-gray-400 mt-1">{selectedOption.description}</p>
                     )}
-                    {selectedOption.effect && (
+                    {selectedOption.type && (
                       <p className="text-xs text-gray-300 mt-2">
-                        <span className="text-destiny-primary">Effect:</span> {selectedOption.effect}
+                        <span className="text-destiny-primary">Type:</span> {selectedOption.type}
                       </p>
                     )}
                   </div>

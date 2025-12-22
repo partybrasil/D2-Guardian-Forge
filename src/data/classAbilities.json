@@ -27,6 +27,16 @@
     "description": "Prismatic alternative. Creates an Arc discharge on impact with minor damage bonus."
   },
   {
+    "name": "Phoenix Dive",
+    "class": "Warlock",
+    "type": "Aerial Movement",
+    "primaryEffect": "Fast descent",
+    "secondaryEffect": "Healing/Damage burst",
+    "cooldown": "10s base",
+    "element": "Solar",
+    "description": "Rapid dive to the ground with healing or damage effect. Available on Solar and Prismatic subclasses."
+  },
+  {
     "name": "Towering Barricade",
     "class": "Titan",
     "type": "Barricade",
