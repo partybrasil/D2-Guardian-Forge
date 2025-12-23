@@ -66,7 +66,7 @@ def draw_titan_symbol(draw, center_x, center_y, size, color):
         (center_x - radius + 10, center_y + radius // 2),  # Bottom left
         (center_x - radius + 10, center_y - radius // 2),  # Top left
     ]
-    draw.polygon(points, outline=color, width=4)
+    draw.polygon(points, outline=color)
     
     # Draw horizontal bar
     bar_y = center_y - radius // 4
@@ -85,7 +85,7 @@ def draw_hunter_symbol(draw, center_x, center_y, size, color):
         (center_x, center_y + radius),  # Bottom
         (center_x - radius // 2, center_y),  # Left
     ]
-    draw.polygon(points, outline=color, width=4)
+    draw.polygon(points, outline=color)
     
     # Draw inner diamond
     inner_size = radius // 2
@@ -95,7 +95,7 @@ def draw_hunter_symbol(draw, center_x, center_y, size, color):
         (center_x, center_y + inner_size),
         (center_x - inner_size // 2, center_y),
     ]
-    draw.polygon(points_inner, outline=color, width=3)
+    draw.polygon(points_inner, outline=color)
     
     # Draw top line accent
     draw.line([(center_x - radius // 3, center_y - radius // 2),
@@ -194,7 +194,7 @@ def draw_element_symbol(draw, center_x, center_y, size, element_type, color):
             (center_x, center_y + radius),
             (center_x - radius * 0.7, center_y),
         ]
-        draw.polygon(points, outline=color, width=4)
+        draw.polygon(points, outline=color)
         
         # Inner geometric pattern
         inner_radius = radius // 2
@@ -204,7 +204,7 @@ def draw_element_symbol(draw, center_x, center_y, size, element_type, color):
             (center_x, center_y + inner_radius),
             (center_x - inner_radius * 0.7, center_y),
         ]
-        draw.polygon(points_inner, outline=color, width=3)
+        draw.polygon(points_inner, outline=color)
         
         # Center star
         star_size = 8
@@ -253,9 +253,16 @@ def create_subclass_icon(icon_hash, subclass_key):
 def main():
     print("🎨 Creating Destiny 2-style icons...")
     
-    # Load icons manifest
-    with open(ICONS_JSON, 'r') as f:
-        icons_data = json.load(f)
+    # Load icons manifest with error handling
+    try:
+        with open(ICONS_JSON, 'r') as f:
+            icons_data = json.load(f)
+    except FileNotFoundError:
+        print(f"❌ Error: Icons manifest not found at {ICONS_JSON}")
+        return 1
+    except json.JSONDecodeError as e:
+        print(f"❌ Error: Invalid JSON in icons manifest: {e}")
+        return 1
     
     # Ensure icons directory exists
     os.makedirs(ICONS_DIR, exist_ok=True)
