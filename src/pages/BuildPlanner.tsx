@@ -7,7 +7,6 @@ import AbilitySelector from '../components/AbilitySelector';
 import AspectSelector from '../components/AspectSelector';
 import UnifiedSelector from '../components/UnifiedSelector';
 import AutoSelectAbility from '../components/AutoSelectAbility';
-import { getIconHash } from '../utils/iconUtils';
 
 // Import data
 import supersData from '../data/supers.json';
@@ -570,7 +569,7 @@ export default function BuildPlanner() {
             {selectedSuperInfo && (
               <div className="mb-4 p-3 rounded-lg bg-gray-800/50 border border-gray-700">
                 <div className="flex items-start gap-3">
-                  <Icon hash={getIconHash('supers', selectedSuperInfo.name)} size={48} alt={selectedSuperInfo.name} className="flex-shrink-0" />
+                  <Icon category="supers" name={selectedSuperInfo.name} size={48} alt={selectedSuperInfo.name} className="flex-shrink-0" />
                   <div className="flex-1">
                     <div className="flex justify-between items-start">
                       <div>
@@ -783,7 +782,7 @@ export default function BuildPlanner() {
                   }`}
                 >
                   <div className="flex items-start gap-3">
-                    <Icon hash={getIconHash('fragments', fragment.name)} size={32} alt={fragment.name} className="flex-shrink-0" />
+                    <Icon category="fragments" name={fragment.name} size={32} alt={fragment.name} className="flex-shrink-0" />
                     <div className="flex-1 min-w-0">
                       <div className="flex justify-between items-start mb-1">
                         <div className="font-bold text-white">{fragment.name}</div>

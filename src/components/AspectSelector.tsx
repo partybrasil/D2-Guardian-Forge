@@ -7,7 +7,6 @@
 
 import { useState, useEffect, useMemo } from 'react';
 import Icon from './Icon';
-import { getIconHash } from '../utils/iconUtils';
 
 export interface AspectData {
   name: string;
@@ -87,7 +86,8 @@ export default function AspectSelector({
           {selectedAspectName && selectedAspect ? (
             <>
               <Icon 
-                hash={getIconHash('aspects', selectedAspect.name)} 
+                category="aspects" 
+                name={selectedAspect.name} 
                 size={56} 
                 alt={selectedAspect.name} 
               />
@@ -173,7 +173,8 @@ export default function AspectSelector({
                   >
                     <div className="flex items-start gap-3 mb-2">
                       <Icon 
-                        hash={getIconHash('aspects', aspect.name)} 
+                        category="aspects" 
+                        name={aspect.name} 
                         size={48} 
                         alt={aspect.name} 
                         className="flex-shrink-0" 

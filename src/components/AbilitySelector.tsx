@@ -7,7 +7,6 @@
 
 import { useState, useEffect } from 'react';
 import Icon from './Icon';
-import { getIconHash } from '../utils/iconUtils';
 import type { IconCategory } from '../utils/iconUtils';
 
 export interface AbilityOption {
@@ -87,7 +86,8 @@ export default function AbilitySelector({
           {selectedValue && selectedOption ? (
             <>
               <Icon 
-                hash={getIconHash(iconCategory, selectedOption.name)} 
+                category={iconCategory} 
+                name={selectedOption.name} 
                 size={48} 
                 alt={selectedOption.name} 
               />
@@ -155,7 +155,8 @@ export default function AbilitySelector({
                   title={option.description}
                 >
                   <Icon 
-                    hash={getIconHash(iconCategory, option.name)} 
+                    category={iconCategory} 
+                    name={option.name} 
                     size={48} 
                     alt={option.name} 
                   />
@@ -176,7 +177,8 @@ export default function AbilitySelector({
               <div className="mt-4 p-4 rounded-lg bg-gray-800/50 border border-gray-700">
                 <div className="flex items-start gap-3">
                   <Icon 
-                    hash={getIconHash(iconCategory, selectedOption.name)} 
+                    category={iconCategory} 
+                    name={selectedOption.name} 
                     size={48} 
                     alt={selectedOption.name} 
                     className="flex-shrink-0" 

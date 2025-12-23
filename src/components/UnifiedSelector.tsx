@@ -7,7 +7,6 @@
 
 import { useState, useEffect } from 'react';
 import Icon from './Icon';
-import { getIconHash } from '../utils/iconUtils';
 import type { IconCategory } from '../utils/iconUtils';
 
 export interface UnifiedOption {
@@ -62,16 +61,16 @@ export default function UnifiedSelector({
     }
   }, [isOpen]);
 
-  // Get the icon hash - use iconKey if provided
-  const getOptionIconHash = (option: UnifiedOption) => {
+  // Get the icon name - use iconKey if provided
+  const getOptionIconName = (option: UnifiedOption) => {
     if (iconKey && option.iconKey) {
       // Use the iconKey property from the option if it exists
-      return getIconHash(iconCategory, option.iconKey);
+      return option.iconKey;
     } else if (iconKey) {
       // Fall back to using the iconKey parameter as a property name
-      return getIconHash(iconCategory, option[iconKey] || option.name);
+      return option[iconKey] || option.name;
     }
-    return getIconHash(iconCategory, option.name);
+    return option.name;
   };
 
   return (
@@ -93,7 +92,8 @@ export default function UnifiedSelector({
           {selectedValue && selectedOption ? (
             <div className="flex flex-col items-center gap-2">
               <Icon 
-                hash={getOptionIconHash(selectedOption)} 
+                category={iconCategory} 
+                name={getOptionIconName(selectedOption)} 
                 size={64} 
                 alt={selectedOption.name} 
               />
@@ -158,7 +158,8 @@ export default function UnifiedSelector({
                   title={option.description}
                 >
                   <Icon 
-                    hash={getOptionIconHash(option)} 
+                    category={iconCategory} 
+                    name={getOptionIconName(option)} 
                     size={48} 
                     alt={option.name} 
                   />
@@ -179,7 +180,8 @@ export default function UnifiedSelector({
               <div className="mt-4 p-4 rounded-lg bg-gray-800/50 border border-gray-700">
                 <div className="flex items-start gap-3">
                   <Icon 
-                    hash={getOptionIconHash(selectedOption)} 
+                    category={iconCategory} 
+                    name={getOptionIconName(selectedOption)} 
                     size={48} 
                     alt={selectedOption.name} 
                     className="flex-shrink-0" 

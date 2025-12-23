@@ -9,7 +9,6 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Icon from './Icon';
-import { getIconHash } from '../utils/iconUtils';
 import type { IconCategory } from '../utils/iconUtils';
 
 export interface AutoSelectAbilityProps {
@@ -101,7 +100,8 @@ export default function AutoSelectAbility({
           ) : (
             <>
               <Icon 
-                hash={getIconHash(iconCategory, selectedValue)} 
+                category={iconCategory} 
+                name={selectedValue} 
                 size={48} 
                 alt={selectedValue} 
               />
@@ -137,7 +137,8 @@ export default function AutoSelectAbility({
             <div className="flex justify-between items-start mb-4">
               <div className="flex items-start gap-4">
                 <Icon 
-                  hash={getIconHash(iconCategory, selectedValue)} 
+                  category={iconCategory} 
+                  name={selectedValue} 
                   size={64} 
                   alt={selectedValue}
                   className="flex-shrink-0"
