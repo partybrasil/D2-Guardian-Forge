@@ -5,7 +5,6 @@ import localforage from 'localforage';
 import { calculateFinalStats, getFragmentStatSummary } from '../utils/statsCalculator';
 import { downloadBuildsBackup, restoreBuildsFromBackup } from '../utils/backupManager';
 import Icon from '../components/Icon';
-import { getIconHash } from '../utils/iconUtils';
 
 // Constants
 const FRAGMENT_PREVIEW_LIMIT = 6;
@@ -177,7 +176,7 @@ export default function Dashboard({ setBackupHandlers }: DashboardProps) {
                       : 'border-gray-600 hover:border-gray-500'
                   }`}
                 >
-                  <Icon hash={getIconHash('classes', className)} alt={className} className="w-5 h-5 sm:w-6 sm:h-6" />
+                  <Icon category="classes" name={className} alt={className} className="w-5 h-5 sm:w-6 sm:h-6" />
                   <span className="text-white font-medium text-sm sm:text-base">{className}</span>
                 </button>
               ))}
@@ -250,7 +249,8 @@ export default function Dashboard({ setBackupHandlers }: DashboardProps) {
                 <div className="flex justify-between items-start mb-4">
                   <div className="flex items-center gap-2 sm:gap-3 flex-1 min-w-0">
                     <Icon 
-                      hash={getIconHash('classes', build.class)} 
+                      category="classes" 
+                      name={build.class} 
                       alt={build.class}
                       className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12" 
                     />
@@ -258,7 +258,8 @@ export default function Dashboard({ setBackupHandlers }: DashboardProps) {
                       <h3 className="text-lg sm:text-xl font-bold text-white mb-1 truncate">{build.name}</h3>
                       <div className="flex items-center gap-1.5 sm:gap-2 flex-wrap">
                         <Icon 
-                          hash={getIconHash('subclasses', `${build.subclass.toLowerCase()}_${build.class.toLowerCase()}`)} 
+                          category="subclasses" 
+                          name={`${build.subclass.toLowerCase()}_${build.class.toLowerCase()}`} 
                           alt={build.subclass}
                           className="flex-shrink-0 w-5 h-5"
                         />
@@ -282,7 +283,7 @@ export default function Dashboard({ setBackupHandlers }: DashboardProps) {
                 <div className="space-y-2 sm:space-y-3 mb-4">
                   {build.super && (
                     <div className="flex items-center gap-2">
-                      <Icon hash={getIconHash('supers', build.super)} alt={build.super} className="flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8" />
+                      <Icon category="supers" name={build.super} alt={build.super} className="flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8" />
                       <div className="flex-1 min-w-0">
                         <div className="text-xs text-gray-400">Super</div>
                         <div className="text-xs sm:text-sm text-white font-medium truncate">{build.super}</div>
@@ -291,7 +292,7 @@ export default function Dashboard({ setBackupHandlers }: DashboardProps) {
                   )}
                   {build.abilities.grenade && (
                     <div className="flex items-center gap-2">
-                      <Icon hash={getIconHash('grenades', build.abilities.grenade)} alt={build.abilities.grenade} className="flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8" />
+                      <Icon category="grenades" name={build.abilities.grenade} alt={build.abilities.grenade} className="flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8" />
                       <div className="flex-1 min-w-0">
                         <div className="text-xs text-gray-400">Grenade</div>
                         <div className="text-xs sm:text-sm text-white font-medium truncate">{build.abilities.grenade}</div>
@@ -300,7 +301,7 @@ export default function Dashboard({ setBackupHandlers }: DashboardProps) {
                   )}
                   {build.abilities.melee && (
                     <div className="flex items-center gap-2">
-                      <Icon hash={getIconHash('melees', build.abilities.melee)} alt={build.abilities.melee} className="flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8" />
+                      <Icon category="melees" name={build.abilities.melee} alt={build.abilities.melee} className="flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8" />
                       <div className="flex-1 min-w-0">
                         <div className="text-xs text-gray-400">Melee</div>
                         <div className="text-xs sm:text-sm text-white font-medium truncate">{build.abilities.melee}</div>
@@ -309,7 +310,7 @@ export default function Dashboard({ setBackupHandlers }: DashboardProps) {
                   )}
                   {build.abilities.classAbility && (
                     <div className="flex items-center gap-2">
-                      <Icon hash={getIconHash('classAbilities', build.abilities.classAbility)} alt={build.abilities.classAbility} className="flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8" />
+                      <Icon category="classAbilities" name={build.abilities.classAbility} alt={build.abilities.classAbility} className="flex-shrink-0 w-7 h-7 sm:w-8 sm:h-8" />
                       <div className="flex-1 min-w-0">
                         <div className="text-xs text-gray-400">Class Ability</div>
                         <div className="text-xs sm:text-sm text-white font-medium truncate">{build.abilities.classAbility}</div>
@@ -325,7 +326,8 @@ export default function Dashboard({ setBackupHandlers }: DashboardProps) {
                         {build.aspects.map(aspect => (
                           <Icon 
                             key={aspect}
-                            hash={getIconHash('aspects', aspect)} 
+                            category="aspects" 
+                            name={aspect} 
                             alt={aspect}
                             className="opacity-80 w-6 h-6 sm:w-7 sm:h-7"
                           />
@@ -342,7 +344,8 @@ export default function Dashboard({ setBackupHandlers }: DashboardProps) {
                         {build.fragments.slice(0, FRAGMENT_PREVIEW_LIMIT).map(fragment => (
                           <Icon 
                             key={fragment}
-                            hash={getIconHash('fragments', fragment)} 
+                            category="fragments" 
+                            name={fragment} 
                             alt={fragment}
                             className="opacity-70 w-5 h-5 sm:w-6 sm:h-6"
                           />

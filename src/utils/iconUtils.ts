@@ -1,7 +1,7 @@
 /**
- * Icon Hash Utilities - D2-Guardian-Forge
+ * Icon Utilities - D2-Guardian-Forge
  * 
- * Provides easy access to icon hashes from the manifest
+ * Provides easy access to organized icon paths and legacy hash support
  */
 
 import iconsData from '../data/icons.json';
@@ -20,11 +20,30 @@ export type IconCategory =
   | 'mods';
 
 /**
- * Get icon hash for a specific item by name and category
+ * Get icon properties for organized folder structure
+ * 
+ * @param category - The category of the icon (e.g., 'aspects', 'fragments')
+ * @param name - The name of the item (e.g., 'Bastion', 'Echo of Vigilance')
+ * @returns Object with category and name for the Icon component
+ * 
+ * @example
+ * ```ts
+ * const iconProps = getIconProps('aspects', 'Bastion');
+ * // Use with: <Icon {...iconProps} size={48} alt="Bastion" />
+ * ```
+ */
+export function getIconProps(category: IconCategory, name: string): { category: string; name: string } {
+  return { category, name };
+}
+
+/**
+ * Get icon hash for a specific item by name and category (Legacy support)
  * 
  * @param category - The category of the icon (e.g., 'aspects', 'fragments')
  * @param name - The name of the item (e.g., 'Bastion', 'Echo of Vigilance')
  * @returns The icon hash number, or the default hash if not found
+ * 
+ * @deprecated Use getIconProps() instead for better placeholder support
  * 
  * @example
  * ```ts
