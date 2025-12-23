@@ -1,16 +1,19 @@
 /**
  * Icon Component - D2-Guardian-Forge
  * 
- * Displays Destiny 2 icons from the local cache with automatic fallback.
- * All icons are sourced from data.destinysets.com CDN and cached locally
- * for 100% offline-first functionality.
+ * Displays Destiny 2 icons from organized placeholder folders.
+ * Icons are organized by category with descriptive names for easy replacement.
  */
 
 import { useState } from 'react';
 
 export interface IconProps {
-  /** Icon hash from icons.json manifest */
-  hash: number;
+  /** Icon category (e.g., 'classes', 'aspects', 'fragments') */
+  category?: string;
+  /** Icon name (e.g., 'Titan', 'Bastion', 'Echo of Vigilance') */
+  name?: string;
+  /** Legacy: Icon hash for backwards compatibility */
+  hash?: number;
   /** Icon size in pixels (default: 40) */
   size?: number;
   /** Alt text for accessibility */
@@ -28,10 +31,16 @@ export interface IconProps {
  * 
  * @example
  * ```tsx
+ * // New organized structure (preferred)
+ * <Icon category="aspects" name="Bastion" size={48} alt="Bastion Aspect" />
+ * 
+ * // Legacy hash support (backwards compatible)
  * <Icon hash={3941232607} size={48} alt="Bastion Aspect" />
  * ```
  */
 export default function Icon({ 
+  category,
+  name,
   hash, 
   size = 40, 
   alt = '', 
@@ -49,8 +58,19 @@ export default function Icon({
     }
   };
   
-  // Construct the icon path (respects the basename for GitHub Pages and dev mode)
-  const iconPath = `${import.meta.env.BASE_URL}icons/${hash}.png`;
+  // Construct the icon path based on category/name or legacy hash
+  let iconPath: string;
+  
+  if (category && name) {
+    // New organized structure: /icons/{category}/{name}.png
+    iconPath = `${import.meta.env.BASE_URL}icons/${category}/${name}.png`;
+  } else if (hash) {
+    // Legacy support: /icons/{hash}.png (for backwards compatibility)
+    iconPath = `${import.meta.env.BASE_URL}icons/${hash}.png`;
+  } else {
+    // Fallback if neither provided
+    iconPath = fallback || `${import.meta.env.BASE_URL}icons/default.png`;
+  }
   
   return (
     <img
