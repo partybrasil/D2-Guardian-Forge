@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Create Destiny 2-style icons for classes and subclasses
-Uses SVG paths to create recognizable Destiny 2 symbols
+Uses PIL/Pillow drawing primitives to create recognizable Destiny 2 symbols
 """
 
 import json
@@ -213,9 +213,20 @@ def draw_element_symbol(draw, center_x, center_y, size, element_type, color):
             x = center_x + math.cos(rad) * star_size
             y = center_y + math.sin(rad) * star_size
             draw.line([(center_x, center_y), (x, y)], fill=color, width=3)
+    else:
+        print(
+            f"⚠️ Warning: Unknown element type '{element_type}'. "
+            "Icon will be created with background only."
+        )
 
 def create_class_icon(icon_hash, class_name):
-    """Create a class icon"""
+    """Create a class icon.
+    
+    The ``icon_hash`` parameter is currently not used in the drawing logic.
+    It is accepted for consistency with other icon-creation functions and
+    to allow future use (for example, caching or file naming) without
+    changing the public API.
+    """
     img = Image.new('RGB', (ICON_SIZE, ICON_SIZE), BACKGROUND_COLOR)
     draw = ImageDraw.Draw(img)
     
@@ -230,11 +241,22 @@ def create_class_icon(icon_hash, class_name):
         draw_titan_symbol(draw, center_x, center_y, size, color)
     elif class_name == 'Hunter':
         draw_hunter_symbol(draw, center_x, center_y, size, color)
+    else:
+        print(
+            f"⚠️ Warning: Unknown class name '{class_name}' for icon hash {icon_hash}. "
+            "Icon will be created with background only."
+        )
     
     return img
 
 def create_subclass_icon(icon_hash, subclass_key):
-    """Create a subclass icon"""
+    """Create a subclass icon.
+    
+    The ``icon_hash`` parameter is currently not used in the drawing logic.
+    It is accepted for consistency with other icon-creation functions and
+    to allow future use (for example, caching or file naming) without
+    changing the public API.
+    """
     img = Image.new('RGB', (ICON_SIZE, ICON_SIZE), BACKGROUND_COLOR)
     draw = ImageDraw.Draw(img)
     
@@ -275,9 +297,12 @@ def main():
         for class_name, icon_hash in icons_data['classes'].items():
             icon_path = os.path.join(ICONS_DIR, f"{icon_hash}.png")
             img = create_class_icon(icon_hash, class_name)
-            img.save(icon_path, 'PNG')
-            print(f"  ✓ Created {class_name} icon ({icon_hash})")
-            created_count += 1
+            try:
+                img.save(icon_path, 'PNG')
+                print(f"  ✓ Created {class_name} icon ({icon_hash})")
+                created_count += 1
+            except (OSError, IOError) as e:
+                print(f"  ❌ Failed to save {class_name} icon ({icon_hash}): {e}")
     
     # Create subclass icons
     print("\n🌟 Creating subclass icons...")
@@ -285,11 +310,15 @@ def main():
         for subclass_key, icon_hash in icons_data['subclasses'].items():
             icon_path = os.path.join(ICONS_DIR, f"{icon_hash}.png")
             img = create_subclass_icon(icon_hash, subclass_key)
-            img.save(icon_path, 'PNG')
-            element = subclass_key.split('_')[0]
-            class_name = subclass_key.split('_')[1] if '_' in subclass_key else ''
-            print(f"  ✓ Created {element} {class_name} icon ({icon_hash})")
-            created_count += 1
+            try:
+                img.save(icon_path, 'PNG')
+                element = subclass_key.split('_')[0]
+                class_name = subclass_key.split('_')[1] if '_' in subclass_key else ''
+                print(f"  ✓ Created {element} {class_name} icon ({icon_hash})")
+                created_count += 1
+            except (OSError, IOError) as e:
+                element = subclass_key.split('_')[0]
+                print(f"  ❌ Failed to save {element} icon ({icon_hash}): {e}")
     
     print(f"\n✅ Successfully created {created_count} Destiny 2-style icons!")
     print(f"   Icons saved to: {ICONS_DIR}")
