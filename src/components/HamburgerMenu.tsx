@@ -84,7 +84,7 @@ export default function HamburgerMenu({ onDownloadBackup, onRestoreBackup }: Ham
       {/* Overlay */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-30"
           onClick={closeMenu}
           style={{ top: 0, left: 0, right: 0, bottom: 0 }}
         />
@@ -93,7 +93,7 @@ export default function HamburgerMenu({ onDownloadBackup, onRestoreBackup }: Ham
       {/* Menu Panel */}
       <div
         ref={menuRef}
-        className={`absolute top-16 right-0 w-72 bg-gray-800 border-2 border-gray-700 rounded-lg shadow-2xl transition-all duration-300 overflow-hidden ${
+        className={`absolute top-16 right-0 w-72 bg-gray-800 border-2 border-gray-700 rounded-lg shadow-2xl transition-all duration-300 overflow-hidden z-50 ${
           isOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none'
         }`}
       >
