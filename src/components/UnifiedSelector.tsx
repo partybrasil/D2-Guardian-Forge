@@ -16,7 +16,8 @@ export interface UnifiedOption {
   type?: string;
   class?: string;
   subclass?: string;
-  [key: string]: any;
+  iconKey?: string;
+  [key: string]: string | undefined;
 }
 
 export interface UnifiedSelectorProps {
