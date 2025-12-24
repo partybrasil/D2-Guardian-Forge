@@ -4,6 +4,19 @@ export type GuardianClass = 'Warlock' | 'Titan' | 'Hunter';
 
 export type Subclass = 'Solar' | 'Arc' | 'Void' | 'Stasis' | 'Strand' | 'Prismatic';
 
+export interface PrismaticClassAbilities {
+  supers: string[];
+  grenades: string[];
+  melees: string[];
+  aspects: string[];
+}
+
+export interface PrismaticAbilitiesData {
+  Warlock: PrismaticClassAbilities;
+  Titan: PrismaticClassAbilities;
+  Hunter: PrismaticClassAbilities;
+}
+
 export type ArmorSlot = 'head' | 'hands' | 'chest' | 'legs' | 'classItem';
 
 export type WeaponSlot = 'kinetic' | 'energy' | 'power';

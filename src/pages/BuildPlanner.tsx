@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
-import type { Build, GuardianClass, Subclass, Stats, SubclassDefinition, AerialAbility, PassiveAbility, TranscendenceAbility } from '../types';
+import type { Build, GuardianClass, Subclass, Stats, SubclassDefinition, AerialAbility, PassiveAbility, TranscendenceAbility, PrismaticAbilitiesData } from '../types';
 import localforage from 'localforage';
 import Icon from '../components/Icon';
 import AbilitySelector from '../components/AbilitySelector';
@@ -20,7 +20,10 @@ import subclassesData from '../data/subclasses.json';
 import aerialsData from '../data/aerials.json';
 import passivesData from '../data/passives.json';
 import transcendenceData from '../data/transcendence.json';
-import prismaticAbilitiesData from '../data/prismaticAbilities.json';
+import prismaticAbilitiesRaw from '../data/prismaticAbilities.json';
+
+// Type the prismatic abilities data
+const prismaticAbilitiesData = prismaticAbilitiesRaw as PrismaticAbilitiesData;
 
 export default function BuildPlanner() {
   const [searchParams] = useSearchParams();
@@ -199,8 +202,7 @@ export default function BuildPlanner() {
   // Prismatic has access to specific curated supers per class from prismaticAbilities.json
   const availableSupers = supersData.filter(s => {
     if (selectedSubclass === 'Prismatic') {
-      const prismaticData = prismaticAbilitiesData as Record<string, { supers: string[] }>;
-      const classData = prismaticData[selectedClass];
+      const classData = prismaticAbilitiesData[selectedClass];
       return s.class === selectedClass && classData?.supers.includes(s.name);
     }
     return s.class === selectedClass && s.subclass === selectedSubclass;
@@ -209,8 +211,7 @@ export default function BuildPlanner() {
   // Grenades - Prismatic has access to specific grenades per class from prismaticAbilities.json
   const availableGrenades = grenadesData.filter(g => {
     if (selectedSubclass === 'Prismatic') {
-      const prismaticData = prismaticAbilitiesData as Record<string, { grenades: string[] }>;
-      const classData = prismaticData[selectedClass];
+      const classData = prismaticAbilitiesData[selectedClass];
       return classData?.grenades.includes(g.name);
     }
     return g.element === selectedSubclass;
@@ -220,8 +221,7 @@ export default function BuildPlanner() {
   const availableMelees = meleesData.filter(m => {
     const matchesClass = !m.class || m.class === selectedClass;
     if (selectedSubclass === 'Prismatic') {
-      const prismaticData = prismaticAbilitiesData as Record<string, { melees: string[] }>;
-      const classData = prismaticData[selectedClass];
+      const classData = prismaticAbilitiesData[selectedClass];
       return matchesClass && classData?.melees.includes(m.name);
     }
     return matchesClass && m.element === selectedSubclass;
@@ -269,8 +269,7 @@ export default function BuildPlanner() {
   const availableAspects = aspectsData.filter(a => {
     const matchesClass = !a.class || a.class === selectedClass;
     if (selectedSubclass === 'Prismatic') {
-      const prismaticData = prismaticAbilitiesData as Record<string, { aspects: string[] }>;
-      const classData = prismaticData[selectedClass];
+      const classData = prismaticAbilitiesData[selectedClass];
       return matchesClass && classData?.aspects.includes(a.name);
     }
     return a.subclass === selectedSubclass && matchesClass;
