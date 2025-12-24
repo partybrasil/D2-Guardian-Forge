@@ -27,6 +27,15 @@
     "description": "Releases multiple drones that chase and explode on enemies."
   },
   {
+    "name": "Incendiary Grenade",
+    "element": "Solar",
+    "mechanic": "Bounce",
+    "effect": "Scorch",
+    "radius": "18m",
+    "duration": "On impact",
+    "description": "Bounces on impact and explodes, dealing damage and applying heavy Scorch."
+  },
+  {
     "name": "Arcbolt Grenade",
     "element": "Arc",
     "mechanic": "Chain",
