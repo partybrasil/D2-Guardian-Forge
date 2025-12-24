@@ -1,0 +1,92 @@
+{
+  "Warlock": {
+    "supers": [
+      "Song of Flame",
+      "Nova Bomb: Cataclysm",
+      "Stormtrance",
+      "Winter's Wrath",
+      "Needlestorm"
+    ],
+    "grenades": [
+      "Healing Grenade",
+      "Vortex Grenade",
+      "Storm Grenade",
+      "Coldsnap Grenade",
+      "Threadling Grenade"
+    ],
+    "melees": [
+      "Incinerator Snap",
+      "Pocket Singularity",
+      "Chain Lightning",
+      "Penumbral Blast",
+      "Arcane Needle"
+    ],
+    "aspects": [
+      "Hellion",
+      "Feed the Void",
+      "Lightning Surge",
+      "Bleak Watcher",
+      "Weaver's Call"
+    ]
+  },
+  "Titan": {
+    "supers": [
+      "Twilight Arsenal",
+      "Hammer of Sol",
+      "Thundercrash",
+      "Glacial Quake",
+      "Bladefury"
+    ],
+    "grenades": [
+      "Suppressor Grenade",
+      "Thermite Grenade",
+      "Pulse Grenade",
+      "Glacier Grenade",
+      "Shackle Grenade"
+    ],
+    "melees": [
+      "Shield Throw",
+      "Hammer Strike",
+      "Thunderclap",
+      "Shiver Strike",
+      "Frenzied Blade"
+    ],
+    "aspects": [
+      "Unbreakable",
+      "Consecration",
+      "Knockout",
+      "Diamond Lance",
+      "Drengr's Lash"
+    ]
+  },
+  "Hunter": {
+    "supers": [
+      "Shadowshot: Deadfall",
+      "Golden Gun: Marksman",
+      "Storm's Edge",
+      "Silence and Squall",
+      "Silkstrike"
+    ],
+    "grenades": [
+      "Magnetic Grenade",
+      "Swarm Grenade",
+      "Arcbolt Grenade",
+      "Duskfield Grenade",
+      "Grapple Grenade"
+    ],
+    "melees": [
+      "Snare Bomb",
+      "Knife Trick",
+      "Combination Blow",
+      "Withering Blade",
+      "Threaded Spike"
+    ],
+    "aspects": [
+      "Stylish Executioner",
+      "Gunpowder Gamble",
+      "Ascension",
+      "Winter's Shroud",
+      "Threaded Specter"
+    ]
+  }
+}

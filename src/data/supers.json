@@ -54,13 +54,22 @@
     "keyBenefit": "Roaming Arc chain damage"
   },
   {
-    "name": "Nova Bomb",
+    "name": "Nova Bomb: Vortex",
     "class": "Warlock",
     "subclass": "Void",
     "type": "Burst",
     "duration": "Instant",
-    "description": "Hurls a giant ball of Void energy that explodes on impact with devastating damage.",
-    "keyBenefit": "Massive explosion"
+    "description": "Throws a Void projectile that creates a singularity which continuously attracts and damages enemies.",
+    "keyBenefit": "Vortex pulls and damages"
+  },
+  {
+    "name": "Nova Bomb: Cataclysm",
+    "class": "Warlock",
+    "subclass": "Void",
+    "type": "Burst",
+    "duration": "Instant",
+    "description": "Throws a slow Void projectile that seeks targets and splits into tracking projectiles upon detonation.",
+    "keyBenefit": "Tracking + seeker projectiles"
   },
   {
     "name": "Nova Warp",
@@ -189,13 +198,22 @@
     "keyBenefit": "Class ability Strand shockwave that suspends targets"
   },
   {
-    "name": "Golden Gun",
+    "name": "Golden Gun: Deadshot",
     "class": "Hunter",
     "subclass": "Solar",
-    "type": "Sniper",
+    "type": "Precision",
     "duration": "12s",
-    "description": "Summons a flaming Solar hand cannon that deals massive damage to single targets.",
-    "keyBenefit": "High-damage precision shots"
+    "description": "Summons a rapid-fire Solar pistol. Ignitions during Super refund bullets and benefit from Radiant.",
+    "keyBenefit": "Rapid fire + ignition refunds"
+  },
+  {
+    "name": "Golden Gun: Marksman",
+    "class": "Hunter",
+    "subclass": "Solar",
+    "type": "Precision",
+    "duration": "12s",
+    "description": "Summons a precision Solar pistol with high crit damage, over-penetration, and generates orbs on precision hits. Benefits from Radiant.",
+    "keyBenefit": "High precision + over-penetration"
   },
   {
     "name": "Blade Barrage",
@@ -243,13 +261,22 @@
     "keyBenefit": "Blink teleport strikes"
   },
   {
-    "name": "Shadowshot",
+    "name": "Shadowshot: Deadfall",
     "class": "Hunter",
     "subclass": "Void",
     "type": "Debuff",
     "duration": "30s",
-    "description": "Spreads Void anchors to make combatants slowed and suppressed.",
-    "keyBenefit": "Tether + suppress"
+    "description": "Fires Void anchors that tether enemies, making them weakened and suppressed. Anchors have increased range and duration.",
+    "keyBenefit": "Long tether + weaken + suppress"
+  },
+  {
+    "name": "Shadowshot: Mobius Quiver",
+    "class": "Hunter",
+    "subclass": "Void",
+    "type": "Debuff",
+    "duration": "Variable",
+    "description": "Fire up to six Shadowshots in quick succession. Each shot tethers and makes enemies volatile.",
+    "keyBenefit": "Multiple shots + volatile"
   },
   {
     "name": "Spectral Blades",
