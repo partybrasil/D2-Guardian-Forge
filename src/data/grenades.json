@@ -9,6 +9,15 @@
     "description": "Creates a flare of Solar Light that continuously damages enemies."
   },
   {
+    "name": "Firebolt Grenade",
+    "element": "Solar",
+    "mechanic": "Chain",
+    "effect": "Fire bolts",
+    "radius": "25m",
+    "duration": "Per target",
+    "description": "Unleashes bolts of Solar energy that seek out nearby enemies."
+  },
+  {
     "name": "Fusion Grenade",
     "element": "Solar",
     "mechanic": "Adhesive",
@@ -34,6 +43,33 @@
     "radius": "18m",
     "duration": "On impact",
     "description": "Bounces on impact and explodes, dealing damage and applying heavy Scorch."
+  },
+  {
+    "name": "Thermite Grenade",
+    "element": "Solar",
+    "mechanic": "Line",
+    "effect": "Fire wall",
+    "radius": "25m",
+    "duration": "6s",
+    "description": "Creates a line of fire that damages enemies crossing it."
+  },
+  {
+    "name": "Tripmine Grenade",
+    "element": "Solar",
+    "mechanic": "Trap",
+    "effect": "Laser trip",
+    "radius": "20m",
+    "duration": "30s",
+    "description": "Attaches to surfaces and detonates when enemies pass through its laser trigger."
+  },
+  {
+    "name": "Healing Grenade",
+    "element": "Solar",
+    "mechanic": "Support",
+    "effect": "Cure/Restoration",
+    "radius": "15m",
+    "duration": "10s",
+    "description": "Creates an area that heals you and your allies."
   },
   {
     "name": "Arcbolt Grenade",
@@ -63,6 +99,42 @@
     "description": "Periodically damages enemies in an area."
   },
   {
+    "name": "Skip Grenade",
+    "element": "Arc",
+    "mechanic": "Tracker",
+    "effect": "Split seekers",
+    "radius": "20m",
+    "duration": "6s",
+    "description": "Splits into smaller projectiles that track targets on impact."
+  },
+  {
+    "name": "Flux Grenade",
+    "element": "Arc",
+    "mechanic": "Adhesive",
+    "effect": "Explosion",
+    "radius": "15m",
+    "duration": "On impact",
+    "description": "Sticks to targets and explodes after a short delay."
+  },
+  {
+    "name": "Storm Grenade",
+    "element": "Arc",
+    "mechanic": "Zone",
+    "effect": "Storm damage",
+    "radius": "18m",
+    "duration": "8s",
+    "description": "Calls down a localized storm that damages enemies in its area."
+  },
+  {
+    "name": "Lightning Grenade",
+    "element": "Arc",
+    "mechanic": "Surface",
+    "effect": "Lightning bolts",
+    "radius": "20m",
+    "duration": "8s",
+    "description": "Adheres to surfaces and emits bolts of lightning."
+  },
+  {
     "name": "Vortex Grenade",
     "element": "Void",
     "mechanic": "Vortex",
@@ -88,6 +160,42 @@
     "radius": "15m",
     "duration": "8s",
     "description": "Attaches to enemies and explodes twice."
+  },
+  {
+    "name": "Axion Bolt",
+    "element": "Void",
+    "mechanic": "Seeker",
+    "effect": "Tracking bolts",
+    "radius": "25m",
+    "duration": "8s",
+    "description": "Releases seeker bolts that track and damage enemies."
+  },
+  {
+    "name": "Suppressor Grenade",
+    "element": "Void",
+    "mechanic": "Suppress",
+    "effect": "Disable abilities",
+    "radius": "18m",
+    "duration": "On impact",
+    "description": "Explodes and suppresses enemies, disabling their abilities."
+  },
+  {
+    "name": "Void Spike Grenade",
+    "element": "Void",
+    "mechanic": "Surface",
+    "effect": "Void spikes",
+    "radius": "20m",
+    "duration": "8s",
+    "description": "Attaches to surfaces and emits damaging Void energy."
+  },
+  {
+    "name": "Void Wall Grenade",
+    "element": "Void",
+    "mechanic": "Wall",
+    "effect": "Void barrier",
+    "radius": "25m",
+    "duration": "6s",
+    "description": "Creates a perpendicular wall of Void energy that damages enemies."
   },
   {
     "name": "Duskfield Grenade",

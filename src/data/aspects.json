@@ -355,5 +355,54 @@
     "class": "Hunter",
     "description": "While airborne, press the charged melee button to slam down and suspend all nearby targets.",
     "fragmentSlots": 2
+  },
+  {
+    "name": "Hellion",
+    "subclass": "Solar",
+    "class": "Warlock",
+    "description": "Send out a Solar mortar that scorches targets on impact.",
+    "fragmentSlots": 2
+  },
+  {
+    "name": "Unbreakable",
+    "subclass": "Void",
+    "class": "Titan",
+    "description": "Hold your class ability input to form a Void shield that drains energy. On release, Void Overshield is consumed and converted into melee energy.",
+    "fragmentSlots": 2
+  },
+  {
+    "name": "Ascension",
+    "subclass": "Arc",
+    "class": "Hunter",
+    "description": "While airborne, activate Class Ability to twirl upwards, jolting and damaging targets below. Amplifies you and nearby allies.",
+    "fragmentSlots": 3
+  },
+  {
+    "name": "On the Prowl",
+    "subclass": "Void",
+    "class": "Hunter",
+    "description": "Defeating weakened targets grants Invisibility. While Invisible, your next melee attack weakens targets.",
+    "fragmentSlots": 2
+  },
+  {
+    "name": "Storm's Keep",
+    "subclass": "Arc",
+    "class": "Titan",
+    "description": "Breaking enemy shields or defeating targets with Arc damage creates Ionic Traces. Collecting Ionic Traces blinds nearby targets.",
+    "fragmentSlots": 3
+  },
+  {
+    "name": "Weavewalk",
+    "subclass": "Strand",
+    "class": "Warlock",
+    "description": "Activate your class ability to draw Strand energy from your surroundings, gaining Woven Mail and becoming harder to slow or freeze.",
+    "fragmentSlots": 2
+  },
+  {
+    "name": "Ionic Sentry",
+    "subclass": "Arc",
+    "class": "Warlock",
+    "description": "Defeating targets with Arc damage or your abilities charges an Arc turret. Hold grenade to deploy it. The turret fires lightning bolts at nearby enemies.",
+    "fragmentSlots": 3
   }
 ]

@@ -20,6 +20,7 @@ import subclassesData from '../data/subclasses.json';
 import aerialsData from '../data/aerials.json';
 import passivesData from '../data/passives.json';
 import transcendenceData from '../data/transcendence.json';
+import prismaticAbilitiesData from '../data/prismaticAbilities.json';
 
 export default function BuildPlanner() {
   const [searchParams] = useSearchParams();
@@ -195,27 +196,33 @@ export default function BuildPlanner() {
   };
 
   // Filter data based on selections
-  // Prismatic has access to all supers for the class
-  const availableSupers = supersData.filter(s => 
-    selectedSubclass === 'Prismatic'
-      ? s.class === selectedClass
-      : s.class === selectedClass && s.subclass === selectedSubclass
-  );
+  // Prismatic has access to specific curated supers per class from prismaticAbilities.json
+  const availableSupers = supersData.filter(s => {
+    if (selectedSubclass === 'Prismatic') {
+      const prismaticData = prismaticAbilitiesData as Record<string, { supers: string[] }>;
+      const classData = prismaticData[selectedClass];
+      return s.class === selectedClass && classData?.supers.includes(s.name);
+    }
+    return s.class === selectedClass && s.subclass === selectedSubclass;
+  });
   
-  // Grenades are shared across all classes but filtered by element
-  // Prismatic has access to grenades from all subclasses (Light and Dark)
-  const availableGrenades = grenadesData.filter(g => 
-    selectedSubclass === 'Prismatic' 
-      ? ['Solar', 'Arc', 'Void', 'Stasis', 'Strand'].includes(g.element)
-      : g.element === selectedSubclass
-  );
+  // Grenades - Prismatic has access to specific grenades per class from prismaticAbilities.json
+  const availableGrenades = grenadesData.filter(g => {
+    if (selectedSubclass === 'Prismatic') {
+      const prismaticData = prismaticAbilitiesData as Record<string, { grenades: string[] }>;
+      const classData = prismaticData[selectedClass];
+      return classData?.grenades.includes(g.name);
+    }
+    return g.element === selectedSubclass;
+  });
   
-  // Melees are class-specific - filter by both class and element
-  // Prismatic has access to melees from all subclasses for the selected class
+  // Melees are class-specific - Prismatic has access to specific melees per class
   const availableMelees = meleesData.filter(m => {
     const matchesClass = !m.class || m.class === selectedClass;
     if (selectedSubclass === 'Prismatic') {
-      return matchesClass && ['Solar', 'Arc', 'Void', 'Stasis', 'Strand'].includes(m.element);
+      const prismaticData = prismaticAbilitiesData as Record<string, { melees: string[] }>;
+      const classData = prismaticData[selectedClass];
+      return matchesClass && classData?.melees.includes(m.name);
     }
     return matchesClass && m.element === selectedSubclass;
   });
@@ -258,12 +265,13 @@ export default function BuildPlanner() {
     return true;
   });
 
-  // Aspects are class-specific - filter by both class and subclass
-  // Prismatic has access to aspects from all Light and Dark subclasses for the selected class
+  // Aspects are class-specific - Prismatic has access to specific aspects per class
   const availableAspects = aspectsData.filter(a => {
     const matchesClass = !a.class || a.class === selectedClass;
     if (selectedSubclass === 'Prismatic') {
-      return matchesClass && ['Solar', 'Arc', 'Void', 'Stasis', 'Strand'].includes(a.subclass);
+      const prismaticData = prismaticAbilitiesData as Record<string, { aspects: string[] }>;
+      const classData = prismaticData[selectedClass];
+      return matchesClass && classData?.aspects.includes(a.name);
     }
     return a.subclass === selectedSubclass && matchesClass;
   });

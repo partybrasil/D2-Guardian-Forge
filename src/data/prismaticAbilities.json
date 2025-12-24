@@ -8,7 +8,7 @@
       "Needlestorm"
     ],
     "grenades": [
-      "Solar Grenade",
+      "Healing Grenade",
       "Vortex Grenade",
       "Storm Grenade",
       "Coldsnap Grenade",
@@ -25,35 +25,35 @@
       "Hellion",
       "Feed the Void",
       "Lightning Surge",
-      "Frostfall",
+      "Bleak Watcher",
       "Weaver's Call"
     ]
   },
   "Titan": {
     "supers": [
-      "Hammer of Sol",
       "Twilight Arsenal",
+      "Hammer of Sol",
       "Thundercrash",
       "Glacial Quake",
       "Bladefury"
     ],
     "grenades": [
-      "Incendiary Grenade",
-      "Voidwall Grenade",
+      "Suppressor Grenade",
+      "Thermite Grenade",
       "Pulse Grenade",
       "Glacier Grenade",
       "Shackle Grenade"
     ],
     "melees": [
-      "Throwing Hammer",
       "Shield Throw",
+      "Hammer Strike",
       "Thunderclap",
       "Shiver Strike",
       "Frenzied Blade"
     ],
     "aspects": [
-      "Sol Invictus",
-      "Offensive Bulwark",
+      "Unbreakable",
+      "Consecration",
       "Knockout",
       "Diamond Lance",
       "Drengr's Lash"
@@ -61,29 +61,29 @@
   },
   "Hunter": {
     "supers": [
-      "Golden Gun",
       "Shadowshot",
+      "Golden Gun",
       "Storm's Edge",
       "Silence and Squall",
       "Silkstrike"
     ],
     "grenades": [
-      "Swarm Grenade",
       "Magnetic Grenade",
+      "Swarm Grenade",
       "Arcbolt Grenade",
       "Duskfield Grenade",
       "Grapple Grenade"
     ],
     "melees": [
-      "Knife Trick",
       "Snare Bomb",
+      "Knife Trick",
       "Combination Blow",
       "Withering Blade",
       "Threaded Spike"
     ],
     "aspects": [
-      "Gunpowder Gamble",
       "Stylish Executioner",
+      "Gunpowder Gamble",
       "Ascension",
       "Winter's Shroud",
       "Threaded Specter"
