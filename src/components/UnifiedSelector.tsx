@@ -117,7 +117,7 @@ export default function UnifiedSelector({
               {/* Clear button */}
               <button
                 onClick={handleClear}
-                className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-red-600 hover:bg-red-500 text-white text-sm flex items-center justify-center"
+                className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-red-600 hover:bg-red-500 text-white text-xs flex items-center justify-center"
                 title="Clear selection"
                 aria-label="Clear selection"
               >
