@@ -125,6 +125,19 @@ export default function HamburgerMenu({ onDownloadBackup, onRestoreBackup }: Ham
             </div>
           </Link>
 
+          <Link
+            to="/settings"
+            onClick={closeMenu}
+            className={`block px-4 py-3 rounded-lg text-white hover:bg-gray-700 transition-colors ${
+              location.pathname.startsWith('/settings') ? 'bg-destiny-primary/20 border-l-4 border-destiny-primary' : ''
+            }`}
+          >
+            <div className="flex items-center gap-3">
+              <span className="text-xl">⚙️</span>
+              <span className="font-medium">Settings</span>
+            </div>
+          </Link>
+
           {/* Divider */}
           <div className="my-2 border-t border-gray-700" />
 
