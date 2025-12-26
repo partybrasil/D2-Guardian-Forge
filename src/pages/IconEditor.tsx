@@ -7,6 +7,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Icon from '../components/Icon';
+import TokenModal from '../components/TokenModal';
 import { ICONS, type IconCategory } from '../utils/iconUtils';
 import type { IconChange } from '../utils/iconManager';
 
@@ -16,7 +17,51 @@ export default function IconEditor() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [hasToken, setHasToken] = useState(false);
+  const [isTokenModalOpen, setIsTokenModalOpen] = useState(false);
   const fileInputRefs = useRef<{ [key: string]: HTMLInputElement | null }>({});
+
+  // Check for token on mount
+  useEffect(() => {
+    checkToken();
+  }, []);
+
+  const checkToken = () => {
+    const token = localStorage.getItem('github_token');
+    setHasToken(!!token);
+  };
+
+  // Validate GitHub token
+  const validateToken = async (token: string): Promise<boolean> => {
+    try {
+      const response = await fetch('https://api.github.com/user', {
+        headers: {
+          'Authorization': `token ${token}`,
+          'Accept': 'application/vnd.github+json',
+          'X-GitHub-Api-Version': '2022-11-28'
+        }
+      });
+
+      if (response.ok) {
+        localStorage.setItem('github_token', token);
+        checkToken();
+        return true;
+      }
+      return false;
+    } catch (error) {
+      console.error('Token validation error:', error);
+      return false;
+    }
+  };
+
+  const handleClearToken = () => {
+    if (confirm('Are you sure you want to remove the GitHub token?')) {
+      localStorage.removeItem('github_token');
+      checkToken();
+      setSuccessMessage('GitHub token removed successfully');
+      setTimeout(() => setSuccessMessage(null), 3000);
+    }
+  };
 
   // Get all categories except 'default'
   const categories = Object.keys(ICONS).filter(cat => cat !== 'default');
@@ -217,8 +262,8 @@ export default function IconEditor() {
       currentChanges.forEach(change => {
         try {
           URL.revokeObjectURL(change.previewUrl);
-        } catch (e) {
-          // URL may already be revoked
+        } catch {
+          // URL may already be revoked, ignore error
         }
       });
     };
@@ -239,6 +284,56 @@ export default function IconEditor() {
         <p className="text-gray-400">
           Upload custom icons to replace placeholders. Changes will create a PR for review.
         </p>
+      </div>
+
+      {/* Token Status Section */}
+      <div className="mb-6 bg-gray-800/50 border border-gray-700 rounded-lg p-4">
+        <div className="flex items-center justify-between flex-wrap gap-4">
+          <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
+              <div className={`w-3 h-3 rounded-full ${hasToken ? 'bg-green-500' : 'bg-red-500'}`}></div>
+              <span className="text-white font-medium">GitHub Token:</span>
+              <span className={`font-semibold ${hasToken ? 'text-green-400' : 'text-red-400'}`}>
+                {hasToken ? 'Present' : 'Not Present'}
+              </span>
+            </div>
+            {hasToken && (
+              <span className="text-xs text-gray-500">
+                (Automated PR creation enabled)
+              </span>
+            )}
+          </div>
+          <div className="flex gap-2">
+            {!hasToken ? (
+              <button
+                onClick={() => setIsTokenModalOpen(true)}
+                className="px-4 py-2 bg-destiny-primary hover:bg-destiny-primary/80 text-black font-medium rounded-lg transition-colors"
+              >
+                Add Token
+              </button>
+            ) : (
+              <>
+                <button
+                  onClick={() => setIsTokenModalOpen(true)}
+                  className="px-4 py-2 bg-gray-700 hover:bg-gray-600 text-white rounded-lg transition-colors"
+                >
+                  Update Token
+                </button>
+                <button
+                  onClick={handleClearToken}
+                  className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg transition-colors"
+                >
+                  Clear Token
+                </button>
+              </>
+            )}
+          </div>
+        </div>
+        {!hasToken && (
+          <p className="text-sm text-gray-400 mt-3">
+            💡 Add a GitHub token to enable automated PR creation. Without it, changes will be downloaded as JSON for manual processing.
+          </p>
+        )}
       </div>
 
       {/* Messages */}
@@ -452,6 +547,13 @@ export default function IconEditor() {
           </div>
         </div>
       </div>
+
+      {/* Token Modal */}
+      <TokenModal
+        isOpen={isTokenModalOpen}
+        onClose={() => setIsTokenModalOpen(false)}
+        onSave={validateToken}
+      />
     </div>
   );
 }
