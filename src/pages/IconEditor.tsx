@@ -113,14 +113,17 @@ export default function IconEditor() {
       await downloadIconChanges(iconChanges);
       
       // Show instructions
-      setSuccessMessage(
-        `Downloaded icon changes file! Next steps:\n` +
-        `1. The JSON file contains ${iconChanges.length} icon change(s)\n` +
-        `2. To apply changes, run: node scripts/update-icons.js <downloaded-file>\n` +
-        `3. The script will create a new branch and commit the changes\n` +
-        `4. Create a PR on GitHub with the generated description\n\n` +
+      const instructionMessage = [
+        `Downloaded icon changes file! Next steps:`,
+        `1. The JSON file contains ${iconChanges.length} icon change(s)`,
+        `2. To apply changes, run: node scripts/update-icons.js <downloaded-file>`,
+        `3. The script will create a new branch and commit the changes`,
+        `4. Create a PR on GitHub with the generated description`,
+        ``,
         `Alternatively, manually replace icons in public/icons/{category}/ folders.`
-      );
+      ].join('\n');
+      
+      setSuccessMessage(instructionMessage);
       
       // Store PR description in console for easy access
       console.log('=== PR Description ===');
@@ -145,7 +148,7 @@ export default function IconEditor() {
     return () => {
       iconChanges.forEach(change => URL.revokeObjectURL(change.previewUrl));
     };
-  }, []);
+  }, [iconChanges]);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">

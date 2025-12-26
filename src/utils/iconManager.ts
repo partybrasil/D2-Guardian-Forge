@@ -24,6 +24,14 @@ export interface IconChangeMetadata {
 
 /**
  * Get all icons grouped by category
+ * 
+ * @returns Record of categories with arrays of icon objects containing name, hash, and path
+ * 
+ * @example
+ * ```ts
+ * const icons = getAllIcons();
+ * // { classes: [{ name: 'Titan', hash: 3111577790, path: 'icons/classes/Titan.png' }, ...], ... }
+ * ```
  */
 export function getAllIcons(): Record<string, Array<{ name: string; hash: number; path: string }>> {
   const result: Record<string, Array<{ name: string; hash: number; path: string }>> = {};
@@ -44,11 +52,14 @@ export function getAllIcons(): Record<string, Array<{ name: string; hash: number
 
 /**
  * Prepare icon changes for submission
+ * 
+ * @param changes - Array of icon changes to prepare
+ * @returns Blob containing metadata about the changes (not used in current implementation)
+ * @deprecated This function is not used in the current implementation
  */
 export async function prepareIconChanges(changes: IconChange[]): Promise<Blob> {
-  const formData = new FormData();
-  
-  // Add metadata
+  // This function is kept for backward compatibility but is not used
+  // The downloadIconChanges function is used instead
   const metadata: IconChangeMetadata[] = changes.map((change) => ({
     category: change.category,
     name: change.name,
@@ -57,14 +68,6 @@ export async function prepareIconChanges(changes: IconChange[]): Promise<Blob> {
     timestamp: Date.now()
   }));
   
-  formData.append('metadata', JSON.stringify(metadata));
-  
-  // Add files
-  changes.forEach((change, index) => {
-    formData.append(`file_${index}`, change.newFile, `${change.name}.png`);
-  });
-  
-  // Convert FormData to Blob
   const blob = new Blob([JSON.stringify({
     metadata,
     fileCount: changes.length,
@@ -77,13 +80,22 @@ export async function prepareIconChanges(changes: IconChange[]): Promise<Blob> {
 /**
  * Download icon changes as a JSON file for manual processing
  * This is a fallback when the API is not available
+ * 
+ * @param changes - Array of icon changes to download
+ * @returns Promise that resolves when download is complete
+ * 
+ * @example
+ * ```ts
+ * await downloadIconChanges(iconChanges);
+ * // Downloads: icon-changes-1735219200000.json
+ * ```
  */
 export async function downloadIconChanges(changes: IconChange[]): Promise<void> {
   const changeData: {
-    metadata: IconChangeMetadata[];
+    changes: IconChangeMetadata[];
     files: { [key: string]: string };
   } = {
-    metadata: changes.map(change => ({
+    changes: changes.map(change => ({
       category: change.category,
       name: change.name,
       fileName: `${change.name}.png`,
@@ -120,6 +132,9 @@ export async function downloadIconChanges(changes: IconChange[]): Promise<void> 
 
 /**
  * Generate PR description for icon changes
+ * 
+ * @param changes - Array of icon changes to document
+ * @returns Markdown-formatted PR description
  */
 export function generatePRDescription(changes: IconChange[]): string {
   let description = `# Icon Updates\n\n`;
@@ -152,6 +167,9 @@ export function generatePRDescription(changes: IconChange[]): string {
 
 /**
  * Create a commit message for icon changes
+ * 
+ * @param changes - Array of icon changes to document
+ * @returns Formatted commit message with summary and details
  */
 export function generateCommitMessage(changes: IconChange[]): string {
   const summary = `Update ${changes.length} icon(s) via Icon Editor`;
