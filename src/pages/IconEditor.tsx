@@ -512,7 +512,7 @@ export default function IconEditor() {
           <p><strong className="text-white">Step 3:</strong> Select a new image file</p>
           <ul className="ml-6 list-disc space-y-1">
             <li><strong>Recommended dimensions:</strong> 96x96 pixels</li>
-            <li><strong>Accepted formats:</strong> PNG (recommended), JPG, JPEG, WebP, GIF</li>
+            <li><strong>Accepted formats:</strong> All common image formats (PNG recommended)</li>
             <li><strong>Maximum file size:</strong> 2MB</li>
           </ul>
           <p><strong className="text-white">Step 4:</strong> Review your changes (icons with pending changes are highlighted)</p>
