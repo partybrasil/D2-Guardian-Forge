@@ -170,7 +170,7 @@ export default function IconEditor() {
               method: 'POST',
               headers: {
                 'Accept': 'application/vnd.github+json',
-                'Authorization': `Bearer ${GITHUB_TOKEN}`,
+                'Authorization': `token ${GITHUB_TOKEN}`,
                 'X-GitHub-Api-Version': '2022-11-28',
                 'Content-Type': 'application/json'
               },
@@ -200,10 +200,26 @@ export default function IconEditor() {
           } else {
             const errorText = await response.text();
             console.error('GitHub API error:', response.status, errorText);
-            throw new Error(`GitHub API returned ${response.status}`);
+            
+            // Provide helpful error message
+            let errorMsg = 'Failed to trigger GitHub Actions workflow. ';
+            if (response.status === 401) {
+              errorMsg += 'Your GitHub token may be invalid or expired. Please update your token.';
+            } else if (response.status === 403) {
+              errorMsg += 'Your GitHub token does not have sufficient permissions. Ensure it has "repo" scope.';
+            } else if (response.status === 404) {
+              errorMsg += 'Repository not found or token does not have access to it.';
+            } else {
+              errorMsg += `GitHub API returned status ${response.status}.`;
+            }
+            
+            setErrorMessage(errorMsg + ' Falling back to JSON download.');
+            console.error('Full error details:', errorText);
+            // Fall through to JSON download fallback
           }
         } catch (apiError) {
           console.error('Failed to trigger workflow:', apiError);
+          setErrorMessage('Network error while triggering workflow. Falling back to JSON download.');
           // Fall through to JSON download fallback
         }
       }
