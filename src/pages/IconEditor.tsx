@@ -213,7 +213,7 @@ export default function IconEditor() {
               errorMsg += `GitHub API returned status ${response.status}.`;
             }
             
-            setErrorMessage(errorMsg + ' Falling back to JSON download.');
+            setErrorMessage(`${errorMsg} Falling back to JSON download.`);
             console.error('Full error details:', errorText);
             // Fall through to JSON download fallback
           }
