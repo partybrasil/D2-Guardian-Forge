@@ -32,8 +32,8 @@ export default function BuildPlanner() {
 
   // Form state
   const [buildName, setBuildName] = useState('New Build');
-  const [selectedClass, setSelectedClass] = useState<GuardianClass>('Warlock');
-  const [selectedSubclass, setSelectedSubclass] = useState<Subclass>('Solar');
+  const [selectedClass, setSelectedClass] = useState<GuardianClass | ''>('');
+  const [selectedSubclass, setSelectedSubclass] = useState<Subclass | ''>('');
   const [selectedSuper, setSelectedSuper] = useState('');
   const [selectedGrenade, setSelectedGrenade] = useState('');
   const [selectedMelee, setSelectedMelee] = useState('');
@@ -123,6 +123,7 @@ export default function BuildPlanner() {
         setSelectedGrenade(build.abilities.grenade);
         setSelectedMelee(build.abilities.melee);
         setSelectedClassAbility(build.abilities.classAbility);
+        setSelectedMovement(build.abilities.movement || '');
         setSelectedAspects(build.aspects);
         setSelectedFragments(build.fragments);
         setStats(build.stats);
@@ -147,13 +148,14 @@ export default function BuildPlanner() {
       const build: Build = {
         id,
         name: buildName,
-        class: selectedClass,
-        subclass: selectedSubclass,
+        class: selectedClass as GuardianClass,
+        subclass: selectedSubclass as Subclass,
         super: selectedSuper,
         abilities: {
           grenade: selectedGrenade,
           melee: selectedMelee,
           classAbility: selectedClassAbility,
+          movement: selectedMovement,
         },
         extraAbilities: {
           aerial: selectedAerial,
@@ -201,8 +203,9 @@ export default function BuildPlanner() {
   // Filter data based on selections
   // Prismatic has access to specific curated supers per class from prismaticAbilities.json
   const availableSupers = supersData.filter(s => {
+    if (!selectedClass || !selectedSubclass) return false;
     if (selectedSubclass === 'Prismatic') {
-      const classData = prismaticAbilitiesData[selectedClass];
+      const classData = prismaticAbilitiesData[selectedClass as GuardianClass];
       return s.class === selectedClass && classData?.supers.includes(s.name);
     }
     return s.class === selectedClass && s.subclass === selectedSubclass;
@@ -210,8 +213,9 @@ export default function BuildPlanner() {
   
   // Grenades - Prismatic has access to specific grenades per class from prismaticAbilities.json
   const availableGrenades = grenadesData.filter(g => {
+    if (!selectedClass || !selectedSubclass) return false;
     if (selectedSubclass === 'Prismatic') {
-      const classData = prismaticAbilitiesData[selectedClass];
+      const classData = prismaticAbilitiesData[selectedClass as GuardianClass];
       return classData?.grenades.includes(g.name);
     }
     return g.element === selectedSubclass;
@@ -219,9 +223,10 @@ export default function BuildPlanner() {
   
   // Melees are class-specific - Prismatic has access to specific melees per class
   const availableMelees = meleesData.filter(m => {
+    if (!selectedClass || !selectedSubclass) return false;
     const matchesClass = !m.class || m.class === selectedClass;
     if (selectedSubclass === 'Prismatic') {
-      const classData = prismaticAbilitiesData[selectedClass];
+      const classData = prismaticAbilitiesData[selectedClass as GuardianClass];
       return matchesClass && classData?.melees.includes(m.name);
     }
     return matchesClass && m.element === selectedSubclass;
@@ -230,10 +235,12 @@ export default function BuildPlanner() {
   // Class abilities - filter by class and element (if specified)
   // Phoenix Dive is only available for Solar and Prismatic Warlocks
   const availableClassAbilities = classAbilitiesData.filter(a => {
+    if (!selectedClass) return false;
     if (a.class !== selectedClass) return false;
     
     // If ability has element requirement, check if it matches
     if (a.element) {
+      if (!selectedSubclass) return false;
       if (selectedSubclass === 'Prismatic') {
         // Prismatic can use element-specific abilities that are explicitly marked as Prismatic-compatible
         // Currently: Phoenix Dive (Solar) is available to Prismatic Warlock
@@ -248,10 +255,12 @@ export default function BuildPlanner() {
 
   // Movement abilities - filter by class
   const availableMovementAbilities = movementAbilitiesData.filter(m => {
+    if (!selectedClass) return false;
     if (m.class !== selectedClass) return false;
     
     // If movement ability has element requirement (like Blink, Icarus Dash, Thruster), check if it matches
     if (m.element) {
+      if (!selectedSubclass) return false;
       if (selectedSubclass === 'Prismatic') {
         // Note: In current Destiny 2 mechanics, Prismatic may not have access to all element-specific movements
         // This behavior should be validated against actual game mechanics
@@ -267,9 +276,10 @@ export default function BuildPlanner() {
 
   // Aspects are class-specific - Prismatic has access to specific aspects per class
   const availableAspects = aspectsData.filter(a => {
+    if (!selectedClass || !selectedSubclass) return false;
     const matchesClass = !a.class || a.class === selectedClass;
     if (selectedSubclass === 'Prismatic') {
-      const classData = prismaticAbilitiesData[selectedClass];
+      const classData = prismaticAbilitiesData[selectedClass as GuardianClass];
       return matchesClass && classData?.aspects.includes(a.name);
     }
     return a.subclass === selectedSubclass && matchesClass;
@@ -277,11 +287,12 @@ export default function BuildPlanner() {
 
   // Fragments - Prismatic has special facets plus access to other fragments
   // Prismatic can use fragments from Light, Dark, and Prismatic elements
-  const availableFragments = fragmentsData.filter(f => 
-    selectedSubclass === 'Prismatic' 
+  const availableFragments = fragmentsData.filter(f => {
+    if (!selectedSubclass) return false;
+    return selectedSubclass === 'Prismatic' 
       ? ['Solar', 'Arc', 'Void', 'Stasis', 'Strand', 'Prismatic'].includes(f.subclass)
-      : f.subclass === selectedSubclass
-  );
+      : f.subclass === selectedSubclass;
+  });
 
   // Get selected aspect details (needed before calculating slots)
   const selectedAspectDetails = aspectsData.filter(a => selectedAspects.includes(a.name));
@@ -488,7 +499,7 @@ export default function BuildPlanner() {
                 options={(['Solar', 'Arc', 'Void', 'Stasis', 'Strand', 'Prismatic'] as Subclass[]).map(s => ({
                   name: s,
                   element: s,
-                  iconKey: `${s.toLowerCase()}_${selectedClass.toLowerCase()}`
+                  iconKey: selectedClass ? `${s.toLowerCase()}_${selectedClass.toLowerCase()}` : ''
                 }))}
                 iconKey="iconKey" // Property name in each option object that contains the icon lookup key
                 onSelect={(value) => {
@@ -518,16 +529,18 @@ export default function BuildPlanner() {
             {/* Info Panel: Class, Subclass, and Super */}
             <div className="mt-4 p-4 rounded-lg bg-gray-800/50 border border-gray-700 space-y-4">
               {/* Class Info */}
-              <div>
-                <h3 className="text-lg font-bold text-white mb-2">
-                  {selectedClass}
-                </h3>
-                <p className="text-sm text-gray-300">Guardian Class</p>
-              </div>
+              {selectedClass && (
+                <div>
+                  <h3 className="text-lg font-bold text-white mb-2">
+                    {selectedClass}
+                  </h3>
+                  <p className="text-sm text-gray-300">Guardian Class</p>
+                </div>
+              )}
 
               {/* Subclass Info */}
               {currentSubclassInfo && (
-                <div className="pt-4 border-t border-gray-700">
+                <div className={selectedClass ? "pt-4 border-t border-gray-700" : ""}>
                   <h3 className={`text-lg font-bold mb-2 ${getSubclassColor(selectedSubclass)}`}>
                     {currentSubclassInfo.name}
                   </h3>
@@ -1171,7 +1184,7 @@ export default function BuildPlanner() {
           <div className="flex gap-4">
             <button
               onClick={saveBuild}
-              disabled={saving || !buildName || !selectedSuper}
+              disabled={saving || !buildName || !selectedClass || !selectedSubclass || !selectedSuper}
               className="btn-primary flex-1 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {saving ? 'Saving...' : 'Save Build'}
@@ -1196,15 +1209,19 @@ export default function BuildPlanner() {
                 <div className="text-white font-bold">{buildName}</div>
               </div>
               
-              <div>
-                <div className="text-gray-400">Class</div>
-                <div className="text-white">{selectedClass}</div>
-              </div>
+              {selectedClass && (
+                <div>
+                  <div className="text-gray-400">Class</div>
+                  <div className="text-white">{selectedClass}</div>
+                </div>
+              )}
               
-              <div>
-                <div className="text-gray-400">Subclass</div>
-                <div className={getSubclassColor(selectedSubclass)}>{selectedSubclass}</div>
-              </div>
+              {selectedSubclass && (
+                <div>
+                  <div className="text-gray-400">Subclass</div>
+                  <div className={getSubclassColor(selectedSubclass)}>{selectedSubclass}</div>
+                </div>
+              )}
               
               {selectedSuper && (
                 <div>
