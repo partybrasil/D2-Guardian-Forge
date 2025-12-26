@@ -48,7 +48,7 @@ export default function AbilitySelector({
 
   const handleSelect = (value: string) => {
     onSelect(value);
-    // Don't close the modal automatically - let user close via X or clicking outside
+    setIsOpen(false); // Close modal immediately after selection
   };
 
   const handleClear = (e: React.MouseEvent) => {
