@@ -36,7 +36,7 @@ The Icon Editor allows you to upload custom icons to replace the placeholder ima
    - Select a new image file (PNG recommended, max 2MB)
 
 3. **Review Your Changes**
-   - Icons with pending changes are highlighted
+   - Icons with pending changes are highlighted with a primary color border
    - Preview shows current and new icon side-by-side
    - Click "Remove" to discard a change
    - Click "Clear All" to remove all pending changes

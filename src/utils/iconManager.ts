@@ -51,33 +51,6 @@ export function getAllIcons(): Record<string, Array<{ name: string; hash: number
 }
 
 /**
- * Prepare icon changes for submission
- * 
- * @param changes - Array of icon changes to prepare
- * @returns Blob containing metadata about the changes (not used in current implementation)
- * @deprecated This function is not used in the current implementation
- */
-export async function prepareIconChanges(changes: IconChange[]): Promise<Blob> {
-  // This function is kept for backward compatibility but is not used
-  // The downloadIconChanges function is used instead
-  const metadata: IconChangeMetadata[] = changes.map((change) => ({
-    category: change.category,
-    name: change.name,
-    fileName: `${change.name}.png`,
-    path: `public/icons/${change.category}/${change.name}.png`,
-    timestamp: Date.now()
-  }));
-  
-  const blob = new Blob([JSON.stringify({
-    metadata,
-    fileCount: changes.length,
-    timestamp: Date.now()
-  })], { type: 'application/json' });
-  
-  return blob;
-}
-
-/**
  * Download icon changes as a JSON file for manual processing
  * This is a fallback when the API is not available
  * 
@@ -91,6 +64,8 @@ export async function prepareIconChanges(changes: IconChange[]): Promise<Blob> {
  * ```
  */
 export async function downloadIconChanges(changes: IconChange[]): Promise<void> {
+  const timestamp = Date.now();
+  
   const changeData: {
     changes: IconChangeMetadata[];
     files: { [key: string]: string };
@@ -100,19 +75,32 @@ export async function downloadIconChanges(changes: IconChange[]): Promise<void> 
       name: change.name,
       fileName: `${change.name}.png`,
       path: `public/icons/${change.category}/${change.name}.png`,
-      timestamp: Date.now()
+      timestamp
     })),
     files: {}
+  };
+  
+  // Helper to convert a File to a base64 string using FileReader
+  const fileToBase64 = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const result = reader.result as string;
+        const commaIndex = result.indexOf(',');
+        // Strip the data URL prefix (e.g., "data:image/png;base64,") to keep only the raw base64
+        resolve(commaIndex >= 0 ? result.substring(commaIndex + 1) : result);
+      };
+      reader.onerror = () => {
+        reject(reader.error);
+      };
+      reader.readAsDataURL(file);
+    });
   };
   
   // Convert files to base64
   for (let i = 0; i < changes.length; i++) {
     const change = changes[i];
-    const arrayBuffer = await change.newFile.arrayBuffer();
-    const base64 = btoa(
-      new Uint8Array(arrayBuffer)
-        .reduce((data, byte) => data + String.fromCharCode(byte), '')
-    );
+    const base64 = await fileToBase64(change.newFile);
     changeData.files[`file_${i}`] = base64;
   }
   
@@ -123,7 +111,7 @@ export async function downloadIconChanges(changes: IconChange[]): Promise<void> 
   
   const a = document.createElement('a');
   a.href = url;
-  a.download = `icon-changes-${Date.now()}.json`;
+  a.download = `icon-changes-${timestamp}.json`;
   document.body.appendChild(a);
   a.click();
   document.body.removeChild(a);

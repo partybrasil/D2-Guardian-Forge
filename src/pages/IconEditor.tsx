@@ -8,14 +8,7 @@ import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Icon from '../components/Icon';
 import { ICONS, type IconCategory } from '../utils/iconUtils';
-
-interface IconChange {
-  category: string;
-  name: string;
-  oldPath: string;
-  newFile: File;
-  previewUrl: string;
-}
+import type { IconChange } from '../utils/iconManager';
 
 export default function IconEditor() {
   const [selectedCategory, setSelectedCategory] = useState<string>('classes');
@@ -220,7 +213,7 @@ export default function IconEditor() {
     return () => {
       iconChanges.forEach(change => URL.revokeObjectURL(change.previewUrl));
     };
-  }, [iconChanges]);
+  }, []);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -241,7 +234,7 @@ export default function IconEditor() {
       {/* Messages */}
       {successMessage && (
         <div className="mb-6 bg-green-900/30 border border-green-700 rounded-lg p-4">
-          <p className="text-green-400">{successMessage}</p>
+          <p className="text-green-400 whitespace-pre-line">{successMessage}</p>
         </div>
       )}
 
