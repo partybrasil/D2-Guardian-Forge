@@ -67,8 +67,8 @@ async function processIconChanges(changesFilePath) {
       process.exit(1);
     }
     
-    // Validate only alphanumeric, spaces, hyphens, underscores, and dots
-    const safePattern = /^[a-zA-Z0-9\s\-_.]+$/;
+    // Validate only alphanumeric, hyphens, underscores, and dots (no spaces)
+    const safePattern = /^[a-zA-Z0-9\-_.]+$/;
     if (!safePattern.test(change.category)) {
       console.error(`❌ Invalid category: "${change.category}" - contains unsafe characters`);
       process.exit(1);
@@ -168,7 +168,7 @@ async function processIconChanges(changesFilePath) {
   const commitMessage = `${commitSummary}\n\n${commitDetails}`;
   
   // Write commit message to a temporary file to avoid shell injection
-  const tmpFile = path.join(ROOT_DIR, '.git', 'COMMIT_EDITMSG_TEMP');
+  const tmpFile = path.join(ROOT_DIR, '.git', `COMMIT_EDITMSG_TEMP_${process.pid}_${Date.now()}`);
   fs.writeFileSync(tmpFile, commitMessage);
   
   console.log('💾 Creating commit...');

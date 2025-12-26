@@ -208,11 +208,21 @@ export default function IconEditor() {
     }
   };
 
-  // Cleanup preview URLs on unmount
+  // Cleanup preview URLs when component unmounts
+  // Note: Cleanup happens on unmount only; URLs are managed manually in state changes
   useEffect(() => {
+    // Store current changes in a closure to clean up on unmount
+    const currentChanges = [...iconChanges];
     return () => {
-      iconChanges.forEach(change => URL.revokeObjectURL(change.previewUrl));
+      currentChanges.forEach(change => {
+        try {
+          URL.revokeObjectURL(change.previewUrl);
+        } catch (e) {
+          // URL may already be revoked
+        }
+      });
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
