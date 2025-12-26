@@ -87,10 +87,10 @@
 | **Health** | 0-200 | +10% flinch resist | +20 shield cap, +45% recharge | 0.1% flinch | 100-140 |
 | **Class** | 0-200 | -40s cooldown | -20% CD adicional, +20% bonus | 0.4s reduction | 100-140 |
 | **Melee** | 0-200 | -30s cooldown, +30% dmg | -20% CD, +20% dmg | 0.3s reduction | 100-150 |
-| **Grenade** | 0-200 | -40s cooldown, +65% dmg | -30% CD, +20% dmg, **+1 charge** | 0.4s reduction | **150-200** |
+| **Grenade** | 0-200 | -40s cooldown, +65% dmg | -30% CD, +20% dmg | 0.4s reduction | **150-200** |
 | **Super** | 0-200 | +40% energy gain | +30% gain, +10% dmg | 0.4% gain | 100-150 |
 
-**CRÍTICO**: Grenade stat a 150-180 permite 2 granadas almacenadas = cambio game.
+**NOTA**: Granadas adicionales solo se obtienen mediante armaduras exóticas y aspectos específicos, no mediante distribución de stats.
 
 ---
 

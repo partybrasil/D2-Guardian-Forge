@@ -68,7 +68,7 @@ npm run build
 ### Stats (0-200)
 | Stat | Tier 1 (0-100) | Tier 2 (101-200) | Priority |
 |------|---------------|------------------|----------|
-| **Grenade** | -40s cooldown, +65% dmg | +1 charge at 150+ | **Highest** |
+| **Grenade** | -40s cooldown, +65% dmg | -30% CD, +20% dmg | **Highest** |
 | **Melee** | -30s cooldown, +30% dmg | -20% CD, +20% dmg | High |
 | **Health** | +10% flinch resist | +20 shield, +45% recharge | High |
 | **Class** | -40s cooldown | -20% CD, +20% bonus | High |

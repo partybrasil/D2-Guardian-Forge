@@ -109,8 +109,10 @@
 | **Health** | +10% flinch, +70 HP orbs | +10% flinch, +20 shield, +45% recharge | 0.1% flinch | 200 | High PvE |
 | **Class** | -40s cooldown, +15% duration | -20% CD, +20% bonus | ~0.4s reduction | 200 | High |
 | **Melee** | -30s cooldown, +30% damage | -20% CD, +20% damage | 0.3s reduction | 200 | High |
-| **Grenade** | -40s cooldown, +65% damage | -30% CD, +20% dmg, +1 charge | 0.4s reduction | 200 | **HIGHEST** |
+| **Grenade** | -40s cooldown, +65% damage | -30% CD, +20% dmg | 0.4s reduction | 200 | **HIGHEST** |
 | **Super** | +40% energy gain, +45% damage | +30% gain, +10% dmg, -15s CD | 0.4% gain | 200 | Medium |
+
+**Note**: Extra grenade charges are only obtained through exotic armor pieces and certain aspects, not through stat distribution.
 
 ---
 

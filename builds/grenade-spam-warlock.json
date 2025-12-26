@@ -33,13 +33,13 @@
   },
   "mods": [],
   "strengths": [
-    "Extremely high grenade uptime with +1 charge at 190",
+    "Extremely high grenade uptime (extra charges from exotic armor or aspects)",
     "Perfect for add clear in strikes and dungeons"
   ],
   "weaknesses": [
     "Lower health makes you vulnerable in GMs"
   ],
-  "gameplayLoop": "Spam grenades with high grenade stat providing second charge. Use wells for weapon damage boost.",
-  "buildDetails": "Maximum grenade uptime build with 190 grenade stat for second charge.",
+  "gameplayLoop": "Spam grenades with high grenade stat for minimal cooldown. Use wells for weapon damage boost. Extra charges available from exotic armor.",
+  "buildDetails": "Maximum grenade uptime build with 190 grenade stat for ultra-fast cooldown. Equip exotic armor for additional charges.",
   "version": "1.0.0-EdgeOfFate"
 }

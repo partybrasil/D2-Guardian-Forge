@@ -39,10 +39,10 @@
     "name": "grenade",
     "range": [0, 200],
     "tier1Bonus": "-40s cooldown, +65% damage",
-    "tier2Bonus": "-30% CD, +20% dmg, +1 charge at 150+",
+    "tier2Bonus": "-30% CD, +20% dmg",
     "perPoint": "0.4s reduction",
     "priority": "Highest",
-    "description": "Reduces grenade cooldown, increases damage, grants extra charge at 150+"
+    "description": "Reduces grenade cooldown and increases damage. Extra charges only from exotic armor and aspects."
   },
   {
     "name": "super",
