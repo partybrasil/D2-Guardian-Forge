@@ -485,9 +485,15 @@ export default function BuildPlanner() {
                 options={(['Warlock', 'Titan', 'Hunter'] as GuardianClass[]).map(c => ({ name: c }))}
                 onSelect={(value) => {
                   setSelectedClass(value as GuardianClass);
+                  // Clear all dependent selections when class changes
+                  setSelectedSubclass('');
                   setSelectedSuper('');
+                  setSelectedGrenade('');
+                  setSelectedMelee('');
                   setSelectedClassAbility('');
                   setSelectedMovement('');
+                  setSelectedAspects([]);
+                  setSelectedFragments([]);
                 }}
               />
               
