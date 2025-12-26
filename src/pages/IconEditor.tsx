@@ -509,7 +509,12 @@ export default function IconEditor() {
         <div className="text-gray-400 space-y-2 text-sm">
           <p><strong className="text-white">Step 1:</strong> Select a category from the buttons above</p>
           <p><strong className="text-white">Step 2:</strong> Click "Upload" next to any icon you want to replace</p>
-          <p><strong className="text-white">Step 3:</strong> Select a new image file (PNG recommended, max 2MB)</p>
+          <p><strong className="text-white">Step 3:</strong> Select a new image file</p>
+          <ul className="ml-6 list-disc space-y-1">
+            <li><strong>Recommended dimensions:</strong> 96x96 pixels</li>
+            <li><strong>Accepted formats:</strong> All common image formats (PNG recommended)</li>
+            <li><strong>Maximum file size:</strong> 2MB</li>
+          </ul>
           <p><strong className="text-white">Step 4:</strong> Review your changes (icons with pending changes are highlighted)</p>
           <p><strong className="text-white">Step 5:</strong> Click "Save Changes" to automatically create a PR</p>
           
