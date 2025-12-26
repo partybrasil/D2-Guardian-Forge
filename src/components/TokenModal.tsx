@@ -55,8 +55,14 @@ export default function TokenModal({ isOpen, onClose, onSave }: TokenModalProps)
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70">
-      <div className="bg-gray-800 border border-gray-700 rounded-lg shadow-xl w-full max-w-md">
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70"
+      onClick={handleClose}
+    >
+      <div
+        className="bg-gray-800 border border-gray-700 rounded-lg shadow-xl w-full max-w-md"
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* Header */}
         <div className="px-6 py-4 border-b border-gray-700">
           <h2 className="text-xl font-bold text-white">Enter GitHub Token</h2>
