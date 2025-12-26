@@ -45,7 +45,12 @@ export default function UnifiedSelector({
 
   const handleSelect = (value: string) => {
     onSelect(value);
-    // Don't close the modal automatically - let user close via X or clicking outside
+    setIsOpen(false); // Close modal immediately after selection
+  };
+
+  const handleClear = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onSelect('');
   };
 
   // Add keyboard support for Escape key
@@ -91,23 +96,34 @@ export default function UnifiedSelector({
           title={`Select ${label}`}
         >
           {selectedValue && selectedOption ? (
-            <div className="flex flex-col items-center gap-2">
-              <Icon 
-                category={iconCategory} 
-                name={getOptionIconName(selectedOption)} 
-                size={64} 
-                alt={selectedOption.name} 
-              />
-              <div className="text-center">
-                <div className={`font-semibold ${
-                  selectedOption.element && getSubclassColor 
-                    ? getSubclassColor(selectedOption.element) 
-                    : 'text-white'
-                }`}>
-                  {selectedOption.name}
+            <>
+              <div className="flex flex-col items-center gap-2">
+                <Icon 
+                  category={iconCategory} 
+                  name={getOptionIconName(selectedOption)} 
+                  size={64} 
+                  alt={selectedOption.name} 
+                />
+                <div className="text-center">
+                  <div className={`font-semibold ${
+                    selectedOption.element && getSubclassColor 
+                      ? getSubclassColor(selectedOption.element) 
+                      : 'text-white'
+                  }`}>
+                    {selectedOption.name}
+                  </div>
                 </div>
               </div>
-            </div>
+              {/* Clear button */}
+              <button
+                onClick={handleClear}
+                className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-red-600 hover:bg-red-500 text-white text-xs flex items-center justify-center"
+                title="Clear selection"
+                aria-label="Clear selection"
+              >
+                ×
+              </button>
+            </>
           ) : (
             <div className="w-16 h-16 flex items-center justify-center">
               <div className="w-14 h-14 rounded-full border-2 border-dashed border-gray-600 flex items-center justify-center text-gray-600 text-2xl">
