@@ -8,11 +8,6 @@ import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Icon from '../components/Icon';
 import { ICONS, type IconCategory } from '../utils/iconUtils';
-import { 
-  downloadIconChanges, 
-  generatePRDescription, 
-  generateCommitMessage 
-} from '../utils/iconManager';
 
 interface IconChange {
   category: string;
@@ -105,38 +100,115 @@ export default function IconEditor() {
     setSuccessMessage(null);
 
     try {
-      // Generate PR information
-      const prDescription = generatePRDescription(iconChanges);
-      const commitMessage = generateCommitMessage(iconChanges);
+      // Prepare changes data
+      const changesMetadata = iconChanges.map(change => ({
+        category: change.category,
+        name: change.name,
+        fileName: `${change.name}.png`,
+        path: `public/icons/${change.category}/${change.name}.png`,
+        timestamp: Date.now()
+      }));
+
+      // Convert files to base64
+      const filesData: { [key: string]: string } = {};
+      for (let i = 0; i < iconChanges.length; i++) {
+        const change = iconChanges[i];
+        const arrayBuffer = await change.newFile.arrayBuffer();
+        const base64 = btoa(
+          new Uint8Array(arrayBuffer)
+            .reduce((data, byte) => data + String.fromCharCode(byte), '')
+        );
+        filesData[`file_${i}`] = base64;
+      }
+
+      // Try to trigger GitHub Actions workflow via repository_dispatch
+      const GITHUB_TOKEN = localStorage.getItem('github_token');
       
-      // Download changes as JSON file for manual processing
-      await downloadIconChanges(iconChanges);
+      if (GITHUB_TOKEN) {
+        try {
+          const response = await fetch(
+            'https://api.github.com/repos/partybrasil/D2-Guardian-Forge/dispatches',
+            {
+              method: 'POST',
+              headers: {
+                'Accept': 'application/vnd.github+json',
+                'Authorization': `Bearer ${GITHUB_TOKEN}`,
+                'X-GitHub-Api-Version': '2022-11-28',
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                event_type: 'update-icons',
+                client_payload: {
+                  changes: changesMetadata,
+                  files: filesData
+                }
+              })
+            }
+          );
+
+          if (response.status === 204) {
+            setSuccessMessage(
+              `✅ Success! Automated PR creation started.\n\n` +
+              `${iconChanges.length} icon change(s) are being processed by GitHub Actions.\n` +
+              `A Pull Request will be created automatically in a few moments.\n\n` +
+              `Check: https://github.com/partybrasil/D2-Guardian-Forge/pulls\n` +
+              `Workflow: https://github.com/partybrasil/D2-Guardian-Forge/actions`
+            );
+            
+            // Clear changes after successful submission
+            iconChanges.forEach(change => URL.revokeObjectURL(change.previewUrl));
+            setIconChanges([]);
+            return;
+          } else {
+            const errorText = await response.text();
+            console.error('GitHub API error:', response.status, errorText);
+            throw new Error(`GitHub API returned ${response.status}`);
+          }
+        } catch (apiError) {
+          console.error('Failed to trigger workflow:', apiError);
+          // Fall through to JSON download fallback
+        }
+      }
       
-      // Show instructions
+      // Fallback: Download JSON file for manual processing
+      const changeData = {
+        changes: changesMetadata,
+        files: filesData
+      };
+      
+      const json = JSON.stringify(changeData, null, 2);
+      const blob = new Blob([json], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `icon-changes-${Date.now()}.json`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      
       const instructionMessage = [
-        `Downloaded icon changes file! Next steps:`,
-        `1. The JSON file contains ${iconChanges.length} icon change(s)`,
-        `2. To apply changes, run: node scripts/update-icons.js <downloaded-file>`,
-        `3. The script will create a new branch and commit the changes`,
-        `4. Create a PR on GitHub with the generated description`,
+        `📥 Downloaded icon changes file (${iconChanges.length} icon(s)).`,
         ``,
-        `Alternatively, manually replace icons in public/icons/{category}/ folders.`
+        `⚠️ To enable automated PR creation:`,
+        `1. Create a GitHub Personal Access Token with 'repo' scope`,
+        `2. Go to: https://github.com/settings/tokens/new`,
+        `3. Store it by running in browser console:`,
+        `   localStorage.setItem('github_token', 'your-token-here')`,
+        `4. Refresh page and try "Save Changes" again`,
+        ``,
+        `📝 Manual alternative:`,
+        `Run: node scripts/update-icons.js <downloaded-file>`,
+        `This will create a branch and commit your changes.`
       ].join('\n');
       
       setSuccessMessage(instructionMessage);
       
-      // Store PR description in console for easy access
-      console.log('=== PR Description ===');
-      console.log(prDescription);
-      console.log('\n=== Commit Message ===');
-      console.log(commitMessage);
-      
-      // Don't clear changes immediately - let user review
-      
     } catch (error) {
       console.error('Error saving icon changes:', error);
       setErrorMessage(
-        'Unable to download changes. Please try again or manually replace icons in the public/icons folder.'
+        'Unable to process changes. Please check console for details or try again.'
       );
     } finally {
       setIsProcessing(false);
@@ -341,22 +413,39 @@ export default function IconEditor() {
           <p><strong className="text-white">Step 2:</strong> Click "Upload" next to any icon you want to replace</p>
           <p><strong className="text-white">Step 3:</strong> Select a new image file (PNG recommended, max 2MB)</p>
           <p><strong className="text-white">Step 4:</strong> Review your changes (icons with pending changes are highlighted)</p>
-          <p><strong className="text-white">Step 5:</strong> Click "Save Changes" to download the changes package</p>
+          <p><strong className="text-white">Step 5:</strong> Click "Save Changes" to automatically create a PR</p>
           
           <div className="mt-4 p-4 bg-destiny-primary/10 border border-destiny-primary rounded-lg">
-            <p className="text-destiny-primary font-semibold mb-2">After Downloading Changes:</p>
+            <p className="text-destiny-primary font-semibold mb-2">✨ Automated Workflow (Recommended)</p>
             <ol className="list-decimal ml-5 space-y-1">
-              <li>A JSON file with your icon changes will be downloaded</li>
+              <li>Click "Save Changes" - GitHub Actions will automatically process your icons</li>
+              <li>A new branch will be created with your changes</li>
+              <li>A Pull Request will be opened automatically</li>
+              <li>Go to GitHub → Pull Requests → Review and merge!</li>
+            </ol>
+            <div className="mt-3 p-2 bg-gray-900/50 rounded text-xs">
+              <p className="text-yellow-400 font-semibold mb-1">First time setup:</p>
+              <p>1. Create a GitHub Personal Access Token: <a href="https://github.com/settings/tokens/new" target="_blank" rel="noopener" className="text-destiny-primary underline">Create Token</a></p>
+              <p>2. Scope required: <code className="bg-gray-800 px-1 rounded">repo</code></p>
+              <p>3. Store it in browser console:</p>
+              <p className="mt-1"><code className="bg-gray-800 px-1 rounded">localStorage.setItem('github_token', 'your-token-here')</code></p>
+            </div>
+          </div>
+          
+          <div className="mt-4 p-4 bg-gray-900/50 border border-gray-600 rounded-lg">
+            <p className="text-gray-300 font-semibold mb-2">📥 Fallback Method:</p>
+            <p>If automated workflow is not configured, a JSON file will be downloaded.</p>
+            <ol className="list-decimal ml-5 space-y-1 mt-2">
               <li>Run: <code className="bg-gray-900 px-2 py-0.5 rounded">node scripts/update-icons.js &lt;downloaded-file&gt;</code></li>
               <li>The script will create a new branch and commit your changes</li>
-              <li>Create a Pull Request on GitHub for review</li>
+              <li>Create a Pull Request on GitHub manually</li>
             </ol>
           </div>
           
           <div className="mt-4 p-4 bg-gray-900/50 border border-gray-600 rounded-lg">
-            <p className="text-gray-300 font-semibold mb-2">Manual Alternative:</p>
+            <p className="text-gray-300 font-semibold mb-2">🛠️ Manual Alternative:</p>
             <p>Place your new icons directly in <code className="bg-gray-900 px-1 rounded">public/icons/{`{category}/{name}.png`}</code></p>
-            <p className="text-xs text-gray-500 mt-1">This bypasses the download step but requires direct repository access</p>
+            <p className="text-xs text-gray-500 mt-1">This bypasses the workflow but requires direct repository access</p>
           </div>
         </div>
       </div>
