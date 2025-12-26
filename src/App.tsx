@@ -2,6 +2,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { useEffect, useState, useCallback } from 'react';
 import Dashboard from './pages/Dashboard';
 import BuildPlanner from './pages/BuildPlanner';
+import Settings from './pages/Settings';
+import IconEditor from './pages/IconEditor';
 import HamburgerMenu from './components/HamburgerMenu';
 import { getAllIconHashes } from './utils/iconUtils';
 import './App.css';
@@ -69,6 +71,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Dashboard setBackupHandlers={updateBackupHandlers} />} />
             <Route path="/planner" element={<BuildPlanner />} />
+            <Route path="/settings" element={<Settings />} />
+            <Route path="/settings/icons" element={<IconEditor />} />
           </Routes>
         </main>
 
