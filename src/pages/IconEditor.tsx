@@ -8,6 +8,11 @@ import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Icon from '../components/Icon';
 import { ICONS, type IconCategory } from '../utils/iconUtils';
+import { 
+  downloadIconChanges, 
+  generatePRDescription, 
+  generateCommitMessage 
+} from '../utils/iconManager';
 
 interface IconChange {
   category: string;
@@ -100,49 +105,35 @@ export default function IconEditor() {
     setSuccessMessage(null);
 
     try {
-      // Create FormData with all changes
-      const formData = new FormData();
+      // Generate PR information
+      const prDescription = generatePRDescription(iconChanges);
+      const commitMessage = generateCommitMessage(iconChanges);
       
-      // Add metadata
-      formData.append('changes', JSON.stringify(
-        iconChanges.map(change => ({
-          category: change.category,
-          name: change.name,
-          oldPath: change.oldPath,
-          fileName: `${change.name}.png`
-        }))
-      ));
-
-      // Add files
-      iconChanges.forEach((change, index) => {
-        formData.append(`file_${index}`, change.newFile, `${change.name}.png`);
-      });
-
-      // Send to backend API (this would need to be implemented)
-      const response = await fetch('/api/update-icons', {
-        method: 'POST',
-        body: formData
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to save icon changes');
-      }
-
-      const result = await response.json();
+      // Download changes as JSON file for manual processing
+      await downloadIconChanges(iconChanges);
       
+      // Show instructions
       setSuccessMessage(
-        `Successfully saved ${iconChanges.length} icon change(s). PR #${result.prNumber} created for review.`
+        `Downloaded icon changes file! Next steps:\n` +
+        `1. The JSON file contains ${iconChanges.length} icon change(s)\n` +
+        `2. To apply changes, run: node scripts/update-icons.js <downloaded-file>\n` +
+        `3. The script will create a new branch and commit the changes\n` +
+        `4. Create a PR on GitHub with the generated description\n\n` +
+        `Alternatively, manually replace icons in public/icons/{category}/ folders.`
       );
       
-      // Clear changes
-      iconChanges.forEach(change => URL.revokeObjectURL(change.previewUrl));
-      setIconChanges([]);
+      // Store PR description in console for easy access
+      console.log('=== PR Description ===');
+      console.log(prDescription);
+      console.log('\n=== Commit Message ===');
+      console.log(commitMessage);
+      
+      // Don't clear changes immediately - let user review
       
     } catch (error) {
       console.error('Error saving icon changes:', error);
       setErrorMessage(
-        'Unable to save changes. This feature requires a backend API to create PRs. ' +
-        'For now, please manually replace icons in the public/icons folder.'
+        'Unable to download changes. Please try again or manually replace icons in the public/icons folder.'
       );
     } finally {
       setIsProcessing(false);
@@ -341,17 +332,29 @@ export default function IconEditor() {
 
       {/* Instructions */}
       <div className="mt-8 bg-gray-800/50 border border-gray-700 rounded-lg p-6">
-        <h3 className="text-lg font-bold text-white mb-3">Instructions</h3>
+        <h3 className="text-lg font-bold text-white mb-3">How to Update Icons</h3>
         <div className="text-gray-400 space-y-2 text-sm">
-          <p>1. Select a category from the buttons above</p>
-          <p>2. Click "Upload" next to any icon you want to replace</p>
-          <p>3. Select a new image file (PNG recommended, max 2MB)</p>
-          <p>4. Review your changes (icons with pending changes are highlighted)</p>
-          <p>5. Click "Save Changes" to create a Pull Request</p>
-          <p className="text-yellow-400 mt-4">
-            ⚠️ Note: The PR creation feature requires backend API support. 
-            For manual icon replacement, place your new icon in <code className="bg-gray-900 px-1 rounded">public/icons/{`{category}/{name}.png`}</code>
-          </p>
+          <p><strong className="text-white">Step 1:</strong> Select a category from the buttons above</p>
+          <p><strong className="text-white">Step 2:</strong> Click "Upload" next to any icon you want to replace</p>
+          <p><strong className="text-white">Step 3:</strong> Select a new image file (PNG recommended, max 2MB)</p>
+          <p><strong className="text-white">Step 4:</strong> Review your changes (icons with pending changes are highlighted)</p>
+          <p><strong className="text-white">Step 5:</strong> Click "Save Changes" to download the changes package</p>
+          
+          <div className="mt-4 p-4 bg-destiny-primary/10 border border-destiny-primary rounded-lg">
+            <p className="text-destiny-primary font-semibold mb-2">After Downloading Changes:</p>
+            <ol className="list-decimal ml-5 space-y-1">
+              <li>A JSON file with your icon changes will be downloaded</li>
+              <li>Run: <code className="bg-gray-900 px-2 py-0.5 rounded">node scripts/update-icons.js &lt;downloaded-file&gt;</code></li>
+              <li>The script will create a new branch and commit your changes</li>
+              <li>Create a Pull Request on GitHub for review</li>
+            </ol>
+          </div>
+          
+          <div className="mt-4 p-4 bg-gray-900/50 border border-gray-600 rounded-lg">
+            <p className="text-gray-300 font-semibold mb-2">Manual Alternative:</p>
+            <p>Place your new icons directly in <code className="bg-gray-900 px-1 rounded">public/icons/{`{category}/{name}.png`}</code></p>
+            <p className="text-xs text-gray-500 mt-1">This bypasses the download step but requires direct repository access</p>
+          </div>
         </div>
       </div>
     </div>
