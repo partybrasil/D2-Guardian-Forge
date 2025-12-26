@@ -8,7 +8,7 @@ This directory contains example build templates for D2-Guardian-Forge.
 - **Class**: Warlock
 - **Subclass**: Solar
 - **Focus**: Maximum grenade uptime
-- **Stats**: Grenade 190 (2 charges), Melee 150
+- **Stats**: Grenade 190, Melee 150 (extra charges from exotic armor/aspects)
 - **Best For**: Strikes, Dungeons, Add Clear
 
 ## Usage

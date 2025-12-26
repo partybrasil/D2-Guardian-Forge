@@ -515,88 +515,99 @@ export default function BuildPlanner() {
               />
             </div>
 
-            {/* Subclass Info Panel */}
-            {currentSubclassInfo && (
-              <div className="mt-4 p-4 rounded-lg bg-gray-800/50 border border-gray-700">
-                <h3 className={`text-lg font-bold mb-2 ${getSubclassColor(selectedSubclass)}`}>
-                  {currentSubclassInfo.name}
+            {/* Info Panel: Class, Subclass, and Super */}
+            <div className="mt-4 p-4 rounded-lg bg-gray-800/50 border border-gray-700 space-y-4">
+              {/* Class Info */}
+              <div>
+                <h3 className="text-lg font-bold text-white mb-2">
+                  {selectedClass}
                 </h3>
-                <p className="text-sm text-gray-300 mb-3">{currentSubclassInfo.description}</p>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
-                  <div>
-                    <div className="text-gray-400 font-semibold mb-1">Available Supers:</div>
-                    <ul className="text-gray-300 space-y-1">
-                      {currentSubclassInfo.supers.map(s => (
-                        <li key={s} className="flex items-start">
-                          <span className="text-destiny-primary mr-2">•</span>
-                          {s}
+                <p className="text-sm text-gray-300">Guardian Class</p>
+              </div>
+
+              {/* Subclass Info */}
+              {currentSubclassInfo && (
+                <div className="pt-4 border-t border-gray-700">
+                  <h3 className={`text-lg font-bold mb-2 ${getSubclassColor(selectedSubclass)}`}>
+                    {currentSubclassInfo.name}
+                  </h3>
+                  <p className="text-sm text-gray-300 mb-3">{currentSubclassInfo.description}</p>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                    <div>
+                      <div className="text-gray-400 font-semibold mb-1">Available Supers:</div>
+                      <ul className="text-gray-300 space-y-1">
+                        {currentSubclassInfo.supers.map(s => (
+                          <li key={s} className="flex items-start">
+                            <span className="text-destiny-primary mr-2">•</span>
+                            {s}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                    
+                    <div>
+                      <div className="text-gray-400 font-semibold mb-1">Playstyle:</div>
+                      <p className="text-gray-300">{currentSubclassInfo.playstyle}</p>
+                    </div>
+                  </div>
+
+                  <div className="mt-3">
+                    <div className="text-gray-400 font-semibold mb-1">Key Features:</div>
+                    <ul className="text-gray-300 text-xs space-y-1">
+                      {currentSubclassInfo.keyFeatures.map((feature, idx) => (
+                        <li key={idx} className="flex items-start">
+                          <span className="text-destiny-primary mr-2">→</span>
+                          {feature}
                         </li>
                       ))}
                     </ul>
                   </div>
-                  
-                  <div>
-                    <div className="text-gray-400 font-semibold mb-1">Playstyle:</div>
-                    <p className="text-gray-300">{currentSubclassInfo.playstyle}</p>
+
+                  <div className="mt-3">
+                    <div className="text-gray-400 font-semibold mb-1">Recommended Synergies:</div>
+                    <div className="flex flex-wrap gap-2 mt-1">
+                      {currentSubclassInfo.synergies.map((syn, idx) => (
+                        <span key={idx} className="px-2 py-1 bg-destiny-primary/20 text-destiny-primary rounded text-xs">
+                          {syn}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
+              )}
 
-                <div className="mt-3">
-                  <div className="text-gray-400 font-semibold mb-1">Key Features:</div>
-                  <ul className="text-gray-300 text-xs space-y-1">
-                    {currentSubclassInfo.keyFeatures.map((feature, idx) => (
-                      <li key={idx} className="flex items-start">
-                        <span className="text-destiny-primary mr-2">→</span>
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="mt-3">
-                  <div className="text-gray-400 font-semibold mb-1">Recommended Synergies:</div>
-                  <div className="flex flex-wrap gap-2 mt-1">
-                    {currentSubclassInfo.synergies.map((syn, idx) => (
-                      <span key={idx} className="px-2 py-1 bg-destiny-primary/20 text-destiny-primary rounded text-xs">
-                        {syn}
-                      </span>
-                    ))}
+              {/* Super Info */}
+              {selectedSuperInfo && (
+                <div className="pt-4 border-t border-gray-700">
+                  <div className="flex items-start gap-3">
+                    <Icon category="supers" name={selectedSuperInfo.name} size={48} alt={selectedSuperInfo.name} className="flex-shrink-0" />
+                    <div className="flex-1">
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <h4 className="font-bold text-white">{selectedSuperInfo.name}</h4>
+                          <p className="text-xs text-gray-400 mt-1">{selectedSuperInfo.description}</p>
+                        </div>
+                        <div className="text-right flex-shrink-0 ml-4">
+                          <span className="text-xs text-gray-400">Type:</span>
+                          <div className="text-destiny-primary text-sm font-semibold">{selectedSuperInfo.type}</div>
+                          <span className="text-xs text-gray-500">{selectedSuperInfo.duration}</span>
+                        </div>
+                      </div>
+                      <div className="mt-2 text-xs text-gray-300">
+                        <span className="text-destiny-primary">★</span> {selectedSuperInfo.keyBenefit}
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
 
           {/* Abilities Selection */}
           <div className="card">
             <h2 className="text-xl font-bold text-white mb-4">Abilities</h2>
             
-            {/* Show selected super details */}
-            {selectedSuperInfo && (
-              <div className="mb-4 p-3 rounded-lg bg-gray-800/50 border border-gray-700">
-                <div className="flex items-start gap-3">
-                  <Icon category="supers" name={selectedSuperInfo.name} size={48} alt={selectedSuperInfo.name} className="flex-shrink-0" />
-                  <div className="flex-1">
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <h4 className="font-bold text-white">{selectedSuperInfo.name}</h4>
-                        <p className="text-xs text-gray-400 mt-1">{selectedSuperInfo.description}</p>
-                      </div>
-                      <div className="text-right flex-shrink-0 ml-4">
-                        <span className="text-xs text-gray-400">Type:</span>
-                        <div className="text-destiny-primary text-sm font-semibold">{selectedSuperInfo.type}</div>
-                        <span className="text-xs text-gray-500">{selectedSuperInfo.duration}</span>
-                      </div>
-                    </div>
-                    <div className="mt-2 text-xs text-gray-300">
-                      <span className="text-destiny-primary">★</span> {selectedSuperInfo.keyBenefit}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-
             {/* Compact Ability Selectors */}
             <div>
               <label className="block text-sm font-medium text-gray-300 mb-3">
@@ -637,6 +648,142 @@ export default function BuildPlanner() {
                 />
               </div>
             </div>
+
+            {/* Selected Abilities Info Panel */}
+            {(selectedGrenade || selectedMelee || selectedClassAbility || selectedMovement) && (
+              <div className="mt-4 p-4 rounded-lg bg-gray-800/50 border border-gray-700 space-y-3">
+                {selectedGrenade && (() => {
+                  const grenadeInfo = availableGrenades.find(g => g.name === selectedGrenade);
+                  return grenadeInfo && (
+                    <div key="grenade">
+                      <div className="flex items-start gap-3">
+                        <Icon category="grenades" name={grenadeInfo.name} size={40} alt={grenadeInfo.name} className="flex-shrink-0" />
+                        <div className="flex-1">
+                          <div className="flex justify-between items-start">
+                            <div>
+                              <h4 className="font-bold text-white text-sm">{grenadeInfo.name}</h4>
+                              <p className="text-xs text-gray-400 mt-1">{grenadeInfo.description}</p>
+                            </div>
+                            <div className="text-right flex-shrink-0 ml-4">
+                              <span className={`text-xs ${getSubclassColor(grenadeInfo.element || '')}`}>
+                                {grenadeInfo.element}
+                              </span>
+                              {grenadeInfo.mechanic && (
+                                <div className="text-xs text-gray-500">{grenadeInfo.mechanic}</div>
+                              )}
+                            </div>
+                          </div>
+                          {grenadeInfo.effect && (
+                            <div className="mt-1 text-xs text-gray-300">
+                              <span className="text-destiny-primary">Effect:</span> {grenadeInfo.effect}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })()}
+
+                {selectedMelee && (() => {
+                  const meleeInfo = availableMelees.find(m => m.name === selectedMelee);
+                  return meleeInfo && (
+                    <div key="melee" className="pt-3 border-t border-gray-700">
+                      <div className="flex items-start gap-3">
+                        <Icon category="melees" name={meleeInfo.name} size={40} alt={meleeInfo.name} className="flex-shrink-0" />
+                        <div className="flex-1">
+                          <div className="flex justify-between items-start">
+                            <div>
+                              <h4 className="font-bold text-white text-sm">{meleeInfo.name}</h4>
+                              <p className="text-xs text-gray-400 mt-1">{meleeInfo.description}</p>
+                            </div>
+                            <div className="text-right flex-shrink-0 ml-4">
+                              <span className={`text-xs ${getSubclassColor(meleeInfo.element || '')}`}>
+                                {meleeInfo.element}
+                              </span>
+                              {meleeInfo.type && (
+                                <div className="text-xs text-gray-500">{meleeInfo.type}</div>
+                              )}
+                            </div>
+                          </div>
+                          {meleeInfo.effect && (
+                            <div className="mt-1 text-xs text-gray-300">
+                              <span className="text-destiny-primary">Effect:</span> {meleeInfo.effect}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })()}
+
+                {selectedClassAbility && (() => {
+                  const classAbilityInfo = availableClassAbilities.find(c => c.name === selectedClassAbility);
+                  return classAbilityInfo && (
+                    <div key="classAbility" className="pt-3 border-t border-gray-700">
+                      <div className="flex items-start gap-3">
+                        <Icon category="classAbilities" name={classAbilityInfo.name} size={40} alt={classAbilityInfo.name} className="flex-shrink-0" />
+                        <div className="flex-1">
+                          <div className="flex justify-between items-start">
+                            <div>
+                              <h4 className="font-bold text-white text-sm">{classAbilityInfo.name}</h4>
+                              <p className="text-xs text-gray-400 mt-1">{classAbilityInfo.description}</p>
+                            </div>
+                            <div className="text-right flex-shrink-0 ml-4">
+                              {classAbilityInfo.type && (
+                                <div className="text-xs text-gray-500">{classAbilityInfo.type}</div>
+                              )}
+                              {classAbilityInfo.cooldown && (
+                                <div className="text-xs text-gray-500">{classAbilityInfo.cooldown}</div>
+                              )}
+                            </div>
+                          </div>
+                          <div className="mt-1 text-xs text-gray-300">
+                            {classAbilityInfo.primaryEffect && (
+                              <div><span className="text-destiny-primary">Primary:</span> {classAbilityInfo.primaryEffect}</div>
+                            )}
+                            {classAbilityInfo.secondaryEffect && (
+                              <div><span className="text-destiny-primary">Secondary:</span> {classAbilityInfo.secondaryEffect}</div>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })()}
+
+                {selectedMovement && (() => {
+                  const movementInfo = availableMovementAbilities.find(m => m.name === selectedMovement);
+                  return movementInfo && (
+                    <div key="movement" className="pt-3 border-t border-gray-700">
+                      <div className="flex items-start gap-3">
+                        <Icon category="classAbilities" name={movementInfo.name} size={40} alt={movementInfo.name} className="flex-shrink-0" />
+                        <div className="flex-1">
+                          <div className="flex justify-between items-start">
+                            <div>
+                              <h4 className="font-bold text-white text-sm">{movementInfo.name}</h4>
+                              <p className="text-xs text-gray-400 mt-1">{movementInfo.description}</p>
+                            </div>
+                            <div className="text-right flex-shrink-0 ml-4">
+                              {movementInfo.type && (
+                                <div className="text-xs text-gray-500">{movementInfo.type}</div>
+                              )}
+                            </div>
+                          </div>
+                          <div className="mt-1 text-xs text-gray-300">
+                            {movementInfo.primaryEffect && (
+                              <div><span className="text-destiny-primary">Primary:</span> {movementInfo.primaryEffect}</div>
+                            )}
+                            {movementInfo.secondaryEffect && (
+                              <div><span className="text-destiny-primary">Secondary:</span> {movementInfo.secondaryEffect}</div>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })()}
+              </div>
+            )}
           </div>
 
           {/* Extra Abilities Section */}
@@ -701,17 +848,154 @@ export default function BuildPlanner() {
               </div>
             )}
 
-            {/* Info about auto-selection */}
-            <div className="mt-4 p-3 rounded-lg bg-gray-800/50 border border-gray-700">
-              <div className="text-xs text-gray-400">
-                <div className="font-semibold text-destiny-primary mb-1">About Extra Abilities:</div>
-                <ul className="space-y-1 ml-4 list-disc">
-                  <li><strong>Aerials:</strong> Movement abilities activated in air or while sliding, unlocked by specific aspects</li>
-                  <li><strong>Passives:</strong> Automatic effects provided by aspects (some require interaction)</li>
-                  <li><strong>Transcendence:</strong> Prismatic-only enhanced abilities during Transcendence mode (~30s + kills)</li>
-                </ul>
+            {/* Selected Extra Abilities Info Panel */}
+            {(selectedAerial || selectedPassive1 || selectedPassive2 || selectedTranscendenceMelee || selectedTranscendenceGrenade) && (
+              <div className="mt-4 p-4 rounded-lg bg-gray-800/50 border border-gray-700 space-y-3">
+                <div className="text-sm font-semibold text-destiny-primary mb-2">Equipped Extra Abilities:</div>
+                
+                {selectedAerialDetails && (
+                  <div key="aerial">
+                    <div className="flex items-start gap-3">
+                      <Icon category="classAbilities" name={selectedAerialDetails.name} size={40} alt={selectedAerialDetails.name} className="flex-shrink-0" />
+                      <div className="flex-1">
+                        <div className="flex justify-between items-start">
+                          <div>
+                            <h4 className="font-bold text-white text-sm">{selectedAerialDetails.name}</h4>
+                            <p className="text-xs text-gray-400 mt-1">{selectedAerialDetails.description}</p>
+                          </div>
+                          <div className="text-right flex-shrink-0 ml-4">
+                            <span className="text-xs text-gray-500">Aerial</span>
+                          </div>
+                        </div>
+                        <div className="mt-1 text-xs text-gray-300">
+                          {selectedAerialDetails.activation && (
+                            <div><span className="text-destiny-primary">Activation:</span> {selectedAerialDetails.activation}</div>
+                          )}
+                          {selectedAerialDetails.usage && (
+                            <div><span className="text-destiny-primary">Usage:</span> {selectedAerialDetails.usage}</div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {selectedPassive1Details && (
+                  <div key="passive1" className={selectedAerialDetails ? "pt-3 border-t border-gray-700" : ""}>
+                    <div className="flex items-start gap-3">
+                      <Icon category="aspects" name={selectedPassive1Details.name} size={40} alt={selectedPassive1Details.name} className="flex-shrink-0" />
+                      <div className="flex-1">
+                        <div className="flex justify-between items-start">
+                          <div>
+                            <h4 className="font-bold text-white text-sm">{selectedPassive1Details.name}</h4>
+                            <p className="text-xs text-gray-400 mt-1">{selectedPassive1Details.description}</p>
+                          </div>
+                          <div className="text-right flex-shrink-0 ml-4">
+                            <span className="text-xs text-gray-500">Passive 1</span>
+                          </div>
+                        </div>
+                        <div className="mt-1 text-xs text-gray-300">
+                          {selectedPassive1Details.effect && (
+                            <div><span className="text-destiny-primary">Effect:</span> {selectedPassive1Details.effect}</div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {selectedPassive2Details && (
+                  <div key="passive2" className={(selectedAerialDetails || selectedPassive1Details) ? "pt-3 border-t border-gray-700" : ""}>
+                    <div className="flex items-start gap-3">
+                      <Icon category="aspects" name={selectedPassive2Details.name} size={40} alt={selectedPassive2Details.name} className="flex-shrink-0" />
+                      <div className="flex-1">
+                        <div className="flex justify-between items-start">
+                          <div>
+                            <h4 className="font-bold text-white text-sm">{selectedPassive2Details.name}</h4>
+                            <p className="text-xs text-gray-400 mt-1">{selectedPassive2Details.description}</p>
+                          </div>
+                          <div className="text-right flex-shrink-0 ml-4">
+                            <span className="text-xs text-gray-500">Passive 2</span>
+                          </div>
+                        </div>
+                        <div className="mt-1 text-xs text-gray-300">
+                          {selectedPassive2Details.effect && (
+                            <div><span className="text-destiny-primary">Effect:</span> {selectedPassive2Details.effect}</div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {selectedTranscendenceMeleeDetails && (
+                  <div key="transcendenceMelee" className={(selectedAerialDetails || selectedPassive1Details || selectedPassive2Details) ? "pt-3 border-t border-gray-700" : ""}>
+                    <div className="flex items-start gap-3">
+                      <Icon category="melees" name={selectedTranscendenceMeleeDetails.name} size={40} alt={selectedTranscendenceMeleeDetails.name} className="flex-shrink-0" />
+                      <div className="flex-1">
+                        <div className="flex justify-between items-start">
+                          <div>
+                            <h4 className="font-bold text-white text-sm">{selectedTranscendenceMeleeDetails.name}</h4>
+                            <p className="text-xs text-gray-400 mt-1">{selectedTranscendenceMeleeDetails.description}</p>
+                          </div>
+                          <div className="text-right flex-shrink-0 ml-4">
+                            <span className="text-xs text-destiny-prismatic">Transcendence Melee</span>
+                          </div>
+                        </div>
+                        <div className="mt-1 text-xs text-gray-300">
+                          {selectedTranscendenceMeleeDetails.buffs && (
+                            <div><span className="text-destiny-primary">Buffs:</span> {selectedTranscendenceMeleeDetails.buffs}</div>
+                          )}
+                          {selectedTranscendenceMeleeDetails.activation && (
+                            <div><span className="text-destiny-primary">Activation:</span> {selectedTranscendenceMeleeDetails.activation}</div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {selectedTranscendenceGrenadeDetails && (
+                  <div key="transcendenceGrenade" className={(selectedAerialDetails || selectedPassive1Details || selectedPassive2Details || selectedTranscendenceMeleeDetails) ? "pt-3 border-t border-gray-700" : ""}>
+                    <div className="flex items-start gap-3">
+                      <Icon category="grenades" name={selectedTranscendenceGrenadeDetails.name} size={40} alt={selectedTranscendenceGrenadeDetails.name} className="flex-shrink-0" />
+                      <div className="flex-1">
+                        <div className="flex justify-between items-start">
+                          <div>
+                            <h4 className="font-bold text-white text-sm">{selectedTranscendenceGrenadeDetails.name}</h4>
+                            <p className="text-xs text-gray-400 mt-1">{selectedTranscendenceGrenadeDetails.description}</p>
+                          </div>
+                          <div className="text-right flex-shrink-0 ml-4">
+                            <span className="text-xs text-destiny-prismatic">Transcendence Grenade</span>
+                          </div>
+                        </div>
+                        <div className="mt-1 text-xs text-gray-300">
+                          {selectedTranscendenceGrenadeDetails.buffs && (
+                            <div><span className="text-destiny-primary">Buffs:</span> {selectedTranscendenceGrenadeDetails.buffs}</div>
+                          )}
+                          {selectedTranscendenceGrenadeDetails.activation && (
+                            <div><span className="text-destiny-primary">Activation:</span> {selectedTranscendenceGrenadeDetails.activation}</div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                <div className="mt-3 pt-3 border-t border-gray-700">
+                  <div className="text-xs text-gray-400">
+                    <div className="font-semibold text-destiny-primary mb-1">About Extra Abilities:</div>
+                    <ul className="space-y-1 ml-4 list-disc">
+                      <li><strong>Aerials:</strong> Movement abilities activated in air or while sliding, unlocked by specific aspects</li>
+                      <li><strong>Passives:</strong> Automatic effects provided by aspects (some require interaction)</li>
+                      {selectedSubclass === 'Prismatic' && (
+                        <li><strong>Transcendence:</strong> Prismatic-only enhanced abilities during Transcendence mode (~30s + kills)</li>
+                      )}
+                    </ul>
+                  </div>
+                </div>
               </div>
-            </div>
+            )}
           </div>
 
           {/* Aspects */}

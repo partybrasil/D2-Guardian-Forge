@@ -127,7 +127,7 @@ interface Build {
 - **Health** (0-200) - Flinch resist, shield, recharge
 - **Class** (0-200) - Ability cooldown reduction
 - **Melee** (0-200) - Cooldown, damage
-- **Grenade** (0-200) - Cooldown, damage, +1 charge at 150+
+- **Grenade** (0-200) - Cooldown, damage (extra charges only from exotic armor and aspects)
 - **Super** (0-200) - Energy gain, damage
 
 ## Performance
