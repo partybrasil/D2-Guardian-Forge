@@ -36,7 +36,7 @@ export default function IconEditor() {
     try {
       const response = await fetch('https://api.github.com/user', {
         headers: {
-          'Authorization': `Bearer ${token}`,
+          'Authorization': `token ${token}`,
           'Accept': 'application/vnd.github+json',
           'X-GitHub-Api-Version': '2022-11-28'
         }
