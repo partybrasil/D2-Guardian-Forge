@@ -263,7 +263,7 @@ export default function IconEditor() {
         try {
           URL.revokeObjectURL(change.previewUrl);
         } catch {
-          // URL may already be revoked
+          // URL may already be revoked, ignore error
         }
       });
     };

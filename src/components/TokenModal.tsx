@@ -37,6 +37,7 @@ export default function TokenModal({ isOpen, onClose, onSave }: TokenModalProps)
         setError('Invalid token. Please check your token and try again.');
       }
     } catch {
+      // Network or API error during validation
       setError('Failed to validate token. Please try again.');
     } finally {
       setIsValidating(false);
