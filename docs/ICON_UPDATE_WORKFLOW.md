@@ -110,8 +110,18 @@ The automated workflow (`update-icons.yml`) runs when triggered via repository_d
 
 - Verify token has `repo` scope
 - Check token isn't expired
-- Ensure correct repository name in API calls
-- Clear localStorage and re-add token
+- Ensure token is a **Classic** Personal Access Token (not fine-grained)
+- Clear localStorage and re-add token: `localStorage.removeItem('github_token')`
+- Check browser console for detailed error messages
+
+### Workflow Not Triggering
+
+If workflow doesn't start despite valid token:
+- Check error message displayed in the UI for specific details
+- 401 Error: Token is invalid or expired
+- 403 Error: Token lacks required `repo` scope permissions
+- 404 Error: Token doesn't have access to the repository
+- Network Error: Check internet connection or GitHub API availability
 
 ### Icons Not Updating
 
@@ -121,9 +131,10 @@ The automated workflow (`update-icons.yml`) runs when triggered via repository_d
 
 ### Workflow Fails
 
-- Check GitHub Actions logs for details
+- Check GitHub Actions logs for details: https://github.com/partybrasil/D2-Guardian-Forge/actions
 - Ensure branch protection rules allow workflows
 - Verify GITHUB_TOKEN has necessary permissions
+- Check workflow run logs for specific error details
 
 ---
 
