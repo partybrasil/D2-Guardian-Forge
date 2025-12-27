@@ -83,18 +83,20 @@ The script will:
 4. Create a commit and push to a new branch
 5. Create a Pull Request
 
-## GitHub Actions Workflow
+## GitHub API Integration
 
-The automated workflow (`update-icons.yml`) runs when triggered via repository_dispatch:
+The automated PR creation uses GitHub's Content API directly (no GitHub Actions required):
 
-1. **Triggered by**: Icon Editor "Save Changes" button
-2. **Event type**: `update-icons`
-3. **Payload**: Icon metadata and base64-encoded images
-4. **Actions**:
-   - Creates new branch
-   - Decodes and saves icon files
-   - Commits changes
-   - Creates Pull Request
+1. **Triggered by**: Icon Editor "Save Changes" button with valid GitHub token
+2. **Process**:
+   - Creates a new branch: `icon-update-<timestamp>`
+   - Uploads icon files directly to the branch using GitHub Contents API
+   - Creates a Pull Request with summary of changes
+3. **Benefits**:
+   - No payload size limitations (handles any number of icons)
+   - Faster processing (no workflow queue delays)
+   - Immediate feedback with PR URL
+   - Works without any GitHub Actions configuration
 
 ## Security Notes
 
@@ -114,14 +116,16 @@ The automated workflow (`update-icons.yml`) runs when triggered via repository_d
 - Clear localStorage and re-add token: `localStorage.removeItem('github_token')`
 - Check browser console for detailed error messages
 
-### Workflow Not Triggering
+### API Errors
 
-If workflow doesn't start despite valid token:
-- Check error message displayed in the UI for specific details
-- 401 Error: Token is invalid or expired
-- 403 Error: Token lacks required `repo` scope permissions
-- 404 Error: Token doesn't have access to the repository
-- Network Error: Check internet connection or GitHub API availability
+If the automated PR creation fails:
+- **401 Error**: Token is invalid or expired - create a new token
+- **403 Error**: Token lacks required `repo` scope permissions - recreate token with correct scope
+- **404 Error**: Token doesn't have access to the repository - verify token permissions
+- **422 Error**: Invalid request data (rare, should not occur with the current implementation)
+- **Network Error**: Check internet connection or GitHub API availability
+
+The system will automatically fall back to downloading a JSON file for manual processing.
 
 ### Icons Not Updating
 
@@ -131,12 +135,14 @@ If workflow doesn't start despite valid token:
 
 ### Workflow Fails
 
-- Check GitHub Actions logs for details: https://github.com/partybrasil/D2-Guardian-Forge/actions
-- Ensure branch protection rules allow workflows
-- Verify GITHUB_TOKEN has necessary permissions
-- Check workflow run logs for specific error details
+If the automated process fails:
+- Check the error message displayed in the Icon Editor UI
+- Review browser console for detailed error information
+- Verify your GitHub token has the correct `repo` scope
+- Ensure you have write access to the repository
+- Use the downloaded JSON file as a fallback with the manual script
 
 ---
 
 **Last Updated**: December 2025  
-**Version**: 2.0.0 (Automated Workflow)
+**Version**: 3.0.0 (Direct GitHub API Integration)
