@@ -349,7 +349,7 @@ export default function IconEditor() {
           } else if (statusCode === 404 || errorMsg.includes('404')) {
             friendlyError += 'Repository not found or token does not have access to it.';
           } else if (statusCode === 422 || errorMsg.includes('422')) {
-            friendlyError += 'Invalid request data. The file may already exist with different content or branch name is invalid.';
+            friendlyError += 'Unprocessable request. This is most often caused by a file SHA mismatch (the file changed on GitHub after you loaded this page). Please refresh the page and try again. If the problem persists, verify that the target branch and file path are valid.';
           } else if (/network\s*error/i.test(errorMsg) || /failed to fetch/i.test(errorMsg)) {
             friendlyError += 'A network error occurred while contacting GitHub. Please check your internet connection and try again.';
           } else {
