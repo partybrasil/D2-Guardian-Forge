@@ -213,11 +213,11 @@ export default function IconEditor() {
             const filePath = `public/icons/${change.category}/${change.name}.png`;
             const base64Content = filesData[`file_${i}`];
 
-            // Check if file exists to get its SHA (for updates)
+            // Check if file exists in base branch to get its SHA (for updates)
             let existingSha: string | undefined;
             try {
               const getFileRes = await fetch(
-                `https://api.github.com/repos/${owner}/${repo}/contents/${filePath}?ref=${branchName}`,
+                `https://api.github.com/repos/${owner}/${repo}/contents/${filePath}?ref=${baseBranch}`,
                 { headers }
               );
               if (getFileRes.ok) {
@@ -225,7 +225,7 @@ export default function IconEditor() {
                 existingSha = fileData.sha;
               }
             } catch {
-              // File doesn't exist, that's fine
+              // File doesn't exist in base branch, that's fine (new file)
             }
 
             // Create or update the file
