@@ -11,6 +11,11 @@ import TokenModal from '../components/TokenModal';
 import { ICONS, type IconCategory } from '../utils/iconUtils';
 import type { IconChange } from '../utils/iconManager';
 
+// GitHub repository configuration
+const GITHUB_OWNER = 'partybrasil';
+const GITHUB_REPO = 'D2-Guardian-Forge';
+const GITHUB_BASE_BRANCH = 'main';
+
 export default function IconEditor() {
   const [selectedCategory, setSelectedCategory] = useState<string>('classes');
   const [iconChanges, setIconChanges] = useState<IconChange[]>([]);
@@ -165,9 +170,6 @@ export default function IconEditor() {
       
       if (GITHUB_TOKEN) {
         try {
-          const owner = 'partybrasil';
-          const repo = 'D2-Guardian-Forge';
-          const baseBranch = 'main';
           const branchName = `icon-update-${Date.now()}`;
           
           const headers = {
@@ -179,7 +181,7 @@ export default function IconEditor() {
 
           // Step 1: Get the base branch reference
           const baseBranchRes = await fetch(
-            `https://api.github.com/repos/${owner}/${repo}/git/ref/heads/${baseBranch}`,
+            `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/git/ref/heads/${GITHUB_BASE_BRANCH}`,
             { headers }
           );
           
@@ -192,7 +194,7 @@ export default function IconEditor() {
 
           // Step 2: Create new branch
           const createBranchRes = await fetch(
-            `https://api.github.com/repos/${owner}/${repo}/git/refs`,
+            `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/git/refs`,
             {
               method: 'POST',
               headers,
@@ -217,20 +219,21 @@ export default function IconEditor() {
             let existingSha: string | undefined;
             try {
               const getFileRes = await fetch(
-                `https://api.github.com/repos/${owner}/${repo}/contents/${filePath}?ref=${baseBranch}`,
+                `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${filePath}?ref=${GITHUB_BASE_BRANCH}`,
                 { headers }
               );
               if (getFileRes.ok) {
                 const fileData = await getFileRes.json();
                 existingSha = fileData.sha;
               }
-            } catch {
-              // File doesn't exist in base branch, that's fine (new file)
+            } catch (error) {
+              // Catch network errors or API failures; 404 responses are handled above
+              console.debug('Could not check file existence:', error);
             }
 
             // Create or update the file
             const updateFileRes = await fetch(
-              `https://api.github.com/repos/${owner}/${repo}/contents/${filePath}`,
+              `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${filePath}`,
               {
                 method: 'PUT',
                 headers,
@@ -265,7 +268,7 @@ export default function IconEditor() {
           ].join('\n');
 
           const createPrRes = await fetch(
-            `https://api.github.com/repos/${owner}/${repo}/pulls`,
+            `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/pulls`,
             {
               method: 'POST',
               headers,
@@ -273,7 +276,7 @@ export default function IconEditor() {
                 title: `Update ${iconChanges.length} icon(s) via Icon Editor`,
                 body: prBody,
                 head: branchName,
-                base: baseBranch
+                base: GITHUB_BASE_BRANCH
               })
             }
           );
@@ -310,7 +313,7 @@ export default function IconEditor() {
           } else if (errorMsg.includes('404')) {
             friendlyError += 'Repository not found or token does not have access to it.';
           } else if (errorMsg.includes('422')) {
-            friendlyError += 'Invalid request data. This usually means the payload is too large or malformed.';
+            friendlyError += 'Invalid request data. The file may already exist with different content or branch name is invalid.';
           } else {
             friendlyError += errorMsg;
           }
