@@ -122,7 +122,7 @@ If the automated PR creation fails:
 - **401 Error**: Token is invalid or expired - create a new token
 - **403 Error**: Token lacks required `repo` scope permissions - recreate token with correct scope
 - **404 Error**: Token doesn't have access to the repository - verify token permissions
-- **422 Error**: Invalid request data (rare, should not occur with the current implementation)
+- **422 Error**: Invalid request data / SHA mismatch when updating existing icons (may occur with the current implementation; check browser console logs for details)
 - **Network Error**: Check internet connection or GitHub API availability
 
 The system will automatically fall back to downloading a JSON file for manual processing.
