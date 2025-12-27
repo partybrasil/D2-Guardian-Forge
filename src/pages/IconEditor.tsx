@@ -340,8 +340,8 @@ export default function IconEditor() {
           // Provide helpful error message
           let friendlyError = 'Failed to create Pull Request automatically. ';
           
-          // Add branch cleanup note if error occurred during file upload
-          if (errorMsg.includes('Failed to upload')) {
+          // Add branch cleanup note if error occurred during file upload or PR creation
+          if (errorMsg.includes('Failed to upload') || errorMsg.includes('Failed to create PR')) {
             friendlyError += 'Note: The branch may have been created with partial changes. You may need to manually delete the incomplete branch. ';
           }
           
