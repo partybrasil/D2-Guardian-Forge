@@ -227,7 +227,8 @@ export default function IconEditor() {
                 existingSha = fileData.sha;
               }
             } catch (error) {
-              // Catch network errors or API failures; 404 responses are handled above
+              // Catch network errors or JSON parsing failures
+              // Note: 404 responses are handled by the if condition above (non-ok responses)
               console.debug('Could not check file existence:', error);
             }
 
@@ -241,7 +242,7 @@ export default function IconEditor() {
                   message: `Update icon: ${change.category}/${change.name}`,
                   content: base64Content,
                   branch: branchName,
-                  ...(existingSha && { sha: existingSha })
+                  ...(existingSha ? { sha: existingSha } : {})
                 })
               }
             );
