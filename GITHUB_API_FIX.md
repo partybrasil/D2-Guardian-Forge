@@ -83,6 +83,31 @@ The new implementation provides detailed error messages:
 
 All errors fall back to downloading a JSON file for manual processing.
 
+## Known Limitations
+
+### Incomplete Branch Cleanup
+If file upload fails partway through the loop (e.g., file 3 of 5), the branch is left in an incomplete state with some files uploaded but no PR created.
+
+**Behavior**:
+- The error message will inform the user about the incomplete branch
+- The branch remains in the repository with partial changes
+- No automatic cleanup is performed
+
+**User Actions**:
+- Manually delete the incomplete branch via GitHub UI or CLI: `git push origin --delete icon-update-<timestamp>-<suffix>`
+- Retry the upload operation (a new unique branch will be created)
+- The incomplete branch won't interfere with future uploads
+
+### Sequential File Upload
+Files are uploaded one at a time in sequential order rather than concurrently.
+
+**Impact**:
+- Progress indicator shows "Uploading X of Y icons..." for user feedback
+- Larger batches may take longer compared to parallel uploads
+- Each file must complete before the next one starts
+
+**Future Enhancement**: Consider implementing parallel uploads with batching for improved performance on bulk updates.
+
 ## Testing
 
 ### Build Verification

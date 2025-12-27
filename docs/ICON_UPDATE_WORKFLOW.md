@@ -142,6 +142,28 @@ If the automated process fails:
 - Ensure you have write access to the repository
 - Use the downloaded JSON file as a fallback with the manual script
 
+### Incomplete Branch After Failed Upload
+
+If file upload fails partway through:
+- The branch may be left with some files uploaded but no PR created
+- Error message will indicate this situation
+- **Solution**: Manually delete the incomplete branch via GitHub UI or CLI
+  ```bash
+  # Replace <timestamp>-<suffix> with the actual branch name shown in GitHub,
+  # where the name matches the pattern icon-update-<timestamp>-<suffix>,
+  # for example: icon-update-1234567890-abc123
+  git push origin --delete icon-update-<timestamp>-<suffix>
+  ```
+- You can then retry the upload (a new unique branch will be created)
+
+### Upload Progress
+
+When uploading multiple icons:
+- Progress indicator shows "Uploading X of Y icons..."
+- Files are uploaded sequentially (one at a time)
+- For large batches, this may take some time
+- The progress bar ensures you know the upload is still in progress
+
 ---
 
 **Last Updated**: December 2025  

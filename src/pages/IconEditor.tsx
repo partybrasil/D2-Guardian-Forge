@@ -20,6 +20,7 @@ export default function IconEditor() {
   const [selectedCategory, setSelectedCategory] = useState<string>('classes');
   const [iconChanges, setIconChanges] = useState<IconChange[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [hasToken, setHasToken] = useState(false);
@@ -218,6 +219,9 @@ export default function IconEditor() {
             const filePath = `public/icons/${change.category}/${change.name}.png`;
             const base64Content = filesData[`file_${i}`];
 
+            // Update progress feedback
+            setUploadProgress(`Uploading ${i + 1} of ${iconChanges.length} icons...`);
+
             // Create the file on the new branch
             // Note: We don't need a SHA because we're creating files on a newly created branch
             // The new branch starts as a copy of main, but we're adding new commits to it
@@ -237,9 +241,14 @@ export default function IconEditor() {
 
             if (!updateFileRes.ok) {
               const errorText = await updateFileRes.text();
+              // Note: If upload fails partway through, the branch will be left in an incomplete state
+              // Users can manually delete the incomplete branch: icon-update-<timestamp>-<suffix>
               throw new Error(`Failed to upload ${filePath}: ${updateFileRes.status} - ${errorText}`);
             }
           }
+
+          // Clear progress after successful upload
+          setUploadProgress('Creating Pull Request...');
 
           // Step 4: Create Pull Request
           const prBody = [
@@ -330,6 +339,12 @@ export default function IconEditor() {
           
           // Provide helpful error message
           let friendlyError = 'Failed to create Pull Request automatically. ';
+          
+          // Add branch cleanup note if error occurred during file upload or PR creation
+          if (errorMsg.includes('Failed to upload') || errorMsg.includes('Failed to create PR')) {
+            friendlyError += 'Note: The branch may have been created with partial changes. You may need to manually delete the incomplete branch. ';
+          }
+          
           if (statusCode === 401 || errorMsg.includes('401')) {
             friendlyError += 'Your GitHub token may be invalid or expired. Please update your token.';
           } else if (statusCode === 403 || errorMsg.includes('403')) {
@@ -347,6 +362,9 @@ export default function IconEditor() {
           prCreationError = friendlyError;
           console.error('Full error details:', errorMsg);
           // Fall through to JSON download fallback
+        } finally {
+          // Clear upload progress on error or success
+          setUploadProgress(null);
         }
       }
       
@@ -505,6 +523,16 @@ export default function IconEditor() {
       {errorMessage && (
         <div className="mb-6 bg-red-900/30 border border-red-700 rounded-lg p-4">
           <p className="text-red-400">{errorMessage}</p>
+        </div>
+      )}
+
+      {/* Upload Progress */}
+      {uploadProgress && (
+        <div className="mb-6 bg-blue-900/30 border border-blue-700 rounded-lg p-4">
+          <div className="flex items-center gap-3">
+            <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-blue-400"></div>
+            <p className="text-blue-400 font-medium">{uploadProgress}</p>
+          </div>
         </div>
       )}
 
