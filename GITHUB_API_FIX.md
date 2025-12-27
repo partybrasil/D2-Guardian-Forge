@@ -78,7 +78,7 @@ The new implementation provides detailed error messages:
 - **401**: Token is invalid or expired
 - **403**: Token lacks required `repo` scope
 - **404**: Repository not found or token lacks access
-- **422**: Invalid request data (should not occur with current implementation)
+- **422**: Unprocessable Entity – invalid request data or SHA mismatch when updating existing icons
 - **Network errors**: Connection issues with GitHub API
 
 All errors fall back to downloading a JSON file for manual processing.
