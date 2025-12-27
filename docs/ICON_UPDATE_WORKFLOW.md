@@ -149,6 +149,9 @@ If file upload fails partway through:
 - Error message will indicate this situation
 - **Solution**: Manually delete the incomplete branch via GitHub UI or CLI
   ```bash
+  # Replace <timestamp>-<suffix> with the actual branch name shown in GitHub,
+  # where the name matches the pattern icon-update-<timestamp>-<suffix>,
+  # for example: icon-update-1234567890-abc123
   git push origin --delete icon-update-<timestamp>-<suffix>
   ```
 - You can then retry the upload (a new unique branch will be created)
