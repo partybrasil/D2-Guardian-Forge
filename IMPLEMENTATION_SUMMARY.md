@@ -55,9 +55,9 @@ POST /repos/{owner}/{repo}/git/refs
 
 // Step 3: Upload each file individually
 PUT /repos/{owner}/{repo}/contents/{path}
-  - Checks base branch for existing files
-  - Includes SHA if file exists (update)
-  - No SHA if new file (create)
+  - Operates on the newly created branch (not the base branch)
+  - Creates files without a SHA on first upload to the new branch
+  - Includes the file's SHA only when updating an existing file on that same branch
 
 // Step 4: Create Pull Request
 POST /repos/{owner}/{repo}/pulls
