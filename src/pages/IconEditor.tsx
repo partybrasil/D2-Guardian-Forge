@@ -242,7 +242,7 @@ export default function IconEditor() {
             if (!updateFileRes.ok) {
               const errorText = await updateFileRes.text();
               // Note: If upload fails partway through, the branch will be left in an incomplete state
-              // Users can manually delete the branch or retry the operation
+              // Users can manually delete the incomplete branch: icon-update-<timestamp>-<suffix>
               throw new Error(`Failed to upload ${filePath}: ${updateFileRes.status} - ${errorText}`);
             }
           }
@@ -285,9 +285,6 @@ export default function IconEditor() {
           }
 
           const prData = await createPrRes.json();
-
-          // Clear upload progress on success
-          setUploadProgress(null);
 
           setSuccessMessage(
             `✅ Success! Pull Request created automatically.\n\n` +
