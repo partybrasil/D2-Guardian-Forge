@@ -167,11 +167,12 @@ export default function IconEditor() {
       // Create PR directly using GitHub Contents API without GitHub Actions workflow
       // This bypasses the ~10KB payload limit of repository_dispatch
       const GITHUB_TOKEN = localStorage.getItem('github_token');
-      let workflowDispatchError: string | null = null;
+      let prCreationError: string | null = null;
       
       if (GITHUB_TOKEN) {
         try {
-          const branchName = `icon-update-${Date.now()}`;
+          // Generate unique branch name with timestamp and random suffix to avoid collisions
+          const branchName = `icon-update-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`;
           
           const headers = {
             'Accept': 'application/vnd.github+json',
@@ -207,7 +208,8 @@ export default function IconEditor() {
           );
 
           if (!createBranchRes.ok) {
-            throw new Error(`Failed to create branch: ${createBranchRes.status}`);
+            const errorData = await createBranchRes.text();
+            throw new Error(`Failed to create branch: ${createBranchRes.status} - ${errorData}`);
           }
 
           // Step 3: Upload each file to the new branch
@@ -216,24 +218,9 @@ export default function IconEditor() {
             const filePath = `public/icons/${change.category}/${change.name}.png`;
             const base64Content = filesData[`file_${i}`];
 
-            // Check if file exists in base branch to get its SHA (for updates)
-            let existingSha: string | undefined;
-            try {
-              const getFileRes = await fetch(
-                `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${filePath}?ref=${GITHUB_BASE_BRANCH}`,
-                { headers }
-              );
-              if (getFileRes.ok) {
-                const fileData = await getFileRes.json();
-                existingSha = fileData.sha;
-              }
-            } catch (error) {
-              // Catch network errors or JSON parsing failures
-              // Note: 404 responses are handled by the if condition above (non-ok responses)
-              console.debug('Could not check file existence:', error);
-            }
-
-            // Create or update the file
+            // Create the file on the new branch
+            // Note: We don't need a SHA because we're creating files on a newly created branch
+            // The new branch starts as a copy of main, but we're adding new commits to it
             const updateFileRes = await fetch(
               `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${filePath}`,
               {
@@ -242,8 +229,8 @@ export default function IconEditor() {
                 body: JSON.stringify({
                   message: `Update icon: ${change.category}/${change.name}`,
                   content: base64Content,
-                  branch: branchName,
-                  ...(existingSha ? { sha: existingSha } : {})
+                  branch: branchName
+                  // No SHA needed - we're creating a new commit on the new branch
                 })
               }
             );
@@ -308,13 +295,14 @@ export default function IconEditor() {
 
           // Try to extract an HTTP status code from the error object or message
           const extractStatusCode = (err: unknown, message: string): number | null => {
-            const anyErr = err as any;
+            // Type guard for objects with status properties
+            const errObj = err as Record<string, unknown>;
 
             const possibleStatus =
-              anyErr?.status ??
-              anyErr?.statusCode ??
-              anyErr?.response?.status ??
-              anyErr?.response?.statusCode;
+              errObj?.status ??
+              errObj?.statusCode ??
+              (errObj?.response as Record<string, unknown>)?.status ??
+              (errObj?.response as Record<string, unknown>)?.statusCode;
 
             if (typeof possibleStatus === 'number') {
               return possibleStatus;
@@ -356,7 +344,7 @@ export default function IconEditor() {
             friendlyError += errorMsg;
           }
           
-          workflowDispatchError = friendlyError;
+          prCreationError = friendlyError;
           console.error('Full error details:', errorMsg);
           // Fall through to JSON download fallback
         }
@@ -380,10 +368,10 @@ export default function IconEditor() {
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
       
-      // Build message based on whether workflow dispatch failed
-      const instructionMessage = workflowDispatchError
+      // Build message based on whether PR creation failed
+      const instructionMessage = prCreationError
         ? [
-            `⚠️ ${workflowDispatchError}`,
+            `⚠️ ${prCreationError}`,
             ``,
             `📥 Downloaded icon changes file (${iconChanges.length} icon(s)) as fallback.`,
             ``,
@@ -408,7 +396,7 @@ export default function IconEditor() {
           ].join('\n');
       
       // Use appropriate message type based on context
-      if (workflowDispatchError) {
+      if (prCreationError) {
         setErrorMessage(instructionMessage);
       } else {
         setSuccessMessage(instructionMessage);
