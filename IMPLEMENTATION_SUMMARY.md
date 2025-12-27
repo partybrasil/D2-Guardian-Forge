@@ -165,7 +165,7 @@ Files are uploaded sequentially (one at a time) rather than concurrently.
 
 **Impact**:
 - Larger batches of icons may take longer to upload
-- No progress feedback was available (now addressed with progress indicator)
+- Previously, no progress feedback was available (now addressed with a progress indicator)
 
 **Current Status**: 
 - ✅ Progress indicator added to show "Uploading X of Y icons..."
