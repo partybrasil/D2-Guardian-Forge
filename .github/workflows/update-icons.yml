@@ -1,4 +1,9 @@
-name: Process Icon Updates
+name: Process Icon Updates (DEPRECATED)
+
+# ⚠️ DEPRECATED: This workflow is no longer used as of v3.0.0
+# The Icon Editor now uses GitHub Contents API directly to create PRs.
+# This file can be safely removed.
+# See: GITHUB_API_FIX.md for details
 
 on:
   repository_dispatch:

@@ -11,6 +11,11 @@ import TokenModal from '../components/TokenModal';
 import { ICONS, type IconCategory } from '../utils/iconUtils';
 import type { IconChange } from '../utils/iconManager';
 
+// GitHub repository configuration
+const GITHUB_OWNER = 'partybrasil';
+const GITHUB_REPO = 'D2-Guardian-Forge';
+const GITHUB_BASE_BRANCH = 'main';
+
 export default function IconEditor() {
   const [selectedCategory, setSelectedCategory] = useState<string>('classes');
   const [iconChanges, setIconChanges] = useState<IconChange[]>([]);
@@ -159,68 +164,188 @@ export default function IconEditor() {
         filesData[`file_${i}`] = base64;
       }
 
-      // Try to trigger GitHub Actions workflow via repository_dispatch
+      // Create PR directly using GitHub Contents API without GitHub Actions workflow
+      // This bypasses the ~10KB payload limit of repository_dispatch
       const GITHUB_TOKEN = localStorage.getItem('github_token');
-      let workflowDispatchError: string | null = null;
+      let prCreationError: string | null = null;
       
       if (GITHUB_TOKEN) {
         try {
-          const response = await fetch(
-            'https://api.github.com/repos/partybrasil/D2-Guardian-Forge/dispatches',
+          // Generate unique branch name with timestamp and random suffix to avoid collisions
+          const branchName = `icon-update-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+          
+          const headers = {
+            'Accept': 'application/vnd.github+json',
+            'Authorization': `token ${GITHUB_TOKEN}`,
+            'X-GitHub-Api-Version': '2022-11-28',
+            'Content-Type': 'application/json'
+          };
+
+          // Step 1: Get the base branch reference
+          const baseBranchRes = await fetch(
+            `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/git/ref/heads/${GITHUB_BASE_BRANCH}`,
+            { headers }
+          );
+          
+          if (!baseBranchRes.ok) {
+            throw new Error(`Failed to get base branch: ${baseBranchRes.status}`);
+          }
+          
+          const baseBranchData = await baseBranchRes.json();
+          const baseSha = baseBranchData.object.sha;
+
+          // Step 2: Create new branch
+          const createBranchRes = await fetch(
+            `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/git/refs`,
             {
               method: 'POST',
-              headers: {
-                'Accept': 'application/vnd.github+json',
-                'Authorization': `token ${GITHUB_TOKEN}`,
-                'X-GitHub-Api-Version': '2022-11-28',
-                'Content-Type': 'application/json'
-              },
+              headers,
               body: JSON.stringify({
-                event_type: 'update-icons',
-                client_payload: {
-                  changes: changesMetadata,
-                  files: filesData
-                }
+                ref: `refs/heads/${branchName}`,
+                sha: baseSha
               })
             }
           );
 
-          if (response.status === 204) {
-            setSuccessMessage(
-              `✅ Success! Automated PR creation started.\n\n` +
-              `${iconChanges.length} icon change(s) are being processed by GitHub Actions.\n` +
-              `A Pull Request will be created automatically in a few moments.\n\n` +
-              `Check: https://github.com/partybrasil/D2-Guardian-Forge/pulls\n` +
-              `Workflow: https://github.com/partybrasil/D2-Guardian-Forge/actions`
-            );
-            
-            // Clear changes after successful submission
-            iconChanges.forEach(change => URL.revokeObjectURL(change.previewUrl));
-            setIconChanges([]);
-            return;
-          } else {
-            const errorText = await response.text();
-            console.error('GitHub API error:', response.status, errorText);
-            
-            // Provide helpful error message
-            let errorMsg = 'Failed to trigger GitHub Actions workflow. ';
-            if (response.status === 401) {
-              errorMsg += 'Your GitHub token may be invalid or expired. Please update your token.';
-            } else if (response.status === 403) {
-              errorMsg += 'Your GitHub token does not have sufficient permissions. Ensure it has "repo" scope.';
-            } else if (response.status === 404) {
-              errorMsg += 'Repository not found or token does not have access to it.';
-            } else {
-              errorMsg += `GitHub API returned status ${response.status}.`;
-            }
-            
-            workflowDispatchError = errorMsg;
-            console.error('Full error details:', errorText);
-            // Fall through to JSON download fallback
+          if (!createBranchRes.ok) {
+            const errorData = await createBranchRes.text();
+            throw new Error(`Failed to create branch: ${createBranchRes.status} - ${errorData}`);
           }
+
+          // Step 3: Upload each file to the new branch
+          for (let i = 0; i < iconChanges.length; i++) {
+            const change = iconChanges[i];
+            const filePath = `public/icons/${change.category}/${change.name}.png`;
+            const base64Content = filesData[`file_${i}`];
+
+            // Create the file on the new branch
+            // Note: We don't need a SHA because we're creating files on a newly created branch
+            // The new branch starts as a copy of main, but we're adding new commits to it
+            const updateFileRes = await fetch(
+              `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${filePath}`,
+              {
+                method: 'PUT',
+                headers,
+                body: JSON.stringify({
+                  message: `Update icon: ${change.category}/${change.name}`,
+                  content: base64Content,
+                  branch: branchName
+                  // No SHA needed - we're creating a new commit on the new branch
+                })
+              }
+            );
+
+            if (!updateFileRes.ok) {
+              const errorText = await updateFileRes.text();
+              throw new Error(`Failed to upload ${filePath}: ${updateFileRes.status} - ${errorText}`);
+            }
+          }
+
+          // Step 4: Create Pull Request
+          const prBody = [
+            '# Icon Updates',
+            '',
+            `This PR updates ${iconChanges.length} icon(s) from the Icon Editor.`,
+            '',
+            '## Changed Icons',
+            '',
+            ...iconChanges.map(change => `- **${change.category}/${change.name}**`),
+            '',
+            '---',
+            '',
+            `Generated by Icon Editor | Timestamp: ${new Date().toISOString()}`
+          ].join('\n');
+
+          const createPrRes = await fetch(
+            `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/pulls`,
+            {
+              method: 'POST',
+              headers,
+              body: JSON.stringify({
+                title: `Update ${iconChanges.length} icon(s) via Icon Editor`,
+                body: prBody,
+                head: branchName,
+                base: GITHUB_BASE_BRANCH
+              })
+            }
+          );
+
+          if (!createPrRes.ok) {
+            const errorText = await createPrRes.text();
+            throw new Error(`Failed to create PR: ${createPrRes.status} - ${errorText}`);
+          }
+
+          const prData = await createPrRes.json();
+
+          setSuccessMessage(
+            `✅ Success! Pull Request created automatically.\n\n` +
+            `${iconChanges.length} icon change(s) have been uploaded.\n\n` +
+            `Pull Request: ${prData.html_url}\n\n` +
+            `Review and merge your changes!`
+          );
+          
+          // Clear changes after successful submission
+          iconChanges.forEach(change => URL.revokeObjectURL(change.previewUrl));
+          setIconChanges([]);
+          return;
+
         } catch (apiError) {
-          console.error('Failed to trigger workflow:', apiError);
-          workflowDispatchError = 'Network error while triggering workflow.';
+          console.error('Failed to create PR:', apiError);
+          const errorMsg = apiError instanceof Error ? apiError.message : String(apiError);
+
+          // Try to extract an HTTP status code from the error object or message
+          const extractStatusCode = (err: unknown, message: string): number | null => {
+            // Type guard for objects with status properties
+            const errObj = err as Record<string, unknown>;
+
+            const possibleStatus =
+              errObj?.status ??
+              errObj?.statusCode ??
+              (errObj?.response as Record<string, unknown>)?.status ??
+              (errObj?.response as Record<string, unknown>)?.statusCode;
+
+            if (typeof possibleStatus === 'number') {
+              return possibleStatus;
+            }
+
+            if (typeof possibleStatus === 'string') {
+              const parsed = parseInt(possibleStatus, 10);
+              if (!Number.isNaN(parsed)) {
+                return parsed;
+              }
+            }
+
+            const match = message.match(/\b(4\d{2}|5\d{2})\b/);
+            if (match) {
+              const code = parseInt(match[1], 10);
+              if (!Number.isNaN(code)) {
+                return code;
+              }
+            }
+
+            return null;
+          };
+
+          const statusCode = extractStatusCode(apiError, errorMsg);
+          
+          // Provide helpful error message
+          let friendlyError = 'Failed to create Pull Request automatically. ';
+          if (statusCode === 401 || errorMsg.includes('401')) {
+            friendlyError += 'Your GitHub token may be invalid or expired. Please update your token.';
+          } else if (statusCode === 403 || errorMsg.includes('403')) {
+            friendlyError += 'Your GitHub token does not have sufficient permissions. Ensure it has "repo" scope.';
+          } else if (statusCode === 404 || errorMsg.includes('404')) {
+            friendlyError += 'Repository not found or token does not have access to it.';
+          } else if (statusCode === 422 || errorMsg.includes('422')) {
+            friendlyError += 'Unprocessable request. This is most often caused by a file SHA mismatch (the file changed on GitHub after you loaded this page). Please refresh the page and try again. If the problem persists, verify that the target branch and file path are valid.';
+          } else if (/network\s*error/i.test(errorMsg) || /failed to fetch/i.test(errorMsg)) {
+            friendlyError += 'A network error occurred while contacting GitHub. Please check your internet connection and try again.';
+          } else {
+            friendlyError += errorMsg;
+          }
+          
+          prCreationError = friendlyError;
+          console.error('Full error details:', errorMsg);
           // Fall through to JSON download fallback
         }
       }
@@ -243,10 +368,10 @@ export default function IconEditor() {
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
       
-      // Build message based on whether workflow dispatch failed
-      const instructionMessage = workflowDispatchError
+      // Build message based on whether PR creation failed
+      const instructionMessage = prCreationError
         ? [
-            `⚠️ ${workflowDispatchError}`,
+            `⚠️ ${prCreationError}`,
             ``,
             `📥 Downloaded icon changes file (${iconChanges.length} icon(s)) as fallback.`,
             ``,
@@ -271,7 +396,7 @@ export default function IconEditor() {
           ].join('\n');
       
       // Use appropriate message type based on context
-      if (workflowDispatchError) {
+      if (prCreationError) {
         setErrorMessage(instructionMessage);
       } else {
         setSuccessMessage(instructionMessage);
