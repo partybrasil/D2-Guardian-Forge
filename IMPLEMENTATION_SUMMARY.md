@@ -146,6 +146,31 @@ Net Change: +233 lines
 - [x] Git working tree clean
 - [ ] Manual testing required (needs user with GitHub token)
 
+## ⚠️ Known Limitations
+
+### Incomplete Branch Cleanup
+If file upload fails partway through (e.g., uploading file 3 of 5), the branch will be left in an incomplete state with some files uploaded but no PR created. 
+
+**Impact**: 
+- The incomplete branch remains in the repository
+- No automatic cleanup is performed
+
+**Workarounds**:
+- Users can manually delete the incomplete branch via GitHub UI or CLI
+- Retry the upload operation with a new branch (timestamp ensures unique names)
+- The incomplete branch won't interfere with future operations
+
+### Sequential File Upload
+Files are uploaded sequentially (one at a time) rather than concurrently.
+
+**Impact**:
+- Larger batches of icons may take longer to upload
+- No progress feedback was available (now addressed with progress indicator)
+
+**Current Status**: 
+- ✅ Progress indicator added to show "Uploading X of Y icons..."
+- Future enhancement: Consider parallel uploads with batching
+
 ## 📝 Migration Guide
 
 ### For Users
