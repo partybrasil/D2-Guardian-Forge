@@ -305,17 +305,53 @@ export default function IconEditor() {
         } catch (apiError) {
           console.error('Failed to create PR:', apiError);
           const errorMsg = apiError instanceof Error ? apiError.message : String(apiError);
+
+          // Try to extract an HTTP status code from the error object or message
+          const extractStatusCode = (err: unknown, message: string): number | null => {
+            const anyErr = err as any;
+
+            const possibleStatus =
+              anyErr?.status ??
+              anyErr?.statusCode ??
+              anyErr?.response?.status ??
+              anyErr?.response?.statusCode;
+
+            if (typeof possibleStatus === 'number') {
+              return possibleStatus;
+            }
+
+            if (typeof possibleStatus === 'string') {
+              const parsed = parseInt(possibleStatus, 10);
+              if (!Number.isNaN(parsed)) {
+                return parsed;
+              }
+            }
+
+            const match = message.match(/\b(4\d{2}|5\d{2})\b/);
+            if (match) {
+              const code = parseInt(match[1], 10);
+              if (!Number.isNaN(code)) {
+                return code;
+              }
+            }
+
+            return null;
+          };
+
+          const statusCode = extractStatusCode(apiError, errorMsg);
           
           // Provide helpful error message
           let friendlyError = 'Failed to create Pull Request automatically. ';
-          if (errorMsg.includes('401')) {
+          if (statusCode === 401 || errorMsg.includes('401')) {
             friendlyError += 'Your GitHub token may be invalid or expired. Please update your token.';
-          } else if (errorMsg.includes('403')) {
+          } else if (statusCode === 403 || errorMsg.includes('403')) {
             friendlyError += 'Your GitHub token does not have sufficient permissions. Ensure it has "repo" scope.';
-          } else if (errorMsg.includes('404')) {
+          } else if (statusCode === 404 || errorMsg.includes('404')) {
             friendlyError += 'Repository not found or token does not have access to it.';
-          } else if (errorMsg.includes('422')) {
+          } else if (statusCode === 422 || errorMsg.includes('422')) {
             friendlyError += 'Invalid request data. The file may already exist with different content or branch name is invalid.';
+          } else if (/network\s*error/i.test(errorMsg) || /failed to fetch/i.test(errorMsg)) {
+            friendlyError += 'A network error occurred while contacting GitHub. Please check your internet connection and try again.';
           } else {
             friendlyError += errorMsg;
           }
