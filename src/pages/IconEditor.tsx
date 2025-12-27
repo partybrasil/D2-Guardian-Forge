@@ -172,7 +172,7 @@ export default function IconEditor() {
       if (GITHUB_TOKEN) {
         try {
           // Generate unique branch name with timestamp and random suffix to avoid collisions
-          const branchName = `icon-update-${Date.now()}-${Math.random().toString(36).substr(2, 5)}`;
+          const branchName = `icon-update-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
           
           const headers = {
             'Accept': 'application/vnd.github+json',
