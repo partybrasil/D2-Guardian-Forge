@@ -164,7 +164,8 @@ export default function IconEditor() {
         filesData[`file_${i}`] = base64;
       }
 
-      // Try to create PR directly using GitHub API
+      // Create PR directly using GitHub Contents API without GitHub Actions workflow
+      // This bypasses the ~10KB payload limit of repository_dispatch
       const GITHUB_TOKEN = localStorage.getItem('github_token');
       let workflowDispatchError: string | null = null;
       
