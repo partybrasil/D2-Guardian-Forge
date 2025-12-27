@@ -161,6 +161,7 @@ export default function IconEditor() {
 
       // Try to trigger GitHub Actions workflow via repository_dispatch
       const GITHUB_TOKEN = localStorage.getItem('github_token');
+      let workflowDispatchError: string | null = null;
       
       if (GITHUB_TOKEN) {
         try {
@@ -213,13 +214,13 @@ export default function IconEditor() {
               errorMsg += `GitHub API returned status ${response.status}.`;
             }
             
-            setErrorMessage(`${errorMsg} Falling back to JSON download.`);
+            workflowDispatchError = errorMsg;
             console.error('Full error details:', errorText);
             // Fall through to JSON download fallback
           }
         } catch (apiError) {
           console.error('Failed to trigger workflow:', apiError);
-          setErrorMessage('Network error while triggering workflow. Falling back to JSON download.');
+          workflowDispatchError = 'Network error while triggering workflow.';
           // Fall through to JSON download fallback
         }
       }
@@ -242,22 +243,39 @@ export default function IconEditor() {
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
       
-      const instructionMessage = [
-        `📥 Downloaded icon changes file (${iconChanges.length} icon(s)).`,
-        ``,
-        `⚠️ To enable automated PR creation:`,
-        `1. Create a GitHub Personal Access Token with 'repo' scope`,
-        `2. Go to: https://github.com/settings/tokens/new`,
-        `3. Store it by running in browser console:`,
-        `   localStorage.setItem('github_token', 'your-token-here')`,
-        `4. Refresh page and try "Save Changes" again`,
-        ``,
-        `📝 Manual alternative:`,
-        `Run: node scripts/update-icons.js <downloaded-file>`,
-        `This will create a branch and commit your changes.`
-      ].join('\n');
+      // Build message based on whether workflow dispatch failed
+      const instructionMessage = workflowDispatchError
+        ? [
+            `⚠️ ${workflowDispatchError}`,
+            ``,
+            `📥 Downloaded icon changes file (${iconChanges.length} icon(s)) as fallback.`,
+            ``,
+            `📝 Manual processing options:`,
+            `1. Fix the issue above and try "Save Changes" again, or`,
+            `2. Run: node scripts/update-icons.js <downloaded-file>`,
+            `   This will create a branch and commit your changes.`
+          ].join('\n')
+        : [
+            `📥 Downloaded icon changes file (${iconChanges.length} icon(s)).`,
+            ``,
+            `⚠️ To enable automated PR creation:`,
+            `1. Create a GitHub Personal Access Token with 'repo' scope`,
+            `2. Go to: https://github.com/settings/tokens/new`,
+            `3. Store it by running in browser console:`,
+            `   localStorage.setItem('github_token', 'your-token-here')`,
+            `4. Refresh page and try "Save Changes" again`,
+            ``,
+            `📝 Manual alternative:`,
+            `Run: node scripts/update-icons.js <downloaded-file>`,
+            `This will create a branch and commit your changes.`
+          ].join('\n');
       
-      setSuccessMessage(instructionMessage);
+      // Use appropriate message type based on context
+      if (workflowDispatchError) {
+        setErrorMessage(instructionMessage);
+      } else {
+        setSuccessMessage(instructionMessage);
+      }
       
     } catch (error) {
       console.error('Error saving icon changes:', error);
